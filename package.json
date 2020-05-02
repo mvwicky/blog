@@ -11,15 +11,42 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-typescript": "^7.9.0",
+    "@fullhuman/postcss-purgecss": "^2.1.2",
+    "@types/mini-css-extract-plugin": "^0.9.1",
+    "@types/webpack-manifest-plugin": "^2.1.0",
+    "autoprefixer": "^9.7.6",
     "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.3",
+    "cssnano": "^4.1.10",
+    "mini-css-extract-plugin": "^0.9.0",
     "npm-run-all": "^4.1.5",
     "postcss-loader": "^3.0.0",
     "prettier": "^2.0.5",
+    "tailwindcss": "^1.4.4",
+    "trash-cli": "^3.0.0",
+    "ts-node": "^8.9.1",
     "typescript": "^3.8.3",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-manifest-plugin": "^2.2.0"
   },
   "prettier": {
     "tabSize": 2
+  },
+  "entrypoints": {
+    "main": "./src/ts/main.ts",
+    "styles": "./src/css/style.css"
+  },
+  "scripts": {
+    "build": "npm-run-all clean build:assets build:site",
+    "build:assets": "NODE_ENV=production webpack --mode=production",
+    "build:site": "NODE_ENV=production eleventy",
+    "clean": "trash ./dist",
+    "dev": "npm-run-all clean webpack:assets --parallel dev:*",
+    "dev:assets": "yarn run webpack:assets --watch",
+    "dev:site": "NODE_ENV=development eleventy --serve",
+    "webpack:assets": "NODE_ENV=development webpack --mode=development",
+    "build:dev": "npm-run-all clean webpack:assets build:site-dev",
+    "build:site-dev": "NODE_ENV=development eleventy"
   }
 }
