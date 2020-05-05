@@ -1,13 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}">
-  <title>{{ title }}</title>
-</head>
-<body>
-  {{ content | safe }}
-  <script src="{% webpackAsset 'main.js' %}"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <div class="container px-6 lg:px-64">
+      <div class="flex justify-start bg-blue-600 px-6 py-3">
+        <h2 class="text-4xl">Where Was I Going With That?</h2>
+      </div>
+      <nav class="flex items-center justify-between flex-wrap bg-blue-300 p-6">
+        <div class="flex items-center flex-shrink-0 mr-6">
+          <span class="font-semibold text-xl tracking-tight">Where?</span>
+        </div>
+        <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+          <div class="text-sm lg:flex-grow">
+            <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4"
+              >Reading</a
+            >
+            <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4"
+              >About Me</a
+            >
+            <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4"
+              >Something Else</a
+            >
+          </div>
+          <div>
+            <a
+              href="#"
+              class="inline-block text-sm px-4 py-2 leading-none border rounded border-white hover:border-transparent"
+              >Github</a
+            >
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container mt-8 mb-8 px-6 lg:px-64">
+      <h1 class="text-5xl">Where?</h1>
+    </div>
+    {{ content | safe }}
+
+    <script type="module" src="{% webpackAsset 'main.js' %}"></script>
+  </body>
 </html>

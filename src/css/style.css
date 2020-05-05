@@ -1,10 +1,9 @@
 /* purgecss start ignore */
-@tailwind base;
-@tailwind components;
+@import "tailwindcss/base";
+@import "./base/base.css";
+@import "./theme/fonts.css";
+@import "./theme/theme.css";
+@import "tailwindcss/components";
 /* purgecss end ignore */
 
-.container {
-  @apply max-w-xl mx-auto;
-}
-
-@tailwind utilities;
+@import "tailwindcss/utilities";

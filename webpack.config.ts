@@ -1,9 +1,13 @@
+/* eslint-env node */
+
 import * as path from "path";
 
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import ManifestPlugin from "webpack-manifest-plugin";
-import * as pkg from "./package.json";
 import webpack from "webpack";
+import ManifestPlugin from "webpack-manifest-plugin";
+
+import * as pkg from "./package.json";
 
 const prod = process.env.NODE_ENV === "production";
 
@@ -25,8 +29,6 @@ const fontHash = `${hashFn}:hash:hex:${hashlength}`;
 const fontName = `[name].[${fontHash}].[ext]`;
 const srcDir = path.resolve(__dirname, "src");
 const outPath = path.resolve(__dirname, "dist", "assets");
-const layoutDir = path.resolve(__dirname, "_layouts");
-const publicPath = "/dist/";
 
 const config: webpack.Configuration = {
   mode: prodOr("production", "development"),
@@ -39,6 +41,11 @@ const config: webpack.Configuration = {
   },
   devtool: prodOr("source-map", "eval"),
   plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ["*.*"],
+      verbose: false,
+      cleanStaleWebpackAssets: false,
+    }),
     new MiniCssExtractPlugin({
       filename: `style.[contenthash:${hashlength}].css`,
     }),
@@ -70,14 +77,34 @@ const config: webpack.Configuration = {
         ],
       },
       {
-        test: /\.(css)$/,
+        test: /\.s?(css)$/,
         use: [
           { loader: MiniCssExtractPlugin.loader },
           { loader: "css-loader" },
           { loader: "postcss-loader" },
         ],
       },
+      {
+        test: /\.(woff|woff2)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: fontName,
+              outputPath: "fonts",
+              esModule: false,
+              emitFile: true,
+            },
+          },
+        ],
+        include: path.resolve("src", "css"),
+      },
     ],
+  },
+  stats: {
+    excludeAssets: [/\.(woff)$/, /-(700|italic)\./],
+    excludeModules: [/[\\/]fonts[\\/]/, /node_modules/],
+    children: false,
   },
 };
 

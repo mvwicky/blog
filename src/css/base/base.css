@@ -1,0 +1,4 @@
+.container {
+  @apply max-w-xl;
+  @apply mx-auto;
+}

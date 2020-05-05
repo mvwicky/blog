@@ -17,7 +17,10 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
 
-  eleventyConfig.setBrowserSyncConfig({ files: [manifestPath] });
+  eleventyConfig.setBrowserSyncConfig({
+    files: [manifestPath],
+    logConnections: true,
+  });
 
   eleventyConfig.addFilter("dump", (obj) => util.inspect(obj));
 

@@ -1,0 +1,80 @@
+@font-face {
+  font-family: "Fira Sans";
+  src: url(./theme/fonts/fira-sans/fira-sans-v9-regular.woff) format("woff"),
+    url(./theme/fonts/fira-sans/fira-sans-v9-regular.woff2) format("woff2");
+  font-display: fallback;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url(./theme/fonts/fira-sans/fira-sans-v9-700.woff) format("woff"),
+    url(./theme/fonts/fira-sans/fira-sans-v9-700.woff2) format("woff2");
+  font-display: fallback;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url(./theme/fonts/fira-sans/fira-sans-v9-italic.woff) format("woff"),
+    url(./theme/fonts/fira-sans/fira-sans-v9-italic.woff2) format("woff2");
+  font-display: fallback;
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url(./theme/fonts/spectral/spectral-v6-regular.woff) format("woff"),
+    url(./theme/fonts/spectral/spectral-v6-regular.woff2) format("woff2");
+  font-display: fallback;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url(./theme/fonts/spectral/spectral-v6-700.woff) format("woff"),
+    url(./theme/fonts/spectral/spectral-v6-700.woff2) format("woff2");
+  font-display: fallback;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url(./theme/fonts/spectral/spectral-v6-italic.woff) format("woff"),
+    url(./theme/fonts/spectral/spectral-v6-italic.woff2) format("woff2");
+  font-display: fallback;
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url(./theme/fonts/ibm-plex-mono/plex-mono-v5-regular.woff) format("woff"),
+    url(./theme/fonts/ibm-plex-mono/plex-mono-v5-regular.woff2) format("woff2");
+  font-display: fallback;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url(./theme/fonts/ibm-plex-mono/plex-mono-v5-700.woff) format("woff"),
+    url(./theme/fonts/ibm-plex-mono/plex-mono-v5-700.woff2) format("woff2");
+  font-display: fallback;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url(./theme/fonts/ibm-plex-mono/plex-mono-v5-italic.woff) format("woff"),
+    url(./theme/fonts/ibm-plex-mono/plex-mono-v5-italic.woff2) format("woff2");
+  font-display: fallback;
+  font-style: italic;
+  font-weight: 400;
+}
