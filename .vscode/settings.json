@@ -2,5 +2,9 @@
   "files.exclude": {
     "**/node_modules": true
   },
-  "eslint.format.enable": true
+  "eslint.format.enable": true,
+  "[nunjucks]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
 }

@@ -49,5 +49,6 @@
         "directory": ["tsconfig.json", "src/ts/tsconfig.json"]
       }
     }
-  }
+  },
+  "ignorePatterns": ["tailwind.config.js", "postcss.config.js"]
 }
