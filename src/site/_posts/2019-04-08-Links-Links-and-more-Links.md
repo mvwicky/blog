@@ -31,6 +31,8 @@ links:
     author: "Adam Entous and Ronan Farrow"
 ---
 
+{% from "link_macro.njk" import link_heading %}
+
 I've been thinking about something I head Pete Buttigieg say.[^6]
 It was in an interview on _Pod Save America_ and he was talking about how Democrats could regain the midwest/white working class vote.
 This topic is litigated with some frequency and is pretty problematic seeing as there are a ton of non-white working class people that are constantly overlooked, but he made what I see as a broader point.
@@ -41,11 +43,11 @@ This is another point that gets brought up when trying to crack the white code; 
 The midwesterner replies to the lawyer: "Well so are you."
 Anyways, I thought that his little anecdote was a good illustration of the potential for condescension and paternalism that can come with being a liberal.
 
-{# {% include objlink.html obj=page.links.marriott %} #}
+{{ link_heading(links.marriott) }}
 I have stayed at many a Marriott hotel.
 But compared to these people, I have never even seen a Marriott.
 
-{# {% include objlink.html obj=page.links.pedantic %} #}
+{{ link_heading(links.pedantic) }}
 I'm using this as a prop to reiterate an annoyance I have with the scientific community (and academic community writ large, I guess).
 My annoyance is essentially the thesis of this article, that oftentimes, academic types[^1] focus too much on being "_correct_," as opposed to "_right_," or, like "_making a cogent/coherent/convincing argument_."
 And I know that I am not innocent in all this, I have been a pedant in my life.
@@ -56,21 +58,19 @@ And all this is not to say that being technically correct is _per se_ pointless.
 But it shouldn't be the entire point of an argument.
 If the fulcrum of a debate or of an argument is a technical point, then the parties can just look it up and the debate will be settled; philosophical and moral disagreements are not settled so easily.
 
-{# {% include objlink.html obj=page.links.timwu %} #}
+{{ link_heading(links.timwu) }}
 I read this dude's book.[^3]
 Antitrust laws should be enforced more rigorously.
 
-{# {% include objlink.html obj=page.links.fox %} #}
+{{ link_heading(links.fox) }}
 The lack of surprise that I felt upon reading this article was probably the most disturbing part of it.
 
-{# {% include objlink.html obj=page.links.staceyabrams %} #}
+{{ link_heading(links.staceyabrams) }}
 Yay Stacey Abrams.
 
-{# {% include objlink.html obj=page.links.mossad %} #}
-Unlink the Fox News article, this one had me kinda freaking out.
+{{ link_heading(links.mossad) }}
+Unlike the Fox News article, this one had me kinda freaking out.
 And it's one thing to interfere in a high profile national election, but to screw around in such a specific election seems almost sociopathic.[^5]
-
-<hr class="footsep" />
 
 [^1]: I'm including myself in that group, even though I am not currently in academia.
 [^2]: Again, relating this to my engineering education, I tend to get annoyed when efficiency is used as the ultimate benchmark for efficacy, but efficiency is, obviously, not in and of itself a vice. And a lot of the time efficiency is measured narrowly, i.e., in terms of dollars and/or time (the two are equivalent in a capitalist society). To take a contemporary example, A.I. is an efficient tool for classifying data, e.g., finding hate speech on Facebook or identifying obscenity on YouTube; there are great fiscal gains in not having to pay human beings to do things. But the built in biases to such a system are inefficient in a much different way.

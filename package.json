@@ -15,7 +15,10 @@
     "dev": "npm-run-all clean webpack:assets --parallel dev:*",
     "dev:assets": "yarn run webpack:assets --watch",
     "dev:site": "cross-env NODE_ENV=development eleventy --serve",
-    "webpack:assets": "cross-env NODE_ENV=development webpack --mode=development"
+    "webpack:assets": "cross-env NODE_ENV=development webpack --mode=development",
+    "lint": "npm-run-all lint:*",
+    "lint:styles": "stylelint 'src/css/**/*.css'",
+    "lint:eslint": "eslint 'src/ts/**/*.ts'"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.11.0",
@@ -23,7 +26,6 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-typescript": "^7.9.0",
-    "@fullhuman/postcss-purgecss": "^2.1.2",
     "@types/luxon": "^1.24.0",
     "@types/mini-css-extract-plugin": "^0.9.1",
     "@types/webpack-manifest-plugin": "^2.1.0",
@@ -59,6 +61,7 @@
     "style-loader": "^1.2.1",
     "stylelint": "^13.3.3",
     "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-recommended": "^3.0.0",
     "stylelint-prettier": "^1.1.2",
     "tailwindcss": "^1.4.4",
     "trash-cli": "^3.0.0",
@@ -68,10 +71,6 @@
     "webpack-cli": "^3.3.11",
     "webpack-manifest-plugin": "^2.2.0"
   },
-  "entrypoints": {
-    "main": "./src/ts/main.ts",
-    "styles": "./src/css/style.css"
-  },
   "config": {
     "11ty": {
       "dir": {
@@ -79,6 +78,19 @@
         "includes": "_includes",
         "output": "dist"
       }
+    },
+    "entrypoints": {
+      "main": "./src/ts/main.ts",
+      "styles": "./src/css/style.css"
+    }
+  },
+  "engines": {
+    "node": ">=12",
+    "yarn": "^1.22"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint && pretty-quick --staged"
     }
   }
 }

@@ -31,6 +31,7 @@ links:
     author: Claire McNeil
 # cSpell:enable
 ---
+
 {% from "link_macro.njk" import link_heading %}
 
 <del>This is going to be a four-linker.</del>
@@ -62,8 +63,6 @@ And perfectly descriptive of an attitude that I have definitely seen online.
 (It also reminds me of the attitude that a **ton** of racists have.)[^4]
 
 {{ link_heading(links.tampa) }}
-
-<hr class="footsep" />
 
 <!-- prettier-ignore-start -->
 [^1]: It's most of the time to be honest.

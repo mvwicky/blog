@@ -1,8 +1,10 @@
 /* purgecss start ignore */
 @import "tailwindcss/base";
 @import "./base/base.css";
+
 @import "./theme/fonts.css";
 @import "./theme/theme.css";
+
 @import "tailwindcss/components";
 @import "./components/footnotes.css";
 /* purgecss end ignore */

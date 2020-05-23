@@ -1,8 +1,8 @@
 /* eslint-env node */
 
 import * as path from "path";
+import * as util from "util";
 
-// import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import webpack from "webpack";
 import ManifestPlugin from "webpack-manifest-plugin";
@@ -19,17 +19,22 @@ function prodOr<P = any, D = any>(pVal: P, dVal: D): P | D {
   return prod ? pVal : dVal;
 }
 
+const cacheBase = path.resolve(__dirname, ".cache", "build-cache");
+
+function getCacheDir(name: string): string {
+  return path.join(cacheBase, `${name}-${prodOr("prod", "dev")}`);
+}
+
 const hashFn = prodOr("sha256", "md5");
 const hashlength = prodOr(32, 10);
 const fontHash = `${hashFn}:hash:hex:${hashlength}`;
 const fontName = `[name].[${fontHash}].[ext]`;
 const srcDir = path.resolve(__dirname, "src");
 const outPath = path.resolve(__dirname, "dist", "assets");
-const cacheBase = path.resolve(__dirname, ".cache", "build-cache");
 
 const config: webpack.Configuration = {
   mode: prodOr("production", "development"),
-  entry: pkg.entrypoints,
+  entry: pkg.config.entrypoints,
   output: {
     path: outPath,
     filename: `[name].[contenthash:${hashlength}].js`,
@@ -50,19 +55,22 @@ const config: webpack.Configuration = {
     new MiniCssExtractPlugin({
       filename: `style.[contenthash:${hashlength}].css`,
     }),
-    new ManifestPlugin({ publicPath: "/assets/" }),
+    new ManifestPlugin({
+      publicPath: "/assets/",
+      filter: (fd) => !/\.woff2?$/.test(fd.path),
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.(ts)$/,
-        include: path.join(srcDir, "ts"),
-        exclude: /node_modules/,
+        include: [path.join(srcDir, "ts")],
+        exclude: [/node_modules/],
         use: [
           {
             loader: "cache-loader",
             options: {
-              cacheDirectory: path.join(cacheBase, "babel-loader"),
+              cacheDirectory: getCacheDir("babel-loader"),
             },
           },
           {
@@ -80,19 +88,21 @@ const config: webpack.Configuration = {
                 ],
                 "@babel/preset-typescript",
               ],
-              cacheDirectory: path.join(cacheBase, "babel"),
+              cacheDirectory: getCacheDir("babel"),
             },
           },
         ],
       },
       {
         test: /\.s?(css)$/,
+        exclude: [/node_modules/],
+        include: [path.resolve("src", "css")],
         use: [
           { loader: MiniCssExtractPlugin.loader },
           {
             loader: "cache-loader",
             options: {
-              cacheDirectory: path.join(cacheBase, "styles"),
+              cacheDirectory: getCacheDir("styles"),
             },
           },
           { loader: "css-loader" },
@@ -100,8 +110,9 @@ const config: webpack.Configuration = {
         ],
       },
       {
-        test: /\.(woff|woff2)$/,
-        exclude: /node_modules/,
+        test: /\.(woff2?)$/,
+        exclude: [/node_modules/],
+        include: [path.resolve("src", "css")],
         use: [
           {
             loader: "file-loader",
@@ -113,7 +124,6 @@ const config: webpack.Configuration = {
             },
           },
         ],
-        include: path.resolve("src", "css"),
       },
     ],
   },

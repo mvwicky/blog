@@ -1,10 +1,15 @@
 {
   "files.exclude": {
-    "**/node_modules": true
+    "**/node_modules": true,
+    "dist": true
   },
   "eslint.format.enable": true,
   "[nunjucks]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "css.validate": false,
+  "[typescript]": {
     "editor.formatOnSave": true
   }
 }

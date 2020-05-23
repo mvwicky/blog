@@ -1,7 +1,9 @@
 const { colors } = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  purge: ["src/site/**/*.njk"],
+  purge: {
+    content: ["src/site/**/*.njk"],
+  },
   theme: {
     extend: {},
     fontFamily: {
