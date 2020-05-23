@@ -31,6 +31,7 @@
     "@typescript-eslint/parser": "^2.30.0",
     "autoprefixer": "^9.7.6",
     "babel-loader": "^8.1.0",
+    "cache-loader": "^4.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.5.3",
@@ -42,14 +43,20 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-prettier": "^3.1.3",
     "file-loader": "^6.0.0",
+    "husky": "^4.2.5",
+    "js-yaml": "^3.13.1",
     "luxon": "^1.24.1",
+    "markdown-it": "^11.0.0",
     "markdown-it-anchor": "^5.3.0",
     "markdown-it-footnote": "^3.0.2",
     "mini-css-extract-plugin": "^0.9.0",
     "npm-run-all": "^4.1.5",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
+    "postcss-mixins": "^6.2.3",
     "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "style-loader": "^1.2.1",
     "stylelint": "^13.3.3",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-prettier": "^1.1.2",
@@ -64,5 +71,14 @@
   "entrypoints": {
     "main": "./src/ts/main.ts",
     "styles": "./src/css/style.css"
+  },
+  "config": {
+    "11ty": {
+      "dir": {
+        "input": "src/site",
+        "includes": "_includes",
+        "output": "dist"
+      }
+    }
   }
 }

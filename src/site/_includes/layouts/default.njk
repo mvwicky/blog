@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />
     <title>{{ title }}</title>
   </head>
-  <body>
+  <body class="w-full bg-gray-200">
     <div class="container px-6 lg:px-64">
-      <div class="flex justify-start bg-blue-600 px-6 py-3">
+      <div class="flex justify-start bg-gray-100 px-6 py-3 rounded">
         <h2 class="text-4xl">Where Was I Going With That?</h2>
       </div>
-      <nav class="flex items-center justify-between flex-wrap bg-blue-300 p-6">
-        <div class="flex items-center flex-shrink-0 mr-6">
-          <span class="font-semibold text-xl tracking-tight">Where?</span>
+      <nav class="flex items-center justify-between flex-wrap bg-blue-300 p-6 rounded-t mt-2">
+        <div class="flex items-center flex-shrink-0 mr-6 lg:block hidden">
+          <a class="font-semibold text-xl tracking-tight" href="/">
+            Where?
+          </a>
         </div>
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div class="text-sm lg:flex-grow">
@@ -39,10 +41,13 @@
       </nav>
     </div>
 
-    <div class="container mt-8 mb-8 px-6 lg:px-64">
-      <h1 class="text-5xl">Where?</h1>
+    <div class="container px-6 lg:px-64">
+      <div class="bg-blue-200 py-6 px-1 rounded-b">
+        {{ content | safe }}
+      </div>
+
     </div>
-    {{ content | safe }}
+
 
     <script type="module" src="{% webpackAsset 'main.js' %}"></script>
   </body>

@@ -1,0 +1,18 @@
+.footnotes {
+  @apply px-3;
+  @apply mx-3;
+}
+
+.footnotes-list {
+  @apply list-decimal;
+  @apply list-inside;
+}
+
+.footnote-item > p {
+  @apply inline;
+  @apply text-justify;
+}
+
+.footnote-item > p:first-child {
+  text-indent: 0;
+}

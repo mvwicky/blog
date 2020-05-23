@@ -1,0 +1,41 @@
+---
+# See /assets/reading-schema.json for more info.
+books:
+  - title: Ghost Wars
+    author: Steve Coll
+    year: 2004
+    comments: |
+      I feel like I've been reading a lot about the America's Middle East policy lately.
+      Spoiler alert: it has been quite a disaster for quite a while.
+
+      We (by which I mean I) tend to think of Iraq as a singularly huge foreign policy blunder.
+      While not exactly inaccurate, that formulation belies that fact that it was the culmination of decades of pretty terrible foreign policy decisions.
+    pages: 732
+    started: "2020-01-20"
+    finished: "2020-02-03"
+  - title: George, Nicholas, and Wilhelm
+    author: Miranda Carter
+    year: 2010
+    pages: 528
+    started: "2020-02-02"
+    finished: "2020-02-16"
+    comments: |
+      Just another entry in my list of reasons why monarchy and the hereditary succession of power generally is dumb.
+  - title: The Good News Club
+    author: Katherine Stewart
+    year: 2012
+    pages: 306
+    started: "2020-04-06"
+    finished: "2020-04-12"
+  - title: Nixonland
+    author: Rick Perlstein
+    year: 2008
+    pages: 881
+    started: "2020-04-27"
+    comments: |
+      It's striking how obvious historical parallels can be.
+      In 1968, there was a contingent on the left that was all in on Gene McCarthy.
+      They were drawn to his liberalism; the fact that he didn't act like a "normal" polictican only deepened their devotion.
+
+      <!-- &hellip;
+      `New Politics, Anti-LBJ -> Bernie + Anti-Hillary` -->

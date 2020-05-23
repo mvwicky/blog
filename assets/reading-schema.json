@@ -1,0 +1,53 @@
+{
+  "title": "Books That I am Reading Schema",
+  "description": "Defines the way that books are represented in the reading.yml data file.",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://www.wherewasigoing.com/assets/reading-schema.json",
+  "type": "object",
+  "required": ["books"],
+  "properties": {
+    "books": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/book"
+      }
+    }
+  },
+  "definitions": {
+    "book": {
+      "type": "object",
+      "required": ["title", "author", "year"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the book."
+        },
+        "author": { "type": "string", "description": "The author of the book" },
+        "year": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Publication year"
+        },
+        "comments": {
+          "type": "string",
+          "description": "Any comments or thoughts regarding the book."
+        },
+        "started": {
+          "type": "string",
+          "format": "date",
+          "description": "The date I started reading this book."
+        },
+        "finished": {
+          "type": "string",
+          "format": "date",
+          "description": "The date I finished reading this book."
+        },
+        "pages": {
+          "type": "integer",
+          "description": "The number of pages in this book.",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

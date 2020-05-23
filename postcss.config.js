@@ -1,5 +1,6 @@
 const plugins = [
   require("postcss-import"),
+  require("postcss-mixins"),
   require("tailwindcss"),
   require("autoprefixer"),
 ];

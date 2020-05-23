@@ -1,0 +1,64 @@
+{
+  "mini-css-extract-plugin node_modules/css-loader/dist/cjs.js!node_modules/postcss-loader/src/index.js!src/css/style.css": [
+    {
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": {}
+      },
+      "chunks": {
+        "byName": {},
+        "bySource": {},
+        "usedIds": []
+      }
+    }
+  ],
+  "modules": {
+    "byIdentifier": {
+      "css node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js!node_modules/postcss-loader/src/index.js!src/css/style.css 0": 0
+    },
+    "usedIds": {
+      "0": 0
+    }
+  },
+  "chunks": {
+    "byName": {
+      "main": 0,
+      "styles": 1
+    },
+    "bySource": {},
+    "usedIds": [
+      0,
+      1
+    ]
+  },
+  "mini-css-extract-plugin node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js!node_modules/postcss-loader/src/index.js!src/css/style.css": [
+    {
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": {}
+      },
+      "chunks": {
+        "byName": {
+          "mini-css-extract-plugin": 0
+        },
+        "bySource": {},
+        "usedIds": [
+          0
+        ]
+      }
+    }
+  ],
+  "mini-css-extract-plugin node_modules/css-loader/dist/cjs.js!node_modules/cache-loader/dist/cjs.js??ref--5-2!node_modules/postcss-loader/src/index.js!src/css/style.css": [
+    {
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": {}
+      },
+      "chunks": {
+        "byName": {},
+        "bySource": {},
+        "usedIds": []
+      }
+    }
+  ]
+}
