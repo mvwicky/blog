@@ -3,4 +3,4 @@ publish = "dist"
 command = "yarn build"
 
 [build.environment]
-YARN_VERSION = "1.22"
+YARN_VERSION = "1.22.4"
