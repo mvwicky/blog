@@ -1,0 +1,25 @@
+# cSpell:disable
+
+{# Render a link.
+  link: {href, title, author}
+  #### [{{ link.title }}]({{ link.href }})
+  ##### {{ link.author }}
+#}
+{% macro link_heading(link) %}
+#### [{{ link.title }}]({{ link.href }})
+
+##### {{ link.author }}
+
+<h4 class="link-name" id="{{ link.title | extraSlug | safe }}">
+  <span class="link-marker">¤</span>
+  <a href="{{ link.href }}">{{ link.title | safe }}</a>
+</h4>
+<h5 class="link-author pl-3" id="{{ link.author | slug }}">
+  <span class="auth-marker">{{ link.author }}</span>
+</h5>
+{% endmacro %}
+
+{%- macro to_slug(text) -%}
+{%- set _trimmed = text | trim | lower -%}
+{{ _trimmed.replace(r/\s+/g, "-") | urlencode }}
+{%- endmacro -%}

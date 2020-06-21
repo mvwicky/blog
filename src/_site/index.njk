@@ -1,0 +1,18 @@
+---
+title: Where was I Going With That?
+layout: default
+---
+
+<h3>POSTS</h3>
+<p class="leading-loose">
+  New Blog Index
+</p>
+<ul class="list-disc list-inside">
+  {% for post in collections.post %}
+  <li>
+    <a class="hover:underline hover:bg-gray-200 p-1 rounded" href="{{ post.url }}">
+      <span>{{ post.date | readableDate }}</span> &raquo; <span class="text-blue-500">{{ post.data.title }}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>

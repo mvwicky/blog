@@ -5,17 +5,18 @@
 
 const fs = require("fs");
 const path = require("path");
-const util = require("util");
 
 const yaml = require("js-yaml");
-const { once } = require("lodash");
 const { DateTime, Settings } = require("luxon");
 
 const pkg = require("./package.json");
 
 const manifestPath = path.resolve(__dirname, "dist", "assets", "manifest.json");
-const manifest = () =>
-  JSON.parse(fs.readFileSync(manifestPath, { encoding: "utf-8" }));
+
+const manifest = () => {
+  const cts = fs.readFileSync(manifestPath, { encoding: "utf-8" });
+  return JSON.parse(cts);
+};
 
 function configureMarkdown() {
   const markdownIt = require("markdown-it");
@@ -23,21 +24,20 @@ function configureMarkdown() {
   const markdownItAnchor = require("markdown-it-anchor");
 
   const baseCfg = { html: true, typographer: true };
-  const fnCfg = {
+  const anchorCfg = {
     permalink: true,
     permalinkClass: "permalink-anchor",
     permalinkSymbol: "¤",
     permalinkBefore: true,
+    level: [4],
   };
   return markdownIt(baseCfg)
     .use(markdownItFootnote)
-    .use(markdownItAnchor, fnCfg);
+    .use(markdownItAnchor, anchorCfg);
 }
 
 /**
- * Format date as `yyyy/mm/dd`
- *
- * @param {Date} date the date
+ * @param {Date} date - a date
  */
 function linkDate(date) {
   // return DateTime.fromJSDate(jsDate).toFormat("yyyy/LL/dd")
@@ -50,17 +50,24 @@ function linkDate(date) {
 }
 
 /**
- * @param {Date} date the date
+ * @param {Date} date - a date
  */
 function readableDate(date) {
   return DateTime.fromJSDate(date).toFormat("dd LLL yyyy");
 }
 
 /**
- * @param {Date} date the date
+ * @param {Date} date - a date
  */
 function htmlDateString(date) {
   return DateTime.fromJSDate(date).toFormat("yyyy-LL-dd");
+}
+
+/** @param {string} s - a string */
+function extraSlug(s) {
+  return encodeURIComponent(
+    String(s).trim().toLowerCase().replace(/\s+/g, "-")
+  );
 }
 
 /**
@@ -81,7 +88,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addDataExtension("yaml", (cts) => yaml.safeLoad(cts));
   eleventyConfig.addLayoutAlias("default", "layouts/default.njk");
   eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
-  eleventyConfig.setLibrary("md", configureMarkdown());
+
+  const md = configureMarkdown();
+  eleventyConfig.setLibrary("md", md);
 
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
@@ -92,12 +101,16 @@ module.exports = function (eleventyConfig) {
     logConnections: true,
     ghostMode: false,
     ui: false,
+    logLevel: "info",
+    injectChanges: false,
   });
 
   eleventyConfig.addShortcode("webpackAsset", webpackAsset);
   eleventyConfig.addFilter("linkDate", linkDate);
   eleventyConfig.addFilter("readableDate", readableDate);
   eleventyConfig.addFilter("htmlDateString", htmlDateString);
+  eleventyConfig.addFilter("extraSlug", extraSlug);
+  eleventyConfig.addFilter("markdownify", (s) => md.renderInline(s));
 
   const pkgCfg = pkg.config["11ty"];
 

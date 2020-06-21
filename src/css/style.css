@@ -7,6 +7,7 @@
 
 @import "tailwindcss/components";
 @import "./components/footnotes.css";
+
 /* purgecss end ignore */
 
 @import "tailwindcss/utilities";

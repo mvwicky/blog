@@ -15,10 +15,28 @@
     "dev": "npm-run-all clean webpack:assets --parallel dev:*",
     "dev:assets": "yarn run webpack:assets --watch",
     "dev:site": "cross-env NODE_ENV=development eleventy --serve",
-    "webpack:assets": "cross-env NODE_ENV=development webpack --mode=development",
     "lint": "npm-run-all lint:*",
+    "lint:eslint": "eslint 'src/ts/**/*.ts'",
     "lint:styles": "stylelint 'src/css/**/*.css'",
-    "lint:eslint": "eslint 'src/ts/**/*.ts'"
+    "webpack:assets": "cross-env NODE_ENV=development webpack --mode=development"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint && pretty-quick --staged"
+    }
+  },
+  "config": {
+    "11ty": {
+      "dir": {
+        "input": "src/_site",
+        "includes": "_includes",
+        "output": "dist"
+      }
+    },
+    "entrypoints": {
+      "main": "./src/ts/main.ts",
+      "styles": "./src/css/style.css"
+    }
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.11.0",
@@ -50,6 +68,7 @@
     "luxon": "^1.24.1",
     "markdown-it": "^11.0.0",
     "markdown-it-anchor": "^5.3.0",
+    "markdown-it-attrs": "^3.0.2",
     "markdown-it-footnote": "^3.0.2",
     "mini-css-extract-plugin": "^0.9.0",
     "npm-run-all": "^4.1.5",
@@ -61,7 +80,7 @@
     "style-loader": "^1.2.1",
     "stylelint": "^13.3.3",
     "stylelint-config-prettier": "^8.0.1",
-    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-standard": "^20.0.0",
     "stylelint-prettier": "^1.1.2",
     "tailwindcss": "^1.4.4",
     "trash-cli": "^3.0.0",
@@ -71,26 +90,8 @@
     "webpack-cli": "^3.3.11",
     "webpack-manifest-plugin": "^2.2.0"
   },
-  "config": {
-    "11ty": {
-      "dir": {
-        "input": "src/site",
-        "includes": "_includes",
-        "output": "dist"
-      }
-    },
-    "entrypoints": {
-      "main": "./src/ts/main.ts",
-      "styles": "./src/css/style.css"
-    }
-  },
   "engines": {
     "node": ">=12",
     "yarn": "^1.22"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn run lint && pretty-quick --staged"
-    }
   }
 }

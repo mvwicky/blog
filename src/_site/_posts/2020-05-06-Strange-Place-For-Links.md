@@ -20,13 +20,11 @@ links:
     title: Lunging, Flailing, Mispunching
     author: Terry Eagleton
   hillary:
-    href: 'https://www.mcsweeneys.net/articles/
-    i-dont-hate-women-candidates-i-just-hated-hillary-and-
-    coincidentally-im-starting-to-hate-elizabeth-warren'
-    title: I Don't Hate Women Candidates&mdash;I Just Hated Hillary and Coincidentally I'm Starting to Hate Elizabeth Warren
+    href: "https://www.mcsweeneys.net/articles/i-dont-hate-women-candidates-i-just-hated-hillary-and-coincidentally-im-starting-to-hate-elizabeth-warren"
+    title: I Don't Hate Women Candidates—I Just Hated Hillary and Coincidentally I'm Starting to Hate Elizabeth Warren
     author: Devorah Blachor
   tampa:
-    href: 'https://www.tampabay.com/news/health/2020/05/06/senior-year-derailed-a-high-school-journalist-pushes-toward-one-last-deadline/'
+    href: "https://www.tampabay.com/news/health/2020/05/06/senior-year-derailed-a-high-school-journalist-pushes-toward-one-last-deadline/"
     title: Senior year derailed, a high school journalist pushes toward one last deadline.
     author: Claire McNeil
 # cSpell:enable
