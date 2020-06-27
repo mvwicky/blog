@@ -7,6 +7,8 @@
 
 @import "tailwindcss/components";
 @import "./components/footnotes.css";
+@import "./components/forms.css";
+@import "./components/lists.css";
 
 /* purgecss end ignore */
 

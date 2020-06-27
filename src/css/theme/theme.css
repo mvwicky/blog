@@ -29,7 +29,7 @@ h5 {
 }
 
 body {
-  @apply font-body;
+  @apply text-base font-body;
 }
 
 pre,

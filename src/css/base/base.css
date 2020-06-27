@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  @apply w-full bg-gray-200;
+}
+
 .container {
   @apply max-w-xl;
   @apply mx-auto;

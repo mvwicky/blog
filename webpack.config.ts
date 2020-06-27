@@ -32,6 +32,10 @@ const fontName = `[name].[${fontHash}].[ext]`;
 const srcDir = path.resolve(__dirname, "src");
 const outPath = path.resolve(__dirname, "dist", "assets");
 
+const relToSrc = (...args: string[]) => {
+  return path.join(srcDir, ...args);
+};
+
 const config: webpack.Configuration = {
   mode: prodOr("production", "development"),
   entry: pkg.config.entrypoints,
@@ -64,7 +68,7 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /\.(ts)$/,
-        include: [path.join(srcDir, "ts")],
+        include: [relToSrc("ts")],
         exclude: [/node_modules/],
         use: [
           {
@@ -96,7 +100,7 @@ const config: webpack.Configuration = {
       {
         test: /\.s?(css)$/,
         exclude: [/node_modules/],
-        include: [path.resolve("src", "css")],
+        include: [relToSrc("css")],
         use: [
           { loader: MiniCssExtractPlugin.loader },
           {
@@ -112,7 +116,7 @@ const config: webpack.Configuration = {
       {
         test: /\.(woff2?)$/,
         exclude: [/node_modules/],
-        include: [path.resolve("src", "css")],
+        include: [relToSrc("css")],
         use: [
           {
             loader: "file-loader",
@@ -138,7 +142,7 @@ const config: webpack.Configuration = {
     builtAt: false,
     cachedAssets: false,
   },
-  recordsPath: path.join(srcDir, "webpack-records.json"),
+  recordsPath: relToSrc(`webpack-records-${prodOr("prod", "dev")}.json`),
 };
 
 export default config;

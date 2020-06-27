@@ -11,5 +11,11 @@
   "css.validate": false,
   "[typescript]": {
     "editor.formatOnSave": true
+  },
+  "stylelint.enable": true,
+  "[css]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": true
+    }
   }
 }
