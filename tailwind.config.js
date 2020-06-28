@@ -27,7 +27,6 @@ function ms(n) {
 module.exports = {
   purge: {
     content: ["src/_site/**/*.njk", "src/_site/**/*.md"],
-    enabled: true,
   },
   theme: {
     extend: {},
@@ -58,6 +57,12 @@ module.exports = {
       blue: colors.blue,
       indigo: colors.indigo,
       purple: colors.purple,
+    },
+    container: {
+      padding: {
+        default: "1.5rem",
+        lg: "18rem",
+      },
     },
   },
   variants: {},

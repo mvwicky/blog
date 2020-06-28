@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<div class="grid-posts-list pl-2 text-lg leading-snug mt-3 pt-3">
+<div class="grid-posts-list pl-2 text-lg leading-normal mt-3 pt-3">
 {% for post in collections.post %}
   <span class="posts-list-bullet" data-post="{{ loop.index0 }}">•</span>
   <span class="posts-list-date" data-post="{{ loop.index0 }}">{{ post.date | readableDate }}</span>

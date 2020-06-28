@@ -12,22 +12,19 @@ body {
   @apply max-w-xl mx-auto;
 }
 
-a[href]:hover {
+a[href]:not(.never-underline):hover {
   @apply underline;
-}
-
-#nav-main {
-  @apply flex flex-row items-center justify-start flex-wrap;
-  @apply bg-blue-300 p-6 rounded-t mt-2 border border-b-0 border-gray-600;
 }
 
 p {
   text-align: justify;
-  text-indent: 3ex;
+  text-indent: 1.5rem;
+  @apply mb-2;
 }
 
 .content {
-  @apply pl-2;
+  @apply px-6;
+  @apply w-full;
 }
 
 .content h4 {
@@ -35,5 +32,5 @@ p {
 }
 
 .content h5 {
-  @apply ml-4;
+  @apply ml-0;
 }

@@ -1,0 +1,32 @@
+---
+title: What I'm Reading
+layout: miscpages
+permalink: '/reading/'
+---
+{% from "macro_utils.njk" import footsep %}
+
+<section>
+  <p>
+    Here to help me keep track of what I'm reading/what I have read.
+    This is in addition to the spreadsheet that I keep.
+  </p>
+</section>
+
+{% for book in reading.books | reverse %}
+<div class="pb-4">
+  <div class="reading-book mb-4">
+    <h4 class="book-title">{{ book.title }}</h4>
+    <h5 class="book-author">{{ book.author }}</h5>
+  </div>
+  {% if book.comments %}{{ book.comments | markdownify | safe }}{% endif %}
+  <hr>
+</div>
+{% endfor %}
+
+{{ footsep() }}
+
+<div class="w-full flex justify-center">
+  <small>
+    <a href="/assets/reading-schema.json" target="_blank" type="application/schema+json">Schema</a>
+  </small>
+</div>

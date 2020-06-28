@@ -6,9 +6,19 @@
   ##### {{ link.author }}
 #}
 {% macro link_heading(link) %}
-#### [{{ link.title }}]({{ link.href }})
+<hr class="mt-8 mb-2">
 
-##### {{ link.author }}
+#### [{{ link.title }}]({{ link.href }}) {.link-title}
+
+##### {{ link.author }} {.link-author}
+{% endmacro %}
+
+{%- macro to_slug(text) -%}
+{%- set _trimmed = text | trim | lower -%}
+{{ _trimmed.replace(r/\s+/g, "-") | urlencode }}
+{%- endmacro -%}
+
+
 {#
 <h4 class="link-name" id="{{ link.title | extraSlug | safe }}">
   <span class="link-marker">¤</span>
@@ -18,9 +28,3 @@
   <span class="auth-marker">{{ link.author }}</span>
 </h5>
 #}
-{% endmacro %}
-
-{%- macro to_slug(text) -%}
-{%- set _trimmed = text | trim | lower -%}
-{{ _trimmed.replace(r/\s+/g, "-") | urlencode }}
-{%- endmacro -%}

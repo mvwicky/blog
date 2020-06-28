@@ -8,32 +8,41 @@
     <title>{{ title }}</title>
   </head>
   <body>
-    <div class="container px-6 lg:px-64">
+    <div class="container">
       <div class="flex justify-center bg-gray-200 px-6 py-3 rounded">
-        <h1>Where Was I Going With That?</h1>
+        <h1 class="font-bold">
+          <a class="never-underline" href="/">Where Was I Going With That?</a>
+        </h1>
       </div>
-      <nav id="nav-main">
-        <a class="font-semibold text-xl mr-4" href="/">
+      <nav class="leading-4 text-lg" id="nav-main">
+        <a class="header-link font-semibold pr-6 text-2xl" href="/">
           Home
         </a>
-        <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4">
+        <a href="/reading/" class="header-link mr-4">
           Reading
         </a>
-        <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4">
+        <a href="/aboutme/" class="header-link mr-4">
           About Me
         </a>
         <a
           href="https://github.com/mvwicky"
-          class="block lg:inline-block mt-4 lg:mt-0 px-4 py-3 leading-none border rounded border-white hover:border-transparent ml-auto"
+          class="header-link px-4 py-3 border rounded border-white hover:bg-blue-800 hover:text-blue-100 ml-auto"
         >
           Github
         </a>
       </nav>
     </div>
-    <div class="container px-6 lg:px-64">
-      <div class="bg-blue-100 py-6 px-1 rounded-b border border-gray-600 border-t-0">
+    <div class="container">
+      <div class="bg-blue-100 py-6 px-1 border border-gray-600 min-h-screen">
         {{ content | safe }}
       </div>
+    </div>
+    <div class="container pb-4">
+      <footer class="bg-gray-200 py-3 rounded-b border-b border-l border-r border-gray-600 flex justify-center">
+        <a class="header-link mx-5 text-sm font-thin" href="/">Prev</a>
+        <a class="header-link mx-5 text-sm font-thin" href="/">Home</a>
+        <a class="header-link mx-5 text-sm font-thin" href="/">Next</a>
+      </footer>
     </div>
     <script type="module" src="{% webpackAsset 'main.js' %}"></script>
   </body>

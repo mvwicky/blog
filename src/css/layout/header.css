@@ -1,3 +1,18 @@
+#nav-main {
+  @apply flex flex-row items-center justify-start flex-wrap;
+  @apply bg-blue-300 p-6 rounded-t mt-2 border border-b-0 border-gray-600;
+}
+
+.header-link {
+  @apply block leading-4 mt-4 tracking-tight;
+}
+
+@screen lg {
+  .header-link {
+    @apply inline-block mt-0;
+  }
+}
+
 .post-header {
   @apply pl-4;
   @apply mb-4;

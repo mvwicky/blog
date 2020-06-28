@@ -22,6 +22,7 @@ function configureMarkdown() {
   const markdownIt = require("markdown-it");
   const markdownItFootnote = require("markdown-it-footnote");
   const markdownItAnchor = require("markdown-it-anchor");
+  const markdownItAttrs = require("markdown-it-attrs");
 
   const baseCfg = { html: true, typographer: true };
   const anchorCfg = {
@@ -31,9 +32,11 @@ function configureMarkdown() {
     permalinkBefore: true,
     level: [4],
   };
+  const attrsCfg = {};
   return markdownIt(baseCfg)
     .use(markdownItFootnote)
-    .use(markdownItAnchor, anchorCfg);
+    .use(markdownItAnchor, anchorCfg)
+    .use(markdownItAttrs, {});
 }
 
 /**
@@ -63,11 +66,19 @@ function htmlDateString(date) {
   return DateTime.fromJSDate(date).toFormat("yyyy-LL-dd");
 }
 
-/** @param {string} s - a string */
+const toDashRe = /(?:\s+)|—/g;
+const remRe = /[—,.]/g;
+
+/**
+ * @param {string} s - a string
+ * @returns {string}
+ */
 function extraSlug(s) {
-  return encodeURIComponent(
-    String(s).trim().toLowerCase().replace(/\s+/g, "-")
+  const lowered = String(s).trim().toLowerCase().normalize();
+  const slug = encodeURIComponent(
+    lowered.replace(toDashRe, "-").replace(remRe, "")
   );
+  return slug;
 }
 
 /**
@@ -84,10 +95,23 @@ function webpackAsset(name) {
 module.exports = function (eleventyConfig) {
   Settings.defaultZoneName = "utc";
 
+  const pkgCfg = pkg.config["11ty"];
+
+  const inputDir = pkgCfg.dir.input;
+  const includesDir = path.resolve(__dirname, inputDir, pkgCfg.dir.includes);
+  const layoutsDir = path.join(includesDir, "layouts");
+  const layoutFiles = fs.readdirSync(layoutsDir, { encoding: "utf-8" });
+  layoutFiles.forEach((name) => {
+    if (/\.njk$/.test(name)) {
+      const fullPath = path.join(layoutsDir, name);
+      const relPath = path.relative(includesDir, fullPath);
+      const baseName = path.basename(fullPath, ".njk");
+      eleventyConfig.addLayoutAlias(baseName, relPath);
+    }
+  });
+
   eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addDataExtension("yaml", (cts) => yaml.safeLoad(cts));
-  eleventyConfig.addLayoutAlias("default", "layouts/default.njk");
-  eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
 
   const md = configureMarkdown();
   eleventyConfig.setLibrary("md", md);
@@ -110,15 +134,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("readableDate", readableDate);
   eleventyConfig.addFilter("htmlDateString", htmlDateString);
   eleventyConfig.addFilter("extraSlug", extraSlug);
-  eleventyConfig.addFilter("markdownify", (s) => md.renderInline(s));
+  eleventyConfig.addFilter("markdownify", (s) => md.render(s));
 
-  const pkgCfg = pkg.config["11ty"];
-
-  return {
-    ...pkgCfg,
-    dataTemplateEngine: "njk",
-    htmlTemplateEngine: "njk",
-    markdownTemplateEngine: "njk",
-    passthroughFileCopy: true,
-  };
+  return pkgCfg;
 };

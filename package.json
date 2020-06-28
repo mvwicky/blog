@@ -30,8 +30,13 @@
       "dir": {
         "input": "src/_site",
         "includes": "_includes",
-        "output": "dist"
-      }
+        "output": "dist",
+        "data": "_data"
+      },
+      "dataTemplateEngine": "njk",
+      "htmlTemplateEngine": "njk",
+      "markdownTemplateEngine": "njk",
+      "passthroughFileCopy": true
     },
     "entrypoints": {
       "main": "./src/ts/main.ts",
