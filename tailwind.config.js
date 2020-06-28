@@ -26,7 +26,8 @@ function ms(n) {
 
 module.exports = {
   purge: {
-    content: ["src/site/**/*.njk"],
+    content: ["src/_site/**/*.njk", "src/_site/**/*.md"],
+    enabled: true,
   },
   theme: {
     extend: {},
