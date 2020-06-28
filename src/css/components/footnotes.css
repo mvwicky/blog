@@ -1,6 +1,5 @@
 .footnotes {
-  @apply px-3;
-  @apply mx-3;
+  @apply px-3 mx-3 text-sm leading-relaxed;
 }
 
 .footnotes > ol {
@@ -8,13 +7,11 @@
 }
 
 .footnotes-list {
-  @apply list-decimal;
-  @apply list-outside;
+  @apply list-decimal list-outside;
 }
 
 .footnote-item > p {
-  @apply inline;
-  @apply text-justify;
+  @apply inline text-justify;
 }
 
 .footnote-item > p:first-child {
@@ -22,13 +19,14 @@
 }
 
 .footnotes-sep {
-  @apply mt-8;
-  @apply mb-4;
-  @apply border-l-0;
-  @apply border-r-0;
-  @apply border-b-0;
-  @apply border-t;
+  @apply mt-8 mb-4;
+  @apply border-l-0 border-r-0 border-b-0 border-t;
   @apply h-0;
   @apply overflow-visible;
   @apply text-gray-400;
+}
+
+.footnote-ref,
+.footnote-backref {
+  @apply text-blue-700;
 }

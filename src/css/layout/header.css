@@ -1,0 +1,4 @@
+.post-header {
+  @apply pl-4;
+  @apply mb-4;
+}

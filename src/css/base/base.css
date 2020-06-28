@@ -5,10 +5,35 @@
 }
 
 body {
-  @apply w-full bg-gray-200;
+  @apply w-full bg-gray-100;
 }
 
 .container {
-  @apply max-w-xl;
-  @apply mx-auto;
+  @apply max-w-xl mx-auto;
+}
+
+a[href]:hover {
+  @apply underline;
+}
+
+#nav-main {
+  @apply flex flex-row items-center justify-start flex-wrap;
+  @apply bg-blue-300 p-6 rounded-t mt-2 border border-b-0 border-gray-600;
+}
+
+p {
+  text-align: justify;
+  text-indent: 3ex;
+}
+
+.content {
+  @apply pl-2;
+}
+
+.content h4 {
+  @apply text-indigo-800;
+}
+
+.content h5 {
+  @apply ml-4;
 }

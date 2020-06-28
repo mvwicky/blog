@@ -25,7 +25,7 @@ function configureMarkdown() {
 
   const baseCfg = { html: true, typographer: true };
   const anchorCfg = {
-    permalink: true,
+    permalink: false,
     permalinkClass: "permalink-anchor",
     permalinkSymbol: "¤",
     permalinkBefore: true,
