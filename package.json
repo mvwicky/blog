@@ -16,7 +16,7 @@
     "dev:serve": "cross-env NODE_ENV=development eleventy --serve",
     "dev:site": "cross-env NODE_ENV=development eleventy",
     "lint": "npm-run-all lint:*",
-    "lint:eslint": "eslint --cache --cache-location .cache/.eslintcache 'src/ts/**/*.ts'",
+    "lint:eslint": "eslint --cache --cache-location .cache/.eslintcache 'src/ts/**/*.ts' '*.js'",
     "lint:styles": "stylelint --cache --cache-location .cache/.stylelintcache 'src/css/**/*.css'",
     "webpack:assets": "cross-env NODE_ENV=development webpack --mode=development"
   },

@@ -50,5 +50,11 @@
       }
     }
   },
-  "ignorePatterns": ["tailwind.config.js", "postcss.config.js"]
+  "ignorePatterns": ["cli/**/*"],
+  "overrides": [
+    {
+      "files": ["tailwind.config.js", "postcss.config.js"],
+      "env": { "node": true, "es6": true }
+    }
+  ]
 }

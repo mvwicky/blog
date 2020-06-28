@@ -1,0 +1,10 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "index_exclude_patterns": ["node_modules/**/*"],
+      "folder_exclude_patterns": [".vscode", "node_modules"],
+      "file_exclude_patterns": ["webpack-records-*.json"]
+    }
+  ]
+}

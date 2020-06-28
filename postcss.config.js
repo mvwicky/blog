@@ -4,11 +4,13 @@ const plugins = [
   require("postcss-import"),
   require("postcss-mixins"),
   require("tailwindcss"),
-  require("autoprefixer"),
 ];
 
 if (prod) {
-  plugins.push(require("cssnano"));
+  const cssnano = require("cssnano");
+  const autoprefixer = require("autoprefixer");
+  plugins.push(autoprefixer({ flexbox: "no-2009" }));
+  plugins.push(cssnano({ preset: "default" }));
 }
 
 module.exports = { plugins };

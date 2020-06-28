@@ -11,6 +11,10 @@ import * as pkg from "./package.json";
 
 const prod = process.env.NODE_ENV === "production";
 
+function envDefined(key: string): boolean {
+  return process.env[key] !== undefined;
+}
+
 function compact<T>(arr: (T | undefined)[]): T[] {
   return arr.filter((e) => e !== undefined && typeof e !== "undefined") as T[];
 }
@@ -22,7 +26,7 @@ function prodOr<P = any, D = any>(pVal: P, dVal: D): P | D {
 const cacheBase = path.resolve(__dirname, ".cache", "build-cache");
 
 function getCacheDir(name: string): string {
-  return path.join(cacheBase, `${name}-${prodOr("prod", "dev")}`);
+  return path.join(cacheBase, prodOr("prod", "dev"), name);
 }
 
 const hashFn = prodOr("sha256", "md5");
@@ -44,16 +48,12 @@ const config: webpack.Configuration = {
     filename: `[name].[contenthash:${hashlength}].js`,
     hashFunction: "sha256",
     hashDigestLength: 64,
+    publicPath: "/assets/",
   },
-  devtool: prodOr("source-map", "eval"),
+  devtool: prodOr("source-map", "cheap-module-eval-source-map"),
   plugins: [
-    // new CleanWebpackPlugin({
-    //   cleanOnceBeforeBuildPatterns: ["*.*"],
-    //   verbose: false,
-    //   cleanStaleWebpackAssets: false,
-    // }),
     new webpack.HashedModuleIdsPlugin({
-      hashDigestLength: 8,
+      hashDigestLength: 5,
       hashFunction: "md5",
     }),
     new MiniCssExtractPlugin({
@@ -86,8 +86,9 @@ const config: webpack.Configuration = {
                   {
                     corejs: { version: 3, proposals: true },
                     modules: false,
-                    debug: false,
+                    debug: envDefined("BABEL_ENV_DEBUG"),
                     useBuiltIns: "usage",
+                    targets: { esmodules: true },
                   },
                 ],
                 "@babel/preset-typescript",
@@ -106,7 +107,7 @@ const config: webpack.Configuration = {
           {
             loader: "cache-loader",
             options: {
-              cacheDirectory: getCacheDir("styles"),
+              cacheDirectory: getCacheDir("css-loader"),
             },
           },
           { loader: "css-loader" },

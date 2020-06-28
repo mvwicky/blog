@@ -1,18 +1,27 @@
 const { colors } = require("tailwindcss/defaultTheme");
 
-const ratio = 1.2;
-const base = 16;
+const ratio = 1.2; /* Minor Third */
+const base = 16; /* Pixels */
 
 /** @param {number} n */
 function msPixels(n) {
   return Math.pow(ratio, n) * base;
 }
 
+/**
+ * @param  {number} rem
+ * @param  {number} precision
+ * @return {string}
+ */
+function normalizeRem(rem, precision = 3) {
+  const fixed = rem.toFixed(precision);
+  return fixed;
+}
+
 /** @param {number} n */
 function ms(n) {
-  const rem = (msPixels(n) / 16).toFixed(3);
-
-  return `${rem}rem`;
+  const rem = msPixels(n) / 16;
+  return `${normalizeRem(rem)}rem`;
 }
 
 module.exports = {

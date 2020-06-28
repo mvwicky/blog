@@ -1,4 +1,0 @@
-{
-  "compilerOptions": { "module": "commonjs", "target": "es6" },
-  "files": ["postcss.config.js", "tailwind.config.js", ".eleventy.js"]
-}
