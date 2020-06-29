@@ -17,7 +17,6 @@ for = "/assets/fonts/*"
   max-age=86400,
   public,
   immutable'''
-  X-Fake-Header = "Value"
 
 [[headers]]
 for = "/assets/*.js"
@@ -26,4 +25,11 @@ for = "/assets/*.js"
   max-age=86400,
   public,
   immutable'''
-  X-Fake-Header = "Value"
+
+[[headers]]
+for = "/assets/*.css"
+[headers.values]
+  cache-control = '''
+  max-age=86400,
+  public,
+  immutable'''
