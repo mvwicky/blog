@@ -4,3 +4,26 @@ command = "yarn build"
 
 [build.environment]
 YARN_VERSION = "1.22.4"
+
+[dev]
+command = "yarn dev"
+targetPort = 8080
+port = 8081
+
+[[headers]]
+for = "/assets/fonts/*"
+[headers.values]
+  cache-control = '''
+  max-age=86400,
+  public,
+  immutable'''
+  X-Fake-Header = "Value"
+
+[[headers]]
+for = "/assets/*.js"
+[headers.values]
+  cache-control = '''
+  max-age=86400,
+  public,
+  immutable'''
+  X-Fake-Header = "Value"

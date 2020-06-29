@@ -1,10 +1,6 @@
 const prod = process.env.NODE_ENV === "production";
 
-const plugins = [
-  require("postcss-import"),
-  require("postcss-mixins"),
-  require("tailwindcss"),
-];
+const plugins = [require("postcss-import"), require("tailwindcss")];
 
 if (prod) {
   const cssnano = require("cssnano");

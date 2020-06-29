@@ -18,6 +18,21 @@ const manifest = () => {
   return JSON.parse(cts);
 };
 
+const toDashRe = /(?:\s+)|—/g;
+const remRe = /[—,.]/g;
+
+/**
+ * @param {string} s - a string
+ * @returns {string}
+ */
+function extraSlug(s) {
+  const lowered = String(s).trim().toLowerCase().normalize();
+  const slug = encodeURIComponent(
+    lowered.replace(toDashRe, "-").replace(remRe, "")
+  );
+  return slug;
+}
+
 function configureMarkdown() {
   const markdownIt = require("markdown-it");
   const markdownItFootnote = require("markdown-it-footnote");
@@ -26,13 +41,13 @@ function configureMarkdown() {
 
   const baseCfg = { html: true, typographer: true };
   const anchorCfg = {
-    permalink: false,
-    permalinkClass: "permalink-anchor",
+    permalink: true,
+    permalinkClass: "permalink-anchor text-gray-700",
     permalinkSymbol: "¤",
     permalinkBefore: true,
     level: [4],
+    slugify: extraSlug,
   };
-  const attrsCfg = {};
   return markdownIt(baseCfg)
     .use(markdownItFootnote)
     .use(markdownItAnchor, anchorCfg)
@@ -64,21 +79,6 @@ function readableDate(date) {
  */
 function htmlDateString(date) {
   return DateTime.fromJSDate(date).toFormat("yyyy-LL-dd");
-}
-
-const toDashRe = /(?:\s+)|—/g;
-const remRe = /[—,.]/g;
-
-/**
- * @param {string} s - a string
- * @returns {string}
- */
-function extraSlug(s) {
-  const lowered = String(s).trim().toLowerCase().normalize();
-  const slug = encodeURIComponent(
-    lowered.replace(toDashRe, "-").replace(remRe, "")
-  );
-  return slug;
 }
 
 /**

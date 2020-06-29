@@ -9,31 +9,31 @@
   </head>
   <body>
     <div class="container">
-      <div class="flex justify-center bg-gray-200 px-6 py-3 rounded">
-        <h1 class="font-bold">
+      <div class="flex justify-center bg-gray-200 px-4 py-3 rounded">
+        <h1 class="font-semibold">
           <a class="never-underline" href="/">Where Was I Going With That?</a>
         </h1>
       </div>
       <nav class="leading-4 text-lg" id="nav-main">
-        <a class="header-link font-semibold pr-6 text-2xl" href="/">
+        <a class="header-link font-medium pr-6 text-2xl" href="/">
           Home
         </a>
-        <a href="/reading/" class="header-link mr-4">
+        <a href="/reading/" class="header-link">
           Reading
         </a>
-        <a href="/aboutme/" class="header-link mr-4">
+        <a href="/aboutme/" class="header-link">
           About Me
         </a>
         <a
           href="https://github.com/mvwicky"
-          class="header-link px-4 py-3 border rounded border-white hover:bg-blue-800 hover:text-blue-100 ml-auto"
+          class="header-link boxed-header-link ml-auto"
         >
           Github
         </a>
       </nav>
     </div>
     <div class="container">
-      <div class="bg-blue-100 py-6 px-1 border border-gray-600 min-h-screen">
+      <div class="bg-blue-100 py-6 border border-gray-600 min-h-screen">
         {{ content | safe }}
       </div>
     </div>

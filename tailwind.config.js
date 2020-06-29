@@ -1,11 +1,11 @@
 const { colors } = require("tailwindcss/defaultTheme");
 
-const ratio = 1.2; /* Minor Third */
-const base = 16; /* Pixels */
+const MS_RATIO = 1.2; /* Minor Third */
+const MS_BASE = 16; /* Pixels */
 
 /** @param {number} n */
 function msPixels(n) {
-  return Math.pow(ratio, n) * base;
+  return Math.pow(MS_RATIO, n) * MS_BASE;
 }
 
 /**
@@ -14,7 +14,19 @@ function msPixels(n) {
  * @return {string}
  */
 function normalizeRem(rem, precision = 3) {
+  // if (Math.trunc(rem) === rem) {
+  //   return String(rem);
+  // }
   const fixed = rem.toFixed(precision);
+  const match = fixed.match(/(\d+\.[1-9]*)0+/);
+  if (match !== null) {
+    const f = match[1];
+    if (f.endsWith(".")) {
+      return f.substring(0, f.length - 1);
+    } else {
+      return f;
+    }
+  }
   return fixed;
 }
 
@@ -23,6 +35,8 @@ function ms(n) {
   const rem = msPixels(n) / 16;
   return `${normalizeRem(rem)}rem`;
 }
+
+console.log(ms(16));
 
 module.exports = {
   purge: {
@@ -35,17 +49,17 @@ module.exports = {
       body: ['"Spectral"', "serif"],
       mono: ['"IBM Plex Mono"', "monospace"],
     },
-    fontSizes: {
-      xs: "0.694rem",
-      sm: "0.833rem",
-      base: "1rem",
-      lg: "1.2rem",
-      xl: "1.44rem",
-      "2xl": "1.728rem",
-      "3xl": "2.074rem",
-      "4xl": "2.488rem",
-      "5xl": "2.986rem",
-      "6xl": "3.583rem",
+    fontSize: {
+      xs: ms(-1),
+      sm: ms(-1),
+      base: ms(0),
+      lg: ms(1),
+      xl: ms(2),
+      "2xl": ms(3),
+      "3xl": ms(4),
+      "4xl": ms(5),
+      "5xl": ms(6),
+      "6xl": ms(7),
     },
     colors: {
       black: colors.black,
@@ -61,7 +75,8 @@ module.exports = {
     container: {
       padding: {
         default: "1.5rem",
-        lg: "18rem",
+        // lg: "16rem",
+        lg: ms(15),
       },
     },
   },
