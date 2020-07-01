@@ -12,17 +12,18 @@
 </div>
 
 <div class="grid-posts-list pl-2 text-lg leading-normal mt-3 pt-3">
-{% for post in collections.post %}
-  <span class="posts-list-bullet" data-post="{{ loop.index0 }}">•</span>
-  <span class="posts-list-date" data-post="{{ loop.index0 }}">{{ post.date | readableDate }}</span>
-  <span class="posts-list-sep" data-post="{{ loop.index0 }}">&raquo;</span>
-  <a
-    class="posts-list-title text-indigo-700"
-    href="{{ post.url }}"
-    data-post="{{ loop.index0 }}"
-    data-tags="{{ post.data.tags | join(" ") }}"
-  >
-    {{ post.data.title }}
-  </a>
+{% for post in collections.post | reverse -%}
+  {% if post.data.published | default(true) %}
+    <span class="posts-list-bullet" data-post="{{ loop.index0 }}">•</span>
+    <span class="posts-list-date" data-post="{{ loop.index0 }}">{{ post.date | readableDate }}</span>
+    <span class="posts-list-sep" data-post="{{ loop.index0 }}">&raquo;</span>
+    <a
+      class="posts-list-title text-indigo-700"
+      href="{{ post.url }}"
+      data-post="{{ loop.index0 }}"
+      data-tags="{{ post.data.tags | join(" ") }}"
+    >
+      {{ post.data.title }}
+    </a>{% endif %}
 {% endfor %}
 </div>

@@ -28,7 +28,7 @@ p {
 }
 
 .content h4 {
-  @apply text-indigo-800;
+  @apply text-indigo-700;
 }
 
 .content h5 {

@@ -35,5 +35,5 @@
 }
 
 .link-author {
-  @apply mb-2;
+  @apply mb-2 tracking-tight;
 }

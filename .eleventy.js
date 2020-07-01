@@ -43,7 +43,7 @@ function configureMarkdown() {
   const anchorCfg = {
     permalink: true,
     permalinkClass: "permalink-anchor text-gray-700",
-    permalinkSymbol: "¤",
+    permalinkSymbol: "ǂ",
     permalinkBefore: true,
     level: [4],
     slugify: extraSlug,
@@ -71,7 +71,7 @@ function linkDate(date) {
  * @param {Date} date - a date
  */
 function readableDate(date) {
-  return DateTime.fromJSDate(date).toFormat("dd LLL yyyy");
+  return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_FULL);
 }
 
 /**

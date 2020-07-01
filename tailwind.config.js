@@ -2,6 +2,7 @@ const { colors } = require("tailwindcss/defaultTheme");
 
 const MS_RATIO = 1.2; /* Minor Third */
 const MS_BASE = 16; /* Pixels */
+const TRAILING_RE = /(\d+\.[1-9]*)0+$/;
 
 /** @param {number} n */
 function msPixels(n) {
@@ -14,11 +15,8 @@ function msPixels(n) {
  * @return {string}
  */
 function normalizeRem(rem, precision = 3) {
-  // if (Math.trunc(rem) === rem) {
-  //   return String(rem);
-  // }
   const fixed = rem.toFixed(precision);
-  const match = fixed.match(/(\d+\.[1-9]*)0+/);
+  const match = TRAILING_RE.exec(fixed);
   if (match !== null) {
     const f = match[1];
     if (f.endsWith(".")) {
@@ -36,9 +34,7 @@ function ms(n) {
   return `${normalizeRem(rem)}rem`;
 }
 
-console.log(ms(16));
-
-module.exports = {
+const config = {
   purge: {
     content: ["src/_site/**/*.njk", "src/_site/**/*.md"],
   },
@@ -50,7 +46,7 @@ module.exports = {
       mono: ['"IBM Plex Mono"', "monospace"],
     },
     fontSize: {
-      xs: ms(-1),
+      xs: ms(-2),
       sm: ms(-1),
       base: ms(0),
       lg: ms(1),
@@ -82,3 +78,5 @@ module.exports = {
   variants: {},
   plugins: [],
 };
+
+module.exports = config;

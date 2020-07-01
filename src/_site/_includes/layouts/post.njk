@@ -2,7 +2,7 @@
 layout: default
 tags:
   - post
-permalink: "blog/{{ page.date | linkDate }}/{{ title | slug }}/"
+permalink: "blog/{{ page.date | linkDate }}/{{ page.fileSlug | lower }}/"
 ---
 <header class="post-header">
   <h1>{{ title }}</h1>
