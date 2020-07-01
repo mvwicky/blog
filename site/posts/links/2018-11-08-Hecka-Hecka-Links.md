@@ -1,10 +1,8 @@
 ---
-layout: post
 title: "PLACEHOLDER TITLE."
 date: 2018-11-08
 published: false
 description: "PLACEHOLDER DESCRIPTION."
-tags: [links]
 links:
   civil:
     href: "https://www.theatlantic.com/politics/archive/2017/10/colin-kaepernick/541845/"

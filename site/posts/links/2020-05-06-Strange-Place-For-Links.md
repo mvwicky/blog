@@ -1,6 +1,5 @@
 ---
 # cSpell:disable
-layout: somelinks
 title: What is this Strange Place?
 date: 2020-05-06
 description: This is a post with links. And it's my first one in quite a while.

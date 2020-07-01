@@ -1,9 +1,7 @@
 ---
-layout: post
 title: This is a post with links
 date: 2019-04-08
 description: "This is a post with links."
-tags: [links]
 links:
   marriott:
     href: "https://www.vocativ.com/356376/sportswriters-love-marriotts-more-than-you-love-anything/index.html"
