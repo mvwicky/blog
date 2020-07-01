@@ -12,7 +12,7 @@ permalink: '/reading/'
   </p>
 </section>
 
-{% for book in reading.books | reverse %}
+{% for book in books | reverse %}
 <div class="pb-4">
   <div class="reading-book mb-4">
     <h4 class="book-title">{{ book.title }}</h4>
