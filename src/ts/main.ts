@@ -1,6 +1,20 @@
-(function (g: Window, doc: Document) {
+import { initFootnotes } from "./footnotes";
+
+(function () {
   console.log("Loaded");
-  const div = doc.createElement("div");
-  div.classList.add("w-6/12", "bg-red-500", "h-24");
-  // doc.body.appendChild(div);
-})(window, document);
+  registerServiceWorker();
+  initFootnotes();
+})();
+
+function registerServiceWorker() {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((reg) => {
+        console.log(`Registered service worker with scope "${reg.scope}".`);
+      })
+      .catch((error) => {
+        console.log(`Registration failed with error ${error}`);
+      });
+  }
+}

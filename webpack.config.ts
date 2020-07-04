@@ -1,9 +1,9 @@
 /* eslint-env node */
 
 import * as path from "path";
-import * as util from "util";
 
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import TerserPlugin = require("terser-webpack-plugin");
 import webpack from "webpack";
 import ManifestPlugin from "webpack-manifest-plugin";
 
@@ -63,6 +63,9 @@ const config: webpack.Configuration = {
       publicPath: "/assets/",
       filter: (fd) => !/\.woff2?$/.test(fd.path),
     }),
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+    }),
   ],
   module: {
     rules: [
@@ -85,10 +88,11 @@ const config: webpack.Configuration = {
                   "@babel/preset-env",
                   {
                     corejs: { version: 3, proposals: true },
-                    modules: false,
                     debug: envDefined("BABEL_ENV_DEBUG"),
                     useBuiltIns: "usage",
                     targets: { esmodules: true },
+                    bugfixes: true,
+                    exclude: ["@babel/plugin-transform-template-literals"],
                   },
                 ],
                 "@babel/preset-typescript",
@@ -99,7 +103,7 @@ const config: webpack.Configuration = {
         ],
       },
       {
-        test: /\.s?(css)$/,
+        test: /\.(css)$/,
         exclude: [/node_modules/],
         include: [relToSrc("css")],
         use: [
@@ -143,7 +147,34 @@ const config: webpack.Configuration = {
     builtAt: false,
     cachedAssets: false,
   },
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
   recordsPath: relToSrc(`webpack-records-${prodOr("prod", "dev")}.json`),
+  node: false,
+  optimization: prodOr(
+    {
+      minimizer: [
+        new TerserPlugin({
+          test: /\.m?(j|t)s(\?.*)?$/i,
+          cache: getCacheDir("terser"),
+          parallel: true,
+          sourceMap: true,
+          terserOptions: {
+            ecma: 8,
+            module: true,
+            compress: {
+              passes: 2,
+              drop_debugger: true,
+              drop_console: true,
+              module: true,
+            },
+          },
+        }),
+      ],
+    },
+    undefined
+  ),
 };
 
 export default config;

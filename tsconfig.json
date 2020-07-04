@@ -1,17 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "noEmit": true,
-    "downlevelIteration": true,
-    "isolatedModules": true,
-    "strict": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "allowJs": true
-  },
-  "files": ["config/index.d.ts", "webpack.config.ts"]
+  "references": [{ "path": "./src/ts" }, { "path": "./cli" }],
+  "extends": "./config/tsconfig.base.json"
 }
