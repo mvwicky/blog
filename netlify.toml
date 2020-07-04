@@ -11,6 +11,12 @@ targetPort = 8080
 port = 8081
 
 [[headers]]
+for = "/*"
+[headers.value]
+  X-Frame-Options = "DENY"
+  X-XSS-Protection = "1; mode=block"
+
+[[headers]]
 for = "/assets/fonts/*"
 [headers.values]
   cache-control = '''

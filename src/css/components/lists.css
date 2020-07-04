@@ -3,9 +3,8 @@
 }
 
 .grid-posts-list {
-  align-items: baseline;
+  align-items: center;
   display: inline-grid;
-  gap: 0.33rem;
   grid-auto-rows: minmax(1.75em, auto);
   grid-template-columns: auto max-content auto 1fr;
   justify-content: center;

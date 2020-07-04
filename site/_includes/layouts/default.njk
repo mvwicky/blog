@@ -8,20 +8,20 @@
     <title>{{ title }}</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container pt-2">
       <div class="flex justify-center bg-gray-200 px-4 py-3 rounded">
         <h1 class="font-semibold">
-          <a class="never-underline" href="/">Where Was I Going With That?</a>
+          <a class="never-underline" href="{{ '/' | url }}">Where Was I Going With That?</a>
         </h1>
       </div>
       <nav class="leading-4 text-lg" id="nav-main">
-        <a class="header-link font-medium pr-6 text-2xl" href="/">
+        <a class="header-link font-medium pr-6 text-2xl" href="{{ '/' | url }}">
           Home
         </a>
-        <a href="/reading/" class="header-link">
+        <a href="{{ '/reading/' | url }}" class="header-link">
           Reading
         </a>
-        <a href="/aboutme/" class="header-link">
+        <a href="{{ '/aboutme/' | url }}" class="header-link">
           About Me
         </a>
         <a
@@ -38,10 +38,17 @@
       </div>
     </div>
     <div class="container pb-4">
-      <footer class="bg-gray-200 py-3 rounded-b border-b border-l border-r border-gray-600 flex justify-center">
-        {# <a class="header-link mx-5 text-sm font-thin" href="/">Prev</a> #}
-        <a class="mt-4 mx-5 text-sm font-thin lg:inline-block lg:mt-0" href="/">Home</a>
-        {# <a class="header-link mx-5 text-sm font-thin" href="/">Next</a> #}
+      <footer class="bg-gray-200 pt-3 pb-1 rounded-b border border-t-0 border-gray-600 flex flex-col font-thin">
+        <div class="flex justify-center w-100 pb-3">
+          {# <a class="header-link mx-5 text-sm font-thin" href="/">Prev</a> #}
+          <a class="mt-5 mx-5 text-base lg:inline-block lg:mt-0" href="{{ '/' | url }}">Home</a>
+          {# <a class="header-link mx-5 text-sm font-thin" href="/">Next</a> #}
+        </div>
+
+        <div class="flex justify-center w-100 border-t border-gray-500 pt-1">
+          <span class="mx-5 text-xs lg:inline-block lg:mt-0 tracking-tight">&copy; Michael Van Wickle</span>
+          {# <span class="mt-4 mx-5 text-sm font-thin lg:inline-block lg:mt-0">{{ pkg.version }}</span> #}
+        </div>
       </footer>
     </div>
     <script type="module" src="{% webpackAsset 'main.js' %}"></script>
