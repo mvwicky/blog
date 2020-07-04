@@ -118,7 +118,7 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy("_headers");
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
-  eleventyConfig.addPassthroughCopy({ "src/js": "/" });
+  // eleventyConfig.addPassthroughCopy({ "src/js": "/" });
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
 
   eleventyConfig.addWatchTarget(manifestPath);

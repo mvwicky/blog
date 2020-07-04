@@ -2,7 +2,8 @@
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
 
-/sw.js
+/assets/sw.js
+  Service-Worker-Allowed: /
   cache-control: max-age=0
   cache-control: private
   cache-control: no-cache

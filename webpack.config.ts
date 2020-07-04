@@ -2,8 +2,9 @@ import * as path from "path";
 
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import TerserPlugin = require("terser-webpack-plugin");
-import webpack from "webpack";
+import webpack, { Configuration, Plugin } from "webpack";
 import ManifestPlugin from "webpack-manifest-plugin";
+import * as wb from "workbox-webpack-plugin";
 
 import * as pkg from "./package.json";
 
@@ -38,7 +39,33 @@ const relToSrc = (...args: string[]) => {
   return path.join(srcDir, ...args);
 };
 
-const config: webpack.Configuration = {
+const plugins: Plugin[] = compact([
+  new webpack.HashedModuleIdsPlugin({
+    hashDigestLength: 5,
+    hashFunction: "md5",
+  }),
+  new MiniCssExtractPlugin({
+    filename: `style.[contenthash:${hashlength}].css`,
+  }),
+  new ManifestPlugin({
+    publicPath: "/assets/",
+    filter: (fd) => !/\.woff2?$/.test(fd.path),
+  }),
+  new webpack.DefinePlugin({
+    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+  }),
+  prodOr(
+    new wb.GenerateSW({
+      swDest: "sw.js",
+      cacheId: "wherewasicaching",
+      cleanupOutdatedCaches: true,
+      maximumFileSizeToCacheInBytes: 4e6,
+    }),
+    undefined
+  ),
+]);
+
+const config: Configuration = {
   mode: prodOr("production", "development"),
   entry: pkg.config.entrypoints,
   output: {
@@ -49,22 +76,7 @@ const config: webpack.Configuration = {
     publicPath: "/assets/",
   },
   devtool: prodOr("source-map", "cheap-module-eval-source-map"),
-  plugins: [
-    new webpack.HashedModuleIdsPlugin({
-      hashDigestLength: 5,
-      hashFunction: "md5",
-    }),
-    new MiniCssExtractPlugin({
-      filename: `style.[contenthash:${hashlength}].css`,
-    }),
-    new ManifestPlugin({
-      publicPath: "/assets/",
-      filter: (fd) => !/\.woff2?$/.test(fd.path),
-    }),
-    new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-    }),
-  ],
+  plugins,
   module: {
     rules: [
       {
