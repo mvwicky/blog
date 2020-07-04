@@ -8,6 +8,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
+  "[plaintext]": {
+    "files.trimTrailingWhitespace": true
+  },
   "css.validate": false,
   "[typescript]": {
     "editor.formatOnSave": true

@@ -10,7 +10,9 @@
           "mini-css-extract-plugin": 0
         },
         "bySource": {},
-        "usedIds": [0]
+        "usedIds": [
+          0
+        ]
       }
     }
   ],
@@ -24,6 +26,9 @@
       "styles": 1
     },
     "bySource": {},
-    "usedIds": [0, 1]
+    "usedIds": [
+      0,
+      1
+    ]
   }
 }

@@ -9,33 +9,3 @@ YARN_VERSION = "1.22.4"
 command = "yarn dev"
 targetPort = 8080
 port = 8081
-
-[[headers]]
-for = "/*"
-[headers.value]
-  X-Frame-Options = "DENY"
-  X-XSS-Protection = "1; mode=block"
-
-[[headers]]
-for = "/assets/fonts/*"
-[headers.values]
-  cache-control = '''
-  max-age=86400,
-  public,
-  immutable'''
-
-[[headers]]
-for = "/assets/*.js"
-[headers.values]
-  cache-control = '''
-  max-age=86400,
-  public,
-  immutable'''
-
-[[headers]]
-for = "/assets/*.css"
-[headers.values]
-  cache-control = '''
-  max-age=86400,
-  public,
-  immutable'''

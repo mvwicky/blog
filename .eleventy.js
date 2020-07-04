@@ -116,7 +116,7 @@ module.exports = function (eleventyConfig) {
   const md = configureMarkdown();
   eleventyConfig.setLibrary("md", md);
 
-  eleventyConfig.addPassthroughCopy("netlify.toml");
+  eleventyConfig.addPassthroughCopy("_headers");
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ "src/js": "/" });
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
