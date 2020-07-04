@@ -36,7 +36,7 @@ function ms(n) {
 
 const config = {
   purge: {
-    content: ["src/_site/**/*.njk", "src/_site/**/*.md"],
+    content: ["site/**/*.njk", "site/**/*.md"],
   },
   theme: {
     extend: {},
