@@ -50,11 +50,15 @@
       }
     }
   },
-  "ignorePatterns": ["cli/**/*"],
   "overrides": [
     {
       "files": ["tailwind.config.js", "postcss.config.js"],
       "env": { "node": true, "es6": true }
+    },
+    { "files": ["webpack.config.ts"], "env": { "node": true } },
+    {
+      "files": ["src/js/sw.js"],
+      "env": { "serviceworker": true, "browser": false }
     }
   ]
 }
