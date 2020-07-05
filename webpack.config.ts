@@ -1,10 +1,8 @@
 import * as path from "path";
 
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import TerserPlugin = require("terser-webpack-plugin");
 import webpack, { Configuration, Plugin } from "webpack";
 import ManifestPlugin from "webpack-manifest-plugin";
-import * as wb from "workbox-webpack-plugin";
 
 import * as pkg from "./package.json";
 
@@ -54,15 +52,6 @@ const plugins: Plugin[] = compact([
   new webpack.DefinePlugin({
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
   }),
-  prodOr(
-    new wb.GenerateSW({
-      swDest: "sw.js",
-      cacheId: "wherewasicaching",
-      cleanupOutdatedCaches: true,
-      maximumFileSizeToCacheInBytes: 4e6,
-    }),
-    undefined
-  ),
 ]);
 
 const config: Configuration = {
@@ -162,29 +151,7 @@ const config: Configuration = {
   },
   recordsPath: relToSrc(`webpack-records-${prodOr("prod", "dev")}.json`),
   node: false,
-  optimization: prodOr(
-    {
-      minimizer: [
-        new TerserPlugin({
-          test: /\.m?(j|t)s(\?.*)?$/i,
-          cache: getCacheDir("terser"),
-          parallel: true,
-          sourceMap: true,
-          terserOptions: {
-            ecma: 8,
-            module: true,
-            compress: {
-              passes: 2,
-              drop_debugger: true,
-              drop_console: true,
-              module: true,
-            },
-          },
-        }),
-      ],
-    },
-    undefined
-  ),
 };
 
+export { getCacheDir };
 export default config;

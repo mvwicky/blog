@@ -8,6 +8,7 @@
 @import "tailwindcss/components";
 @import "./components/footnotes.css";
 @import "./components/forms.css";
+@import "./components/links.css";
 @import "./components/lists.css";
 @import "./layout/header.css";
 

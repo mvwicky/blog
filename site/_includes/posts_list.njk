@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<div class="grid-posts-list px-2 text-lg leading-normal mt-3 pt-3 row-gap-2 col-gap-3">
+<div class="grid-posts-list px-2 text-lg leading-normal mt-3 pt-3 row-gap-2 col-gap-3" id="posts-list">
 {% for post in collections.post | reverse -%}
   {% if env.unpublished or post.data.published %}
     <span class="posts-list-bullet" data-post="{{ loop.index0 }}">•</span>

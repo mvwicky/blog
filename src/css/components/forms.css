@@ -3,7 +3,7 @@
   @apply block appearance-none w-full;
   @apply border border-gray-700 rounded;
   @apply text-gray-700;
-  @apply py-2 px-3 pr-8;
+  @apply py-1 px-3 pr-8;
   @apply leading-tight;
 }
 

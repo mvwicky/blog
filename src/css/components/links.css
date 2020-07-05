@@ -1,0 +1,47 @@
+.header-link,
+.footer-link {
+  @apply block leading-4 mt-4 mr-5;
+}
+
+.footer-link {
+  @apply mt-5 mx-5 text-base underline rounded p-1 tracking-tight;
+}
+
+.footer-link:hover {
+  @apply text-blue-800 bg-gray-300;
+}
+
+.header-link:first-child,
+.header-link:last-child {
+  @apply mr-0;
+}
+
+.boxed-header-link {
+  @apply px-4 py-3 border rounded border-white;
+}
+
+.boxed-header-link:hover {
+  @apply bg-blue-800 text-blue-100 border-indigo-200;
+}
+
+@screen lg {
+  .header-link,
+  .footer-link {
+    @apply inline-block mt-0;
+  }
+  .footer-link {
+    @apply mx-0;
+  }
+}
+
+.post-header {
+  @apply pl-4 mb-4;
+}
+
+.link-title {
+  @apply tracking-tight;
+}
+
+.link-author {
+  @apply mb-2 tracking-tight;
+}

@@ -2,10 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>{{ title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />
-    <title>{{ title }}</title>
 
     <script>
       if ("serviceWorker" in navigator) {
@@ -19,6 +18,8 @@
           });
       }
     </script>
+
+    <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />
   </head>
   <body>
     <div class="container pt-2">
@@ -51,16 +52,15 @@
       </div>
     </div>
     <div class="container pb-4">
-      <footer class="bg-gray-200 pt-3 pb-1 rounded-b border border-t-0 border-gray-600 flex flex-col font-thin">
-        <div class="flex justify-center w-100 pb-3">
+      <footer class="bg-gray-200 pt-2 pb-1 rounded-b border border-t-0 border-gray-600 flex flex-col font-thin">
+        <div class="flex justify-center w-100 pb-2">
           {# <a class="header-link mx-5 text-sm font-thin" href="/">Prev</a> #}
-          <a class="mt-5 mx-5 text-base lg:inline-block lg:mt-0" href="{{ '/' | url }}">Home</a>
+          <a class="footer-link" href="{{ '/' | url }}">Home</a>
           {# <a class="header-link mx-5 text-sm font-thin" href="/">Next</a> #}
         </div>
 
         <div class="flex justify-center w-100 border-t border-gray-500 pt-1">
-          <span class="mx-5 text-xs lg:inline-block lg:mt-0 tracking-tight">&copy; Michael Van Wickle</span>
-          {# <span class="mt-4 mx-5 text-sm font-thin lg:inline-block lg:mt-0">{{ pkg.version }}</span> #}
+          <span class="mx-5 text-xs lg:inline-block lg:mt-0 lg:mx-0 tracking-tight">&copy; Michael Van Wickle</span>
         </div>
       </footer>
     </div>

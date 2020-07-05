@@ -2,38 +2,3 @@
   @apply flex flex-row items-center justify-start flex-wrap;
   @apply bg-blue-300 py-6 px-4 rounded-t mt-2 border border-b-0 border-gray-600;
 }
-
-.header-link {
-  @apply block leading-4 mt-4 mr-5;
-}
-
-.header-link:last-child,
-.header-link:first-child {
-  @apply mr-0;
-}
-
-.boxed-header-link {
-  @apply px-4 py-3 border rounded border-white;
-}
-
-.boxed-header-link:hover {
-  @apply bg-blue-800 text-blue-100 border-indigo-200;
-}
-
-@screen lg {
-  .header-link {
-    @apply inline-block mt-0;
-  }
-}
-
-.post-header {
-  @apply pl-4 mb-4;
-}
-
-.link-title {
-  @apply tracking-tight;
-}
-
-.link-author {
-  @apply mb-2 tracking-tight;
-}

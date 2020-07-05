@@ -2,6 +2,6 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "files": ["config/index.d.ts", "webpack.config.ts"],
+  "files": ["config/index.d.ts", "webpack.config.ts", "webpack.prod.ts"],
   "extends": "./config/tsconfig.base.json"
 }

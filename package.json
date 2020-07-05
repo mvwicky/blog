@@ -7,7 +7,7 @@
   "author": "Michael Van Wickle <mvanwickle@gmail.com>",
   "scripts": {
     "build": "npm-run-all clean build:assets build:site",
-    "build:assets": "cross-env NODE_ENV=production webpack -p",
+    "build:assets": "cross-env NODE_ENV=production webpack --config webpack.prod.ts -p",
     "build:dev": "npm-run-all clean webpack:assets dev:site",
     "build:site": "cross-env NODE_ENV=production eleventy",
     "clean": "trash ./dist",
@@ -15,7 +15,7 @@
     "dev:assets": "yarn run webpack:assets --watch",
     "dev:serve": "cross-env NODE_ENV=development eleventy --serve",
     "lint": "npm-run-all --parallel lint:*",
-    "lint:eslint": "eslint --cache --cache-location .cache/.eslintcache 'src/ts/**/*.ts' 'src/js/*.js'",
+    "lint:eslint": "eslint --cache --cache-location .cache/.eslintcache 'src/ts/**/*.ts'",
     "lint:styles": "stylelint --cache --cache-location .cache/.stylelintcache 'src/css/**/*.css'",
     "webpack:assets": "cross-env NODE_ENV=development webpack --mode=development"
   },

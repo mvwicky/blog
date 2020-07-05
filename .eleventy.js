@@ -13,15 +13,19 @@ const pkg = require("./package.json");
 
 const manifestPath = path.resolve(__dirname, "dist", "assets", "manifest.json");
 
+/** @type {() => Record<string, string | undefined>} */
 const manifest = () => {
   const cts = fs.readFileSync(manifestPath, { encoding: "utf-8" });
-  return JSON.parse(cts);
+  const m = JSON.parse(cts);
+  return m;
 };
 
 const toDashRe = /(?:\s+)|—/g;
 const remRe = /[—,.]/g;
 
 /**
+ * A modified slug.
+ *
  * @param {string} s - a string
  * @returns {string}
  */
@@ -54,11 +58,8 @@ function configureMarkdown() {
     .use(markdownItAttrs, {});
 }
 
-/**
- * @param {Date} date - a date
- */
+/** @param {Date} date - a date */
 function linkDate(date) {
-  // return DateTime.fromJSDate(jsDate).toFormat("yyyy/LL/dd")
   const year = date.getUTCFullYear();
   const month = date.getUTCMonth() + 1;
   const day = date.getUTCDate();
@@ -67,29 +68,23 @@ function linkDate(date) {
   return `${year}/${mz}${month}/${dz}${day}`;
 }
 
-/**
- * @param {Date} date - a date
- */
+/** @param {Date} date - a date */
 function readableDate(date) {
   return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_FULL);
 }
 
-/**
- * @param {Date} date - a date
- */
+/** @param {Date} date - a date */
 function htmlDateString(date) {
   return DateTime.fromJSDate(date).toFormat("yyyy-LL-dd");
 }
 
-/**
- * @param {string} name
- */
+/** @param {string} name */
 function webpackAsset(name) {
-  const _manifest = manifest();
-  if (!_manifest[name]) {
+  const asset = manifest()[name];
+  if (!asset) {
     throw new Error(`The asset ${name} does not exist in ${manifestPath}`);
   }
-  return _manifest[name];
+  return asset;
 }
 
 module.exports = function (eleventyConfig) {
@@ -118,7 +113,6 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy("_headers");
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
-  // eleventyConfig.addPassthroughCopy({ "src/js": "/" });
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
 
   eleventyConfig.addWatchTarget(manifestPath);
