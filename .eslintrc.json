@@ -52,13 +52,19 @@
   },
   "overrides": [
     {
-      "files": ["tailwind.config.js", "postcss.config.js"],
-      "env": { "node": true, "es6": true }
+      "files": [
+        "tailwind.config.js",
+        "postcss.config.js",
+        ".eleventy.js",
+        "src/**/*.js"
+      ],
+      "env": { "node": true, "es6": true, "browser": false },
+      "parser": "espree"
     },
-    { "files": ["webpack.config.ts"], "env": { "node": true } },
     {
-      "files": ["src/js/sw.js"],
-      "env": { "serviceworker": true, "browser": false }
+      "files": ["webpack.config.ts", "webpack.prod.ts", "config/index.ts"],
+      "env": { "node": true }
     }
-  ]
+  ],
+  "ignorePatterns": ["node_modules/**/*", "!.eleventy.js"]
 }

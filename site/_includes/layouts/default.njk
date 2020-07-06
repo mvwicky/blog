@@ -38,29 +38,37 @@
         <a href="{{ '/aboutme/' | url }}" class="header-link">
           About Me
         </a>
-        <a
-          href="https://github.com/mvwicky"
-          class="header-link boxed-header-link ml-auto"
-        >
+        <a href="https://github.com/mvwicky" class="header-link boxed-header-link ml-auto">
           Github
         </a>
       </nav>
     </div>
     <div class="container">
-      <div class="bg-blue-100 bg-opacity-75 py-6 border border-gray-600 min-h-screen">
+      <div class="bg-blue-100 bg-opacity-75 pt-4 pb-6 border border-gray-600 min-h-screen">
+        {% block content %}
         {{ content | safe }}
+        {% endblock %}
       </div>
     </div>
     <div class="container pb-4">
-      <footer class="bg-gray-200 pt-2 pb-1 rounded-b border border-t-0 border-gray-600 flex flex-col font-thin">
-        <div class="flex justify-center w-100 pb-2">
-          {# <a class="header-link mx-5 text-sm font-thin" href="/">Prev</a> #}
+      <footer class="footer">
+        <div class="flex justify-center pb-2 w-full px-56">
+          {% block footerprev %}{% endblock %}
+          {% if page.url != "/" -%}
           <a class="footer-link" href="{{ '/' | url }}">Home</a>
-          {# <a class="header-link mx-5 text-sm font-thin" href="/">Next</a> #}
+          {%- else -%}
+          <span class="footer-link invisible"></span>
+          {%- endif %}
+          {% block footernext %}{% endblock %}
         </div>
 
-        <div class="flex justify-center w-100 border-t border-gray-500 pt-1">
-          <span class="mx-5 text-xs lg:inline-block lg:mt-0 lg:mx-0 tracking-tight">&copy; Michael Van Wickle</span>
+        <div class="flex justify-center w-full border-t border-gray-500 pt-1">
+          <span class="mx-5 text-xs lg:inline-block lg:mt-0 lg:mx-0 tracking-tight"
+            >&copy; Michael Van Wickle</span
+          >
+        </div>
+        <div class="flex justify-center w-full border-gray-500">
+          <span class="mx-5 text-xs lg:inline-block lg:mt-0 lg:mx-0 tracking-wide">v{{ pkg.version }}</span>
         </div>
       </footer>
     </div>

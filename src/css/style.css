@@ -10,6 +10,7 @@
 @import "./components/forms.css";
 @import "./components/links.css";
 @import "./components/lists.css";
+@import "./layout/footer.css";
 @import "./layout/header.css";
 
 /* purgecss end ignore */

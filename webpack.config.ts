@@ -1,55 +1,58 @@
 import * as path from "path";
 
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import webpack, { Configuration, Plugin } from "webpack";
+import type { Configuration, Plugin, RuleSetLoader } from "webpack";
+import { DefinePlugin, HashedModuleIdsPlugin } from "webpack";
 import ManifestPlugin from "webpack-manifest-plugin";
 
+import type { CacheLoaderRule } from "./config";
+import { compact, envDefined } from "./config";
 import * as pkg from "./package.json";
 
 const prod = process.env.NODE_ENV === "production";
-
-function envDefined(key: string): boolean {
-  return process.env[key] !== undefined;
-}
-
-function compact<T>(arr: (T | undefined)[]): T[] {
-  return arr.filter((e) => e !== undefined && typeof e !== "undefined") as T[];
-}
 
 function prodOr<P = any, D = any>(pVal: P, dVal: D): P | D {
   return prod ? pVal : dVal;
 }
 
 const cacheBase = path.resolve(__dirname, ".cache", "build-cache");
+const srcDir = path.resolve(__dirname, "src");
+const outPath = path.resolve(__dirname, "dist", "assets");
+
+const hashFn = prodOr("sha256", "md5");
+
+const hashLen = prodOr(32, 10);
+const fontHash = `${hashFn}:hash:hex:${hashLen}`;
+const fontName = `[name].[${fontHash}].[ext]`;
+
+const relToSrc = (...args: string[]) => path.join(srcDir, ...args);
 
 function getCacheDir(name: string): string {
   return path.join(cacheBase, prodOr("prod", "dev"), name);
 }
 
-const hashFn = prodOr("sha256", "md5");
-const hashlength = prodOr(32, 10);
-const fontHash = `${hashFn}:hash:hex:${hashlength}`;
-const fontName = `[name].[${fontHash}].[ext]`;
-const srcDir = path.resolve(__dirname, "src");
-const outPath = path.resolve(__dirname, "dist", "assets");
-
-const relToSrc = (...args: string[]) => {
-  return path.join(srcDir, ...args);
-};
+function getCacheLoader(name: string): CacheLoaderRule {
+  return {
+    loader: "cache-loader",
+    options: {
+      cacheDirectory: getCacheDir(name),
+    },
+  };
+}
 
 const plugins: Plugin[] = compact([
-  new webpack.HashedModuleIdsPlugin({
+  new HashedModuleIdsPlugin({
     hashDigestLength: 5,
     hashFunction: "md5",
   }),
   new MiniCssExtractPlugin({
-    filename: `style.[contenthash:${hashlength}].css`,
+    filename: prodOr(`style.[contenthash:${hashLen}].css`, "style.css"),
   }),
   new ManifestPlugin({
     publicPath: "/assets/",
     filter: (fd) => !/\.woff2?$/.test(fd.path),
   }),
-  new webpack.DefinePlugin({
+  new DefinePlugin({
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
   }),
 ]);
@@ -59,9 +62,9 @@ const config: Configuration = {
   entry: pkg.config.entrypoints,
   output: {
     path: outPath,
-    filename: `[name].[contenthash:${hashlength}].js`,
-    hashFunction: "sha256",
-    hashDigestLength: 64,
+    filename: prodOr(`[name].[contenthash].js`, "[name].js"),
+    hashFunction: hashFn,
+    hashDigestLength: 20,
     publicPath: "/assets/",
   },
   devtool: prodOr("source-map", "cheap-module-eval-source-map"),
@@ -73,12 +76,7 @@ const config: Configuration = {
         include: [relToSrc("ts")],
         exclude: [/node_modules/],
         use: [
-          {
-            loader: "cache-loader",
-            options: {
-              cacheDirectory: getCacheDir("babel-loader"),
-            },
-          },
+          getCacheLoader("babel-loader"),
           {
             loader: "babel-loader",
             options: {
@@ -107,12 +105,7 @@ const config: Configuration = {
         include: [relToSrc("css")],
         use: [
           { loader: MiniCssExtractPlugin.loader },
-          {
-            loader: "cache-loader",
-            options: {
-              cacheDirectory: getCacheDir("css-loader"),
-            },
-          },
+          getCacheLoader("css-loader"),
           { loader: "css-loader" },
           { loader: "postcss-loader" },
         ],

@@ -4,7 +4,8 @@
     {
       "files": "*.njk",
       "options": {
-        "parser": "html"
+        "parser": "html",
+        "printWidth": 110
       }
     }
   ]

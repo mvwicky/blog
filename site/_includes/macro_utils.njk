@@ -1,3 +1,7 @@
 {% macro footsep() %}
 <hr class="footsep mt-8 mb-4 border-none border-t h-0 overflow-visible text-gray-400">
 {% endmacro %}
+
+{% macro footerlink(href, text) -%}
+<a class="footer-link" href="{{ href }}">{{ text }}</a>
+{%- endmacro %}

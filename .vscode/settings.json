@@ -20,5 +20,6 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.stylelint": true
     }
-  }
+  },
+  "cSpell.words": ["wickle"]
 }

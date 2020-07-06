@@ -5,11 +5,19 @@
 
 const fs = require("fs");
 const path = require("path");
+const util = require("util");
 
 const yaml = require("js-yaml");
 const { DateTime, Settings } = require("luxon");
 
 const pkg = require("./package.json");
+
+const prod = process.env.NODE_ENV === "production";
+
+const inspectArgs = {
+  compact: 1,
+  getters: false,
+};
 
 const manifestPath = path.resolve(__dirname, "dist", "assets", "manifest.json");
 
@@ -87,23 +95,33 @@ function webpackAsset(name) {
   return asset;
 }
 
+/**
+ * @param {{input: string, includes: string}} dirs - 1tty dir config value
+ * @returns {[string, string][]} - Alias names and their relative paths
+ */
+function layoutAliases(dirs) {
+  const includesDir = path.resolve(__dirname, dirs.input, dirs.includes);
+  const layoutsDir = path.join(includesDir, "layouts");
+  const layoutFiles = fs.readdirSync(layoutsDir, { encoding: "utf-8" });
+  const aliases = layoutFiles
+    .filter((name) => /\.njk$/.test(name))
+    .map((name) => {
+      const fullPath = path.join(layoutsDir, name);
+      const relPath = path.relative(includesDir, fullPath);
+      const baseName = path.basename(fullPath, ".njk");
+      return [baseName, relPath];
+    });
+  return aliases;
+}
+
 module.exports = function (eleventyConfig) {
   Settings.defaultZoneName = "utc";
 
   const pkgCfg = pkg.config["11ty"];
 
-  const inputDir = pkgCfg.dir.input;
-  const includesDir = path.resolve(__dirname, inputDir, pkgCfg.dir.includes);
-  const layoutsDir = path.join(includesDir, "layouts");
-  const layoutFiles = fs.readdirSync(layoutsDir, { encoding: "utf-8" });
-  layoutFiles.forEach((name) => {
-    if (/\.njk$/.test(name)) {
-      const fullPath = path.join(layoutsDir, name);
-      const relPath = path.relative(includesDir, fullPath);
-      const baseName = path.basename(fullPath, ".njk");
-      eleventyConfig.addLayoutAlias(baseName, relPath);
-    }
-  });
+  layoutAliases(pkgCfg.dir).forEach(([baseName, relPath]) =>
+    eleventyConfig.addLayoutAlias(baseName, relPath)
+  );
 
   eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addDataExtension("yaml", (cts) => yaml.safeLoad(cts));
@@ -131,6 +149,14 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("htmlDateString", htmlDateString);
   eleventyConfig.addFilter("extraSlug", extraSlug);
   eleventyConfig.addFilter("markdownify", (s) => md.render(s));
+  eleventyConfig.addFilter("inspect", (obj) => util.inspect(obj, inspectArgs));
+  eleventyConfig.addFilter("keys", (obj) => Object.keys(obj));
+
+  eleventyConfig.addCollection("published", (collectionApi) => {
+    return collectionApi.getFilteredByTag("post").filter((page) => {
+      return page.data.published;
+    });
+  });
 
   return pkgCfg;
 };

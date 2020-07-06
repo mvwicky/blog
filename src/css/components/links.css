@@ -1,10 +1,11 @@
-.header-link,
-.footer-link {
+.header-link {
   @apply block leading-4 mt-4 mr-5;
 }
 
 .footer-link {
-  @apply mt-5 mx-5 text-base underline rounded p-1 tracking-tight;
+  @apply block leading-4 mt-5 mx-5 text-base underline rounded p-1 tracking-tight text-center;
+
+  flex-basis: 33%;
 }
 
 .footer-link:hover {
@@ -32,10 +33,6 @@
   .footer-link {
     @apply mx-0;
   }
-}
-
-.post-header {
-  @apply pl-4 mb-4;
 }
 
 .link-title {
