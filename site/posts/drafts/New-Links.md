@@ -1,0 +1,33 @@
+---
+# cSpell:disable
+title: A New Links Post
+description: A New Links Post
+tags:
+  - links
+links:
+  capitalb:
+    title: Many newsrooms are now capitalizing the B in Black.
+    author: Kristen Hare
+    href: "https://www.poynter.org/reporting-editing/2020/many-newsrooms-are-now-capitalizing-the-b-in-black-here-are-some-of-the-people-who-made-that-happen/"
+  uighurs:
+    title: China cuts Uighur births with IUDs, abortion, sterilization
+    author: The Associated Press
+    href: "https://apnews.com/269b3de1af34e17c1941a514f78d764c"
+  ntsb:
+    title: The 3 Weeks That Changed Everything
+    author: James Fallows
+    href: "https://www.theatlantic.com/politics/archive/2020/06/how-white-house-coronavirus-response-went-wrong/613591/"
+  police:
+    title: What the police really believe
+    author: Zack Beauchamp
+    href: "https://www.vox.com/policy-and-politics/2020/7/7/21293259/police-racism-violence-ideology-george-floyd"
+# cSpell:enable
+---
+
+{% from "link_macro.njk" import link_heading %}
+
+{{ link_heading(links.capitalb) }}
+
+{{ link_heading(links.uighurs) }}
+
+{{ link_heading(links.ntsb) }}

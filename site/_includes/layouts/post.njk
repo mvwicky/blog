@@ -8,7 +8,6 @@
 
     <!-- <small>{{ tags }}</small> -->
   </header>
-
   <article class="content">
     {{ content  | safe }}
   </article>
@@ -17,7 +16,7 @@
 {%- block footerprev -%}
   {%- set prevPage = collections.published | getPreviousCollectionItem(page) -%}
   {%- if prevPage -%}
-    <a href="{{ prevPage.url }}" class="footer-link">Previous</a>
+    <a href="{{ prevPage.url }}" class="footer-link" title="{{ prevPage.data.description }}">Previous</a>
   {% else %}
     <span class="footer-link invisible"></span>
   {%- endif -%}
@@ -26,7 +25,7 @@
 {%- block footernext -%}
   {%- set nextPage = collections.published | getNextCollectionItem(page) -%}
   {%- if nextPage -%}
-    <a href="{{ nextPage.url }}" class="footer-link">Next</a>
+    <a href="{{ nextPage.url }}" class="footer-link" title="{{ nextPage.data.description }}">Next</a>
   {% else %}
     <span class="footer-link invisible"></span>
   {%- endif -%}

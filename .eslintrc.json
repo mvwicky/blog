@@ -62,9 +62,10 @@
       "parser": "espree"
     },
     {
-      "files": ["webpack.config.ts", "webpack.prod.ts", "config/index.ts"],
+      "files": ["webpack.*.ts", "config/*.ts", "config/*.js"],
       "env": { "node": true }
     }
   ],
-  "ignorePatterns": ["node_modules/**/*", "!.eleventy.js"]
+  "ignorePatterns": ["node_modules/**/*", "!.eleventy.js"],
+  "root": true
 }

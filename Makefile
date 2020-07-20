@@ -11,11 +11,12 @@ WEBPACK=$(NODE_BIN)/webpack
 ELEVENTY=$(NODE_BIN)/eleventy
 TSC=$(NODE_BIN)/tsc
 TRASH=$(NODE_BIN)/trash
+PKG=package.json
 
 YARN_VERSION_ARGS=--no-git-tag-version
-OUTPUT_DIR=dist
+OUTPUT_DIR=$(shell jq -r .config.eleventy.dir.output $(PKG))
 
-VERSION=$(shell jq -r .version package.json)
+VERSION=$(shell jq -r .version $(PKG))
 VERSION_TAG=v$(VERSION)
 
 .PHONY: prod-assets dev-assets clean-cache clean-tsbuild clean version version-tag build \
@@ -27,12 +28,16 @@ build: clean-dist prod-assets
 	$(ELEVENTY)
 
 prod-assets: export NODE_ENV=production
-prod-assets:
+prod-assets: clean-dist
 	$(NODE_BIN)/webpack --config webpack.prod.ts -p
 
 dev-assets: export NODE_ENV=development
 dev-assets: clean-dist
 	$(WEBPACK) --mode=development
+
+dev: clean-dist dev-assets
+dev:
+	$(ELEVENTY)
 
 ts-web:
 	$(TSC) -p src/ts/tsconfig.json
@@ -49,7 +54,9 @@ clean-tsbuild: trash-dir
 trash-dir:
 	$(TRASH) $(TRASH_DIR)
 
-clean: clean-cache clean-tsbuild clean-dist
+clean: clean-cache
+clean: clean-tsbuild
+clean: clean-dist
 
 bump-major: YARN_VERSION_ARGS+=--major
 bump-major: bump
@@ -67,10 +74,6 @@ bump-prerelease: YARN_VERSION_ARGS+=--prerelease
 bump-prerelease: bump
 
 bump:
-	$(YARN) version $(YARN_VERSION_ARGS)
-
-
-yarn-version:
 	$(YARN) version $(YARN_VERSION_ARGS)
 
 version:

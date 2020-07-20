@@ -4255,6 +4255,11 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
+esbuild@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.6.2.tgz#8151be0d8783a778f85148cef46ecdf6aad08260"
+  integrity sha512-l4p1jJwLuRr+UMgCkdgQrSaU1fSmjRgZgx1ELjV+doGS3rLtzdCR17IfLxWEdGbtpYdrvvvRVlWYsYnFCcNaLw==
+
 escalade@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.0.1.tgz#52568a77443f6927cd0ab9c73129137533c965ed"

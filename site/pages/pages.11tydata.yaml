@@ -1,5 +1,5 @@
 ---
 layout: miscpages
-permalink: "/{{ page.fileSlug | lower }}/"
+permalink: "/page/{{ page.fileSlug | lower }}/"
 tags:
   - miscpages
