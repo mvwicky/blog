@@ -1,12 +1,12 @@
 import * as path from "path";
 
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import type { Configuration, Plugin, RuleSetLoader } from "webpack";
+import type { Configuration, Entry, Plugin } from "webpack";
 import { DefinePlugin, HashedModuleIdsPlugin } from "webpack";
 import ManifestPlugin from "webpack-manifest-plugin";
 
 import type { CacheLoaderRule } from "./config";
-import { compact, envDefined } from "./config";
+import { envDefined } from "./config";
 import * as pkg from "./package.json";
 
 const prod = process.env.NODE_ENV === "production";
@@ -15,9 +15,10 @@ function prodOr<P = any, D = any>(pVal: P, dVal: D): P | D {
   return prod ? pVal : dVal;
 }
 
-const cacheBase = path.resolve(__dirname, ".cache", "build-cache");
-const srcDir = path.resolve(__dirname, "src");
-const outPath = path.resolve(__dirname, "dist", "assets");
+const rootDir = __dirname;
+const cacheBase = path.resolve(rootDir, ".cache", "build-cache");
+const srcDir = path.resolve(rootDir, "src");
+const outPath = path.resolve(rootDir, "dist", "assets");
 
 const hashFn = prodOr("sha256", "md5");
 
@@ -25,6 +26,7 @@ const hashLen = prodOr(32, 10);
 const fontHash = `${hashFn}:hash:hex:${hashLen}`;
 const fontName = `[name].[${fontHash}].[ext]`;
 
+const relToRoot = (...args: string[]) => path.resolve(rootDir, ...args);
 const relToSrc = (...args: string[]) => path.join(srcDir, ...args);
 
 function getCacheDir(name: string): string {
@@ -34,13 +36,11 @@ function getCacheDir(name: string): string {
 function getCacheLoader(name: string): CacheLoaderRule {
   return {
     loader: "cache-loader",
-    options: {
-      cacheDirectory: getCacheDir(name),
-    },
+    options: { cacheDirectory: getCacheDir(name) },
   };
 }
 
-const plugins: Plugin[] = compact([
+const plugins: Plugin[] = [
   new HashedModuleIdsPlugin({
     hashDigestLength: 5,
     hashFunction: "md5",
@@ -55,11 +55,17 @@ const plugins: Plugin[] = compact([
   new DefinePlugin({
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
   }),
-]);
+];
+
+function getEntrypoints(): Entry {
+  const entrypoints = Object.entries(pkg.config.entrypoints);
+  const entryEntries = entrypoints.map(([name, loc]) => [name, relToRoot(loc)]);
+  return Object.fromEntries(entryEntries);
+}
 
 const config: Configuration = {
   mode: prodOr("production", "development"),
-  entry: pkg.config.entrypoints,
+  entry: getEntrypoints(),
   output: {
     path: outPath,
     filename: prodOr(`[name].[contenthash].js`, "[name].js"),
@@ -144,6 +150,7 @@ const config: Configuration = {
   },
   recordsPath: relToSrc(`webpack-records-${prodOr("prod", "dev")}.json`),
   node: false,
+  optimization: {},
 };
 
 export { getCacheDir };

@@ -25,7 +25,10 @@
       "main": 0,
       "styles": 1
     },
-    "bySource": {},
+    "bySource": {
+      "0 main": 0,
+      "0 styles": 1
+    },
     "usedIds": [
       0,
       1
@@ -41,7 +44,9 @@
         "byName": {
           "mini-css-extract-plugin": 0
         },
-        "bySource": {},
+        "bySource": {
+          "0 mini-css-extract-plugin": 0
+        },
         "usedIds": [
           0
         ]

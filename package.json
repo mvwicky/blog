@@ -1,6 +1,6 @@
 {
   "name": "blog",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "A Blog",
   "repository": "https://github.com/mvwicky/blog.git",
   "license": "MIT",
@@ -16,7 +16,8 @@
     "lint": "npm-run-all --parallel lint:*",
     "lint:eslint": "eslint --cache --cache-location .cache/.eslintcache '**/*.ts' 'site/**/*.js' '*.js'",
     "lint:styles": "stylelint --cache --cache-location .cache/.stylelintcache 'src/css/**/*.css'",
-    "webpack:assets": "webpack --mode=development"
+    "webpack:assets": "webpack --mode=development",
+    "esb": "ts-node config/build.ts"
   },
   "husky": {
     "hooks": {
@@ -42,8 +43,8 @@
       ]
     },
     "entrypoints": {
-      "main": "./src/ts/main.ts",
-      "styles": "./src/css/style.css"
+      "main": "src/ts/main.ts",
+      "styles": "src/css/style.css"
     }
   },
   "devDependencies": {
@@ -56,22 +57,16 @@
     "@types/terser-webpack-plugin": "^3.0.0",
     "@types/webpack-manifest-plugin": "^2.1.0",
     "@types/workbox-webpack-plugin": "^5.1.1",
-    "@typescript-eslint/eslint-plugin": "^3.4.0",
-    "@typescript-eslint/parser": "^3.4.0",
     "autoprefixer": "^9.7.6",
     "babel-loader": "^8.1.0",
     "cache-loader": "^4.1.0",
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
-    "css-loader": "^3.5.3",
+    "css-loader": "^4.0.0",
     "cssnano": "^4.1.10",
     "esbuild": "^0.6.2",
     "eslint": "^7.3.1",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-import-resolver-typescript": "^2.0.0",
-    "eslint-import-resolver-webpack": "^0.12.1",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-config-wherewasigoing": "file:local_modules/eslint-config-wherewasigoing",
     "file-loader": "^6.0.0",
     "husky": "^4.2.5",
     "js-yaml": "^3.13.1",

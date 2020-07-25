@@ -21,5 +21,12 @@
       "source.fixAll.stylelint": true
     }
   },
-  "cSpell.words": ["wickle"]
+  "cSpell.words": ["wickle"],
+  "eslint.enable": true,
+  "json.schemas": [
+    {
+      "fileMatch": ["local_modules/eslint-config-wherewasigoing/config.json"],
+      "url": "https://json.schemastore.org/eslintrc"
+    }
+  ]
 }

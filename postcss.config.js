@@ -9,4 +9,4 @@ if (prod) {
   plugins.push(cssnano({ preset: "default" }));
 }
 
-module.exports = { plugins };
+module.exports = { plugins, map: { inline: false } };

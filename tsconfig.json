@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "lib": ["es2020"]
   },
-  "files": ["config/index.ts", "webpack.config.ts", "webpack.prod.ts"],
+  "files": ["webpack.config.ts", "webpack.prod.ts"],
+  "include": ["config/*.ts"],
+  "exclude": ["src/**", "node_modules/**"],
   "extends": "./config/tsconfig.base.json"
 }

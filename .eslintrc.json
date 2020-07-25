@@ -1,12 +1,6 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended",
-    "plugin:import/recommended",
-    "plugin:import/typescript"
-  ],
+  "extends": "wherewasigoing",
   "rules": {
-    "no-unused-vars": 0,
     "sort-imports": [
       "error",
       {
@@ -28,11 +22,8 @@
         ],
         "newlines-between": "always"
       }
-    ],
-    "prettier/prettier": "error"
+    ]
   },
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier", "import"],
   "env": { "browser": true, "es6": true },
   "settings": {
     "import/cache": { "lifetime": 60 },
@@ -64,6 +55,10 @@
     {
       "files": ["webpack.*.ts", "config/*.ts", "config/*.js"],
       "env": { "node": true }
+    },
+    {
+      "files": ["config/env.js", "local_modules/**/*.js"],
+      "env": { "node": true, "browser": false }
     }
   ],
   "ignorePatterns": ["node_modules/**/*", "!.eleventy.js"],

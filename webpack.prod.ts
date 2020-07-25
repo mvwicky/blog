@@ -36,18 +36,12 @@ const sw = new wb.GenerateSW({
     {
       urlPattern: /\/blog\//,
       handler: "StaleWhileRevalidate",
-      options: {
-        cacheName: "blog-posts",
-        ...runtimeOpts,
-      },
+      options: { cacheName: "blog-posts", ...runtimeOpts },
     },
     {
       urlPattern: /\/pages\//,
       handler: "StaleWhileRevalidate",
-      options: {
-        cacheName: "blog-pages",
-        ...runtimeOpts,
-      },
+      options: { cacheName: "blog-pages", ...runtimeOpts },
     },
   ],
 });

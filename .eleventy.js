@@ -12,24 +12,19 @@ const { DateTime, Settings } = require("luxon");
 
 const pkg = require("./package.json");
 
-const prod = process.env.NODE_ENV === "production";
+// const prod = process.env.NODE_ENV === "production";
 
-const inspectArgs = {
-  compact: 1,
-  getters: false,
-};
-
-const manifestPath = path.resolve(__dirname, "dist", "assets", "manifest.json");
+const INSPECT_ARGS = { compact: 1, getters: false };
+const MANIFEST = path.resolve(__dirname, "dist", "assets", "manifest.json");
+const TO_DASH_RE = /(?:\s+)|—/g;
+const REM_RE = /[—,.]/g;
 
 /** @returns {Record<string, string | undefined>} */
 function manifest() {
-  const cts = fs.readFileSync(manifestPath, { encoding: "utf-8" });
+  const cts = fs.readFileSync(MANIFEST, { encoding: "utf-8" });
   const m = JSON.parse(cts);
   return m;
 }
-
-const TO_DASH_RE = /(?:\s+)|—/g;
-const REM_RE = /[—,.]/g;
 
 /**
  * A modified slug.
@@ -94,7 +89,7 @@ function htmlDateString(date) {
 function webpackAsset(name) {
   const asset = manifest()[name];
   if (!asset) {
-    throw new Error(`The asset ${name} does not exist in ${manifestPath}`);
+    throw new Error(`The asset ${name} does not exist in ${MANIFEST}`);
   }
   return asset;
 }
@@ -108,7 +103,7 @@ function webpackAsset(name) {
 function inlineWebpackAsset(name) {
   const asset = manifest()[name];
   if (!asset) {
-    throw new Error(`The asset ${name} does not exist in ${manifestPath}`);
+    throw new Error(`The asset ${name} does not exist in ${MANIFEST}`);
   }
   // @todo: Make this configurable (factory function which returns an inline function)
   const outputDir = path.resolve(__dirname, "dist");
@@ -162,9 +157,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
 
-  eleventyConfig.addWatchTarget(manifestPath);
+  eleventyConfig.addWatchTarget(MANIFEST);
   eleventyConfig.setBrowserSyncConfig({
-    files: [manifestPath],
+    files: [MANIFEST],
     logConnections: true,
     ghostMode: false,
     ui: false,
@@ -189,11 +184,13 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("htmlDateString", htmlDateString);
   eleventyConfig.addFilter("extraSlug", extraSlug);
   eleventyConfig.addFilter("markdownify", (s) => md.render(s));
-  eleventyConfig.addFilter("inspect", (obj) => util.inspect(obj, inspectArgs));
+  eleventyConfig.addFilter("inspect", (obj) => util.inspect(obj, INSPECT_ARGS));
   eleventyConfig.addFilter("keys", (obj) => Object.keys(obj));
 
-  eleventyConfig.addCollection("published", require("./config/published"));
-  eleventyConfig.addCollection("tagList", require("./config/tagList"));
+  const published = require("./config/collections/published");
+  const tagList = require("./config/collections/tagList");
+  eleventyConfig.addCollection("published", published);
+  eleventyConfig.addCollection("tagList", tagList);
 
   eleventyConfig.setQuietMode(false);
 

@@ -1,0 +1,25 @@
+{
+  "name": "eslint-config-wherewasigoing",
+  "version": "0.0.1",
+  "description": "eslint configuration for a blog",
+  "repository": "https://github.com/mvwicky/blog.git",
+  "license": "MIT",
+  "author": "Michael Van Wickle <mvanwickle@gmail.com>",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "echo \"Installing eslint-config-wherewasigoing\"",
+    "postinstall": "echo \"Installing eslint-config-wherewasigoing\""
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-import-resolver-webpack": "^0.12.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.3"
+  },
+  "peerDependencies": {
+    "eslint": "^7.3.1"
+  }
+}
