@@ -5,6 +5,7 @@ function dedupe(inputArr) {
 
 const BASE_TRUTHY = ["1", "on", "y", "yes", "true", "t"];
 const BASE_FALSY = ["0", "off", "n", "no", "false", "f"];
+
 /** @param {string} s */
 function initCaps(s) {
   return s
@@ -63,4 +64,28 @@ function getBool(key, defaultValue) {
   }
 }
 
-module.exports = { getBool };
+/**
+ * @param {string} key
+ * @param {string} defaultValue
+ * @returns {string}
+ */
+function getStr(key, defaultValue) {
+  const rValue = process.env[key];
+  const value = rValue !== undefined ? rValue : defaultValue;
+  if (value === undefined) {
+    throw new Error(`Expected to find ${key}`);
+  }
+  return value;
+}
+
+const NODE_ENV = getStr("NODE_ENV", "production");
+
+const envVars = {
+  unpublished: getBool("UNPUBLISHED", false),
+  drafts: getBool("DRAFTS", false),
+  future: getBool("FUTURE", false),
+  NODE_ENV,
+  production: NODE_ENV === "production",
+};
+
+module.exports = { getBool, getStr, env: envVars };

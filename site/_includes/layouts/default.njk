@@ -2,47 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{{ localData.title or title }}</title>
+    <title>{{ localData.title or title }} | {{ nav.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
-
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("/assets/sw.js", { scope: "/" })
-          .then((reg) => {
-            console.log(`Registered service worker with scope "${reg.scope}".`);
-          })
-          .catch((error) => {
-            console.log(`Registration failed with error ${error}`);
-          });
-      }
-    </script>
-
+    {% if env.production %}{% include "sw.njk" %}{% endif %}
     <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />
   </head>
   <body>
     <div class="container pt-2">
       <div class="flex justify-center bg-gray-200 px-4 py-3 rounded">
         <h1 class="font-semibold">
-          <a class="never-underline" href="{{ '/' | url }}">Where Was I Going With That?</a>
+          <a class="never-underline" href="{{ '/' | url }}">{{ nav.title }}</a>
         </h1>
       </div>
       <nav class="leading-4 text-lg" id="nav-main">
-        <a class="header-link font-medium pr-6 text-2xl" href="{{ '/' | url }}">
-          Home
-        </a>
-        <a href="{{ '/page/reading/' | url }}" class="header-link">
-          Reading
-        </a>
-        <a href="{{ '/page/aboutme/' | url }}" class="header-link">
-          About Me
-        </a>
-        {# <a href="{{ '/page/tags/' | url }}" class="header-link">
-          Tags
-        </a> #}
-        <a href="https://github.com/mvwicky" class="header-link boxed-header-link ml-auto">
-          Github
+        <a class="header-link font-medium pr-6 text-2xl" href="{{ '/' | url }}">Home</a>
+        {% for link in nav.links %}
+          {%- set headerUrl = link.url | url -%}
+          {%- set headerClasses = ["header-link", "active" if headerUrl == page.url else ""] -%}
+          {%- set headerClass = headerClasses | select() | join(" ") -%}
+          <a href="{{ headerUrl }}" class="{{ headerClass }}">{{ link.text }}</a>
+        {% endfor -%}
+        <a href="{{ nav.github.url }}" class="header-link boxed-header-link ml-auto">
+          {{ nav.github.text }}
         </a>
       </nav>
     </div>

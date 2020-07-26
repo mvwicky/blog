@@ -1,6 +1,7 @@
 {
   "extends": "wherewasigoing",
   "rules": {
+    "no-unused-vars": 0,
     "sort-imports": [
       "error",
       {
@@ -53,7 +54,12 @@
       "parser": "espree"
     },
     {
-      "files": ["webpack.*.ts", "config/*.ts", "config/*.js"],
+      "files": [
+        "webpack.*.ts",
+        "config/*.ts",
+        "config/**/*.js",
+        "site/_data/*.js"
+      ],
       "env": { "node": true }
     },
     {

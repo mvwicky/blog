@@ -1,0 +1,12 @@
+---
+title: "Where Was I Going With That?"
+github:
+  url: "https://github.com/mvwicky"
+  text: Github
+links:
+  - url: "/page/reading/"
+    text: Reading
+  - url: "/page/aboutme/"
+    text: About Me
+  # - url: "/tags/"
+  #   text: Tags

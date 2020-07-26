@@ -3,13 +3,16 @@
 }
 
 .grid-posts-list {
-  align-items: center;
-  display: inline-grid;
+  @apply w-full items-center justify-center inline-grid;
+
   grid-auto-rows: minmax(1.75em, auto);
   grid-template-columns: auto max-content auto 1fr;
-  justify-content: center;
   justify-items: baseline;
-  width: 100%;
+}
+
+.grid-posts-list.sep {
+  bottom: 1.5px;
+  position: relative;
 }
 
 .posts-list-sep {

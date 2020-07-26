@@ -12,8 +12,6 @@ const { DateTime, Settings } = require("luxon");
 
 const pkg = require("./package.json");
 
-// const prod = process.env.NODE_ENV === "production";
-
 const INSPECT_ARGS = { compact: 1, getters: false };
 const MANIFEST = path.resolve(__dirname, "dist", "assets", "manifest.json");
 const TO_DASH_RE = /(?:\s+)|—/g;
@@ -46,7 +44,9 @@ function configureMarkdown() {
   const markdownItAnchor = require("markdown-it-anchor");
   const markdownItAttrs = require("markdown-it-attrs");
 
+  /** @type {import("markdown-it").Options} */
   const baseCfg = { html: true, typographer: true };
+  /** @type {import("markdown-it-anchor").AnchorOptions} */
   const anchorCfg = {
     permalink: true,
     permalinkClass: "permalink-anchor text-gray-700",
@@ -73,12 +73,12 @@ function linkDate(date) {
 
 /** @param {Date} date - a date */
 function readableDate(date) {
-  return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_FULL);
+  return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED);
 }
 
 /** @param {Date} date - a date */
 function htmlDateString(date) {
-  return DateTime.fromJSDate(date).toFormat("yyyy-LL-dd");
+  return DateTime.fromJSDate(date).toISODate();
 }
 
 /**

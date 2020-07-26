@@ -2,6 +2,11 @@
 <hr class="footsep mt-8 mb-4 border-none border-t h-0 overflow-visible text-gray-400">
 {% endmacro %}
 
-{% macro footerlink(href, text) -%}
-<a class="footer-link" href="{{ href }}">{{ text }}</a>
+{% macro footerlink(adjacentPage, text) -%}
+{% if adjacentPage %}
+<a class="footer-link" href="{{ adjacentPage.url }}" title="{{ adjacentPage.data.description }}">{{ text }}</a>
+{% else %}
+<span class="footer-link invisible"></span>
+{% endif %}
+
 {%- endmacro %}

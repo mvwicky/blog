@@ -4,9 +4,9 @@
 }
 
 .header {
-  @apply pl-4 mb-4;
+  @apply mx-4 pb-2 mb-4 border-b border-gray-500;
 }
 
 .post-header {
-  @apply pl-4 mb-4;
+  /* @apply mx-4 pb-2 mb-4 border-b border-gray-500; */
 }

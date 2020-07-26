@@ -2,6 +2,10 @@
   @apply block leading-4 mt-4 mr-5;
 }
 
+.header-link.active {
+  @apply text-gray-700;
+}
+
 .footer-link {
   @apply block leading-4 mt-5 mx-5 text-base underline rounded p-1 tracking-tight text-center;
 
@@ -18,11 +22,11 @@
 }
 
 .boxed-header-link {
-  @apply px-4 py-3 border rounded border-white;
+  @apply px-4 py-3 border rounded border-indigo-800;
 }
 
 .boxed-header-link:hover {
-  @apply bg-blue-800 text-blue-100 border-indigo-200;
+  @apply bg-blue-800 text-blue-100 border-indigo-100;
 }
 
 @screen lg {

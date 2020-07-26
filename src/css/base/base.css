@@ -1,7 +1,7 @@
 *,
 *::after,
 *::before {
-  box-sizing: border-box;
+  @apply box-border;
 }
 
 body {
@@ -17,14 +17,13 @@ a[href]:not(.never-underline):hover {
 }
 
 p {
-  text-align: justify;
+  @apply mb-2 text-justify;
+
   text-indent: 1.5rem;
-  @apply mb-2;
 }
 
 .content {
-  @apply px-6;
-  @apply w-full;
+  @apply px-6 w-full;
 }
 
 .content h4 {
@@ -33,4 +32,8 @@ p {
 
 .content h5 {
   @apply ml-0;
+}
+
+.section + .section {
+  @apply mt-4;
 }
