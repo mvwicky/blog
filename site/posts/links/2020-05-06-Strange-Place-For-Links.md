@@ -29,6 +29,8 @@ links:
 
 {% from "link_macro.njk" import link_heading %}
 
+<section class="section">
+
 <del>This is going to be a four-linker.</del>
 
 I lied, added that last one after all the others.
@@ -37,27 +39,34 @@ There are times[^1] that I really have nothing to say about the things that I po
 It's sometimes that I think the piece speaks for itself and/or it aligns with my own views so well that anything I would say would be redundant.
 In other instances, the lack of a satisfying onomatopoeia for screaming makes it impossible for me to say anything.
 
-{{ link_heading(links.cruelty) }}
+</section>
+
+{% linksection links.cruelty %}
 I feel somewhat confident[^2] saying that this piece will be viewed by posterity as one of the definitive deconstructions of the Trump era[^3].
 Adam Serwer does a great job of breaking down the irrationality that underpins a lot of Trump's support.
 Like, showing these people pictures of kids in cages and families being torn apart isn't exactly an effective rhetorical strategy in this instance.
 They know that they're supporting policies that do this kind of inhumane shit to human beings; it isn't a regretful byproduct of some larger project, it is the project.
+{% endlinksection %}
 
-{{ link_heading(links.portico) }}
+{% linksection links.portico %}
 This is one of the screaming ones.
+{% endlinksection %}
 
-{{ link_heading(links.dawkins) }}
+{% linksection links.dawkins %}
 Richard Dawkins is a cultural figure with whom I _should_ generally find myself in alignment.
 It would seem odd that I harbor an intense dislike for him and his ilk.
 It's how strident he is; he has a level of certainty that I find rather disgusting.
+{% endlinksection %}
 
-{{ link_heading(links.hillary) }}
+{% linksection links.hillary %}
 Uh, disclaimer: this title does not reflect the way that I feel; the piece is satire.
 This is pretty irrelevant at this point, but I thought the title was funny.
 And perfectly descriptive of an attitude that I have definitely seen online.
 (It also reminds me of the attitude that a **ton** of racists have.)[^4]
+{% endlinksection %}
 
-{{ link_heading(links.tampa) }}
+{% linksection links.tampa %}
+{% endlinksection %}
 
 <!-- prettier-ignore-start -->
 [^1]: It's most of the time to be honest.

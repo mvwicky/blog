@@ -101,6 +101,7 @@ const config: Configuration = {
                 "@babel/preset-typescript",
               ],
               cacheDirectory: getCacheDir("babel"),
+              cacheCompression: false,
             },
           },
         ],

@@ -81,6 +81,22 @@ function htmlDateString(date) {
   return DateTime.fromJSDate(date).toISODate();
 }
 
+function linkSection(content, linkObj) {
+  const title = linkObj
+    ? `#### [${linkObj.title}](${linkObj.href}) {.link-title}`
+    : "";
+  const author = linkObj ? `##### ${linkObj.author} {.link-author}` : "";
+  return `<section class="section border-t pt-3">
+<!-- <hr class="mt-8 mb-2"> -->
+
+${title}
+
+${author}
+
+${content}
+  </section>`;
+}
+
 /**
  * Link to a build asset.
  *
@@ -179,6 +195,9 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addShortcode("webpackAsset", webpackAsset);
   eleventyConfig.addShortcode("inlineWebpackAsset", inlineWebpackAsset);
+
+  eleventyConfig.addPairedShortcode("linksection", linkSection);
+
   eleventyConfig.addFilter("linkDate", linkDate);
   eleventyConfig.addFilter("readableDate", readableDate);
   eleventyConfig.addFilter("htmlDateString", htmlDateString);
