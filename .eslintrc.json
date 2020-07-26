@@ -61,12 +61,7 @@
         "site/_data/*.js"
       ],
       "env": { "node": true }
-    },
-    {
-      "files": ["config/env.js", "local_modules/**/*.js"],
-      "env": { "node": true, "browser": false }
     }
   ],
-  "ignorePatterns": ["node_modules/**/*", "!.eleventy.js"],
   "root": true
 }

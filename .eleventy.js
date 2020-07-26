@@ -7,10 +7,21 @@ const fs = require("fs");
 const path = require("path");
 const util = require("util");
 
+const debug = require("debug");
 const yaml = require("js-yaml");
-const { DateTime, Settings } = require("luxon");
+const { Settings } = require("luxon");
 
+const {
+  linkDate,
+  readableDate,
+  htmlDateString,
+} = require("./config/utils/dates");
+const { linkSection } = require("./config/utils/linksection");
+const { shouldShow } = require("./config/utils/should-show");
 const pkg = require("./package.json");
+
+const log = debug("blog");
+const prod = process.env.NODE_ENV === "production";
 
 const INSPECT_ARGS = { compact: 1, getters: false };
 const MANIFEST = path.resolve(__dirname, "dist", "assets", "manifest.json");
@@ -59,42 +70,6 @@ function configureMarkdown() {
     .use(markdownItFootnote)
     .use(markdownItAnchor, anchorCfg)
     .use(markdownItAttrs, {});
-}
-
-/** @param {Date} date - a date */
-function linkDate(date) {
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth() + 1;
-  const day = date.getUTCDate();
-  const mz = month < 10 ? "0" : "";
-  const dz = day < 10 ? "0" : "";
-  return `${year}/${mz}${month}/${dz}${day}`;
-}
-
-/** @param {Date} date - a date */
-function readableDate(date) {
-  return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED);
-}
-
-/** @param {Date} date - a date */
-function htmlDateString(date) {
-  return DateTime.fromJSDate(date).toISODate();
-}
-
-function linkSection(content, linkObj) {
-  const title = linkObj
-    ? `#### [${linkObj.title}](${linkObj.href}) {.link-title}`
-    : "";
-  const author = linkObj ? `##### ${linkObj.author} {.link-author}` : "";
-  return `<section class="section border-t pt-3">
-<!-- <hr class="mt-8 mb-2"> -->
-
-${title}
-
-${author}
-
-${content}
-  </section>`;
 }
 
 /**
@@ -181,6 +156,7 @@ module.exports = function (eleventyConfig) {
     ui: false,
     logLevel: "info",
     injectChanges: false,
+    // port: 11738,
     callbacks: {
       ready: function (err, browserSync) {
         const content_404 = fs.readFileSync("dist/404.html");
@@ -205,6 +181,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("markdownify", (s) => md.render(s));
   eleventyConfig.addFilter("inspect", (obj) => util.inspect(obj, INSPECT_ARGS));
   eleventyConfig.addFilter("keys", (obj) => Object.keys(obj));
+  eleventyConfig.addFilter("shouldShow", shouldShow);
 
   const published = require("./config/collections/published");
   const tagList = require("./config/collections/tagList");

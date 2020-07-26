@@ -6,8 +6,19 @@ pagination:
   filter:
     - all
     - page
+    - tagList
+    - draft
   addAllPagesToCollections: true
 permalink: /tags/{{ tag | lower }}/
 eleventyComputed:
   title: Posts tagged "{{ tag }}"
 ---
+
+<ul>
+{% set taglist = collections[tag] %}
+{% for post in taglist | reverse %}
+  <li>
+    <a href="{{ post.url | url }}">{{ post.data.title }} (<time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>)</a>
+  </li>
+{% endfor %}
+</ul>

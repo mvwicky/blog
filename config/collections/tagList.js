@@ -1,20 +1,30 @@
-module.exports = function (collectionApi) {
-  let tagsSet = new Set();
+/**
+ * @param {string} tag
+ * @returns {boolean}
+ */
+function keepTag(tag) {
+  switch (tag) {
+    case "all":
+    case "page":
+    case "tagList":
+    case "draft":
+      return false;
+    default:
+      return true;
+  }
+}
+
+/** @param {import("../types").CollectionApi} collectionApi */
+function getTagList(collectionApi) {
+  const tagsSet = new Set();
   collectionApi
     .getAll()
-    .filter((item) => "tags" in item.data)
-    .forEach((item) => {
-      item.data.tags
-        .filter((tag) => {
-          switch (tag) {
-            case "all":
-            case "page":
-              return false;
-            default:
-              return true;
-          }
-        })
-        .forEach((tag) => tagsSet.add(tag));
-    });
+    .map((item) => item.data.tags || [])
+    .flat()
+    .filter(keepTag)
+    .forEach((tag) => tagsSet.add(tag));
+
   return [...tagsSet];
-};
+}
+
+module.exports = getTagList;

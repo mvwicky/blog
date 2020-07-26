@@ -32,6 +32,8 @@ VERSION_TAG=v$(VERSION)
 build: export NODE_ENV=production
 build: clean-dist prod-assets eleventy
 
+prod: build
+
 dev: export NODE_ENV=development
 dev: clean-dist dev-assets eleventy
 
