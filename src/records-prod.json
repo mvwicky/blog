@@ -1,0 +1,72 @@
+{
+  "mini-css-extract-plugin node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js!node_modules/postcss-loader/src/index.js!src/css/style.css": [
+    {
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": {}
+      },
+      "chunks": {
+        "byName": {
+          "mini-css-extract-plugin": 0
+        },
+        "bySource": {
+          "0 mini-css-extract-plugin": 0
+        },
+        "usedIds": [0]
+      }
+    }
+  ],
+  "modules": {
+    "byIdentifier": {},
+    "usedIds": {}
+  },
+  "chunks": {
+    "byName": {
+      "main": 0,
+      "styles": 1,
+      "footnotes": 2,
+      "vendors-footnotes": 3
+    },
+    "bySource": {
+      "0 main": 0,
+      "0 styles": 1,
+      "1 footnotes": 2,
+      "0 footnotes": 3
+    },
+    "usedIds": [0, 1, 2, 3]
+  },
+  "mini-css-extract-plugin node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js??ref--5-2!node_modules/postcss-loader/src/index.js!src/css/style.css": [
+    {
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": {}
+      },
+      "chunks": {
+        "byName": {
+          "mini-css-extract-plugin": 0
+        },
+        "bySource": {
+          "0 mini-css-extract-plugin": 0
+        },
+        "usedIds": [0]
+      }
+    }
+  ],
+  "mini-css-extract-plugin node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js??ref--5-2!node_modules/postcss-loader/src/index.js!node_modules/tippy.js/dist/tippy.css": [
+    {
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": {}
+      },
+      "chunks": {
+        "byName": {
+          "mini-css-extract-plugin": 0
+        },
+        "bySource": {
+          "0 mini-css-extract-plugin": 0
+        },
+        "usedIds": [0]
+      }
+    }
+  ]
+}

@@ -23,6 +23,10 @@
         ],
         "newlines-between": "always"
       }
+    ],
+    "import/dynamic-import-chunkname": [
+      2,
+      { "importFunctions": ["import"], "webpackChunknameFormat": "[a-z0-9-]+" }
     ]
   },
   "env": { "browser": true, "es6": true },

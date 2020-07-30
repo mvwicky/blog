@@ -1,5 +1,6 @@
 import * as path from "path";
 
+import debug from "debug";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import type { Configuration, Entry, Plugin } from "webpack";
 import { DefinePlugin, HashedModuleIdsPlugin } from "webpack";
@@ -9,7 +10,12 @@ import type { CacheLoaderRule } from "./config";
 import { envDefined } from "./config";
 import * as pkg from "./package.json";
 
+const log = debug("blog:webpack");
+log.enabled = true;
+
 const prod = process.env.NODE_ENV === "production";
+
+log("NODE_ENV=%s", process.env.NODE_ENV);
 
 function prodOr<P = any, D = any>(pVal: P, dVal: D): P | D {
   return prod ? pVal : dVal;
@@ -100,6 +106,7 @@ const config: Configuration = {
                 ],
                 "@babel/preset-typescript",
               ],
+              plugins: [["@babel/plugin-transform-runtime", {}]],
               cacheDirectory: getCacheDir("babel"),
               cacheCompression: false,
             },
@@ -108,12 +115,18 @@ const config: Configuration = {
       },
       {
         test: /\.(css)$/,
-        exclude: [/node_modules/],
-        include: [relToSrc("css")],
+        include: [
+          relToSrc("css"),
+          relToSrc("ts"),
+          relToRoot("node_modules", "tippy.js"),
+        ],
         use: [
           { loader: MiniCssExtractPlugin.loader },
           getCacheLoader("css-loader"),
-          { loader: "css-loader" },
+          {
+            loader: "css-loader",
+            options: { esModule: true, importLoaders: 1 },
+          },
           { loader: "postcss-loader" },
         ],
       },
@@ -136,22 +149,27 @@ const config: Configuration = {
     ],
   },
   stats: {
-    excludeAssets: [/\.(woff)$/, /-(700|italic)\./],
+    excludeAssets: [/\.(woff)$/, /-(\d00|italic)\./],
     excludeModules: [/[\\/]fonts[\\/]/, /node_modules/],
     children: false,
-    modules: false,
-    entrypoints: false,
-    hash: false,
+    modules: true,
+    entrypoints: true,
+    hash: true,
     version: false,
     builtAt: false,
     cachedAssets: false,
+    env: true,
   },
   resolve: {
     extensions: [".ts", ".js"],
   },
-  recordsPath: relToSrc(`webpack-records-${prodOr("prod", "dev")}.json`),
+  recordsPath: relToSrc(`records-${prodOr("prod", "dev")}.json`),
   node: false,
-  optimization: {},
+  optimization: {
+    splitChunks: {
+      automaticNameDelimiter: "-",
+    },
+  },
 };
 
 export { getCacheDir };

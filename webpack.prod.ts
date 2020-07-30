@@ -1,5 +1,5 @@
 import TerserPlugin = require("terser-webpack-plugin");
-import { Configuration } from "webpack";
+import webpack, { Configuration, Options } from "webpack";
 import * as wb from "workbox-webpack-plugin";
 
 import * as base from "./webpack.config";
@@ -46,9 +46,11 @@ const sw = new wb.GenerateSW({
   ],
 });
 
+const baseOpt: Options.Optimization = base.default?.optimization ?? {};
+
 const config: Configuration = {
   ...base.default,
-  optimization: { minimizer: [terser] },
+  optimization: { ...baseOpt, minimizer: [terser] },
   plugins: base.default.plugins?.concat([sw]),
 };
 

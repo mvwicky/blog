@@ -5,48 +5,28 @@
 
 const fs = require("fs");
 const path = require("path");
-const util = require("util");
 
 const debug = require("debug");
 const yaml = require("js-yaml");
 const { Settings } = require("luxon");
 
-const {
-  linkDate,
-  readableDate,
-  htmlDateString,
-} = require("./config/utils/dates");
+const collections = require("./config/collections");
+const filters = require("./config/utils/filters");
 const { linkSection } = require("./config/utils/linksection");
-const { shouldShow } = require("./config/utils/should-show");
 const pkg = require("./package.json");
 
-const log = debug("blog");
+const log = debug("blog:11ty");
+log.enabled = true;
+
 const prod = process.env.NODE_ENV === "production";
 
-const INSPECT_ARGS = { compact: 1, getters: false };
 const MANIFEST = path.resolve(__dirname, "dist", "assets", "manifest.json");
-const TO_DASH_RE = /(?:\s+)|—/g;
-const REM_RE = /[—,.]/g;
 
 /** @returns {Record<string, string | undefined>} */
 function manifest() {
   const cts = fs.readFileSync(MANIFEST, { encoding: "utf-8" });
   const m = JSON.parse(cts);
   return m;
-}
-
-/**
- * A modified slug.
- *
- * @param {string} s - a string
- * @returns {string}
- */
-function extraSlug(s) {
-  const lowered = String(s).trim().toLowerCase().normalize();
-  const slug = encodeURIComponent(
-    lowered.replace(TO_DASH_RE, "-").replace(REM_RE, "")
-  );
-  return slug;
 }
 
 function configureMarkdown() {
@@ -64,7 +44,7 @@ function configureMarkdown() {
     permalinkSymbol: "ǂ",
     permalinkBefore: true,
     level: [4],
-    slugify: extraSlug,
+    slugify: filters.extraSlug,
   };
   return markdownIt(baseCfg)
     .use(markdownItFootnote)
@@ -130,6 +110,7 @@ function layoutAliases(dirs) {
 }
 
 module.exports = function (eleventyConfig) {
+  log("NODE_ENV=%s", process.env.NODE_ENV);
   Settings.defaultZoneName = "utc";
 
   const pkgCfg = pkg.config.eleventy;
@@ -156,7 +137,7 @@ module.exports = function (eleventyConfig) {
     ui: false,
     logLevel: "info",
     injectChanges: false,
-    // port: 11738,
+    port: 11738,
     callbacks: {
       ready: function (err, browserSync) {
         const content_404 = fs.readFileSync("dist/404.html");
@@ -174,19 +155,14 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPairedShortcode("linksection", linkSection);
 
-  eleventyConfig.addFilter("linkDate", linkDate);
-  eleventyConfig.addFilter("readableDate", readableDate);
-  eleventyConfig.addFilter("htmlDateString", htmlDateString);
-  eleventyConfig.addFilter("extraSlug", extraSlug);
+  Object.entries(filters).forEach(([name, func]) =>
+    eleventyConfig.addFilter(name, func)
+  );
   eleventyConfig.addFilter("markdownify", (s) => md.render(s));
-  eleventyConfig.addFilter("inspect", (obj) => util.inspect(obj, INSPECT_ARGS));
-  eleventyConfig.addFilter("keys", (obj) => Object.keys(obj));
-  eleventyConfig.addFilter("shouldShow", shouldShow);
 
-  const published = require("./config/collections/published");
-  const tagList = require("./config/collections/tagList");
-  eleventyConfig.addCollection("published", published);
-  eleventyConfig.addCollection("tagList", tagList);
+  Object.entries(collections).forEach(([name, func]) =>
+    eleventyConfig.addCollection(name, func)
+  );
 
   eleventyConfig.setQuietMode(false);
 

@@ -1,8 +1,7 @@
 import { elemIsTag } from "./elem-is-tag";
-import { initFootnotes } from "./footnotes";
 import { initPostlist } from "./postslist";
 
-(function () {
+(async function () {
   console.log("Loaded");
   const tagSelect = document.getElementById("post-tags");
   const postsList = document.getElementById("posts-list");
@@ -13,6 +12,9 @@ import { initPostlist } from "./postslist";
     }
   }
   if (document.getElementsByClassName("footnote-ref").length > 0) {
+    const { initFootnotes } = await import(
+      /* webpackChunkName: "footnotes" */ "./footnotes"
+    );
     initFootnotes();
   }
 })();

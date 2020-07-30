@@ -2,11 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{{ localData.title or title }} | {{ nav.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+    <title>{{ localData.title or title }} | {{ meta.title }}</title>
+
+    <meta name="author" content="{{ meta.author }}">
+    <meta name="generator" content="eleventy">
+
     {% if env.production %}{% include "sw.njk" %}{% endif %}
+
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />
+    {% block extrahead %}{% endblock %}
   </head>
   <body>
     <div class="container pt-2">
@@ -29,11 +36,11 @@
       </nav>
     </div>
     <div class="container">
-      <div class="bg-blue-100 bg-opacity-75 pt-4 pb-6 border border-gray-600 min-h-screen">
+      <main id="main" class="bg-blue-100 bg-opacity-75 pt-4 pb-6 border border-gray-600 min-h-screen">
         {% block content %}
         {{ content | safe }}
         {% endblock %}
-      </div>
+      </main>
     </div>
     <div class="container pb-4">
       <footer class="footer">

@@ -13,12 +13,11 @@ TSC=$(NODE_BIN)/tsc
 TRASH=$(NODE_BIN)/trash
 PKG=package.json
 NBUILD_SRC=config/build.nim
-NBUILD_EXE=bin/nbuild
+NBUILD_DIR=bin
+NBUILD_EXE=$(NBUILD_DIR)/nbuild
 
 GFIND=$(shell command -v gfind)
 FIND=$(or $(GFIND),$(GFIND),find)
-FIND_ARGS=-mindepth 1 -maxdepth 1 -type d -printf '%f\n'
-LOCAL_MODS=$(shell $(FIND) local_modules $(FIND_ARGS))
 
 YARN_VERSION_ARGS=--no-git-tag-version
 OUTPUT_DIR=$(shell jq -r .config.eleventy.dir.output $(PKG))
@@ -60,14 +59,10 @@ clean-dist: trash-dir
 clean-cache: TRASH_DIR+=.cache/build-cache
 clean-cache: trash-dir
 
-clean-tsbuild: TRASH_DIR+=build
-clean-tsbuild: trash-dir
-
 trash-dir:
 	$(TRASH) $(TRASH_DIR)
 
 clean: clean-cache
-clean: clean-tsbuild
 clean: clean-dist
 
 bump-major: YARN_VERSION_ARGS+=--major
@@ -88,8 +83,8 @@ $(NBUILD_EXE): $(NBUILD_SRC)
 	mkdir -p $(@D)
 	nim compile --out:$(@F) --outdir:$(@D) $<
 
-reinstall-locals:
-	yarn upgrade $(LOCAL_MODS)
+clean-nbuild: TRASH_DIR+=$(NBUILD_DIR)
+clean-nbuild: trash-dir
 
 version:
 	@echo $(VERSION_TAG)
