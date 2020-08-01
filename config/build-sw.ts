@@ -12,7 +12,7 @@ async function build() {
   const swDest = path.resolve(root, "dist", "sw.js");
   const globDirectory = path.resolve(root, "dist");
   log("%o", { swDest, globDirectory });
-  const globPatterns = ["**/*.{js,css,html,ico}"];
+  const globPatterns = ["**/*.{js,css,html,ico,woff,woff2}"];
   const [maxEntries, maxAgeSeconds] = [30, 14 * 86400];
   const runtimeOpts = {
     cacheableResponse: { statuses: [200] },
@@ -37,6 +37,10 @@ async function build() {
       globDirectory,
       globPatterns,
       globStrict: true,
+      directoryIndex: "index.html",
+      cacheId: "wherewasicaching",
+      cleanupOutdatedCaches: true,
+      maximumFileSizeToCacheInBytes: 4e6,
       // runtimeCaching,
     });
     log("%d warning%s", warnings.length, warnings.length === 1 ? "" : "s");
