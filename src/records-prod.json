@@ -22,18 +22,20 @@
   },
   "chunks": {
     "byName": {
-      "main": 0,
+      "main": 4,
       "styles": 1,
       "footnotes": 2,
-      "vendors-footnotes": 3
+      "vendors-footnotes": 3,
+      "core-js": 4
     },
     "bySource": {
-      "0 main": 0,
+      "0 main": 4,
       "0 styles": 1,
       "1 footnotes": 2,
-      "0 footnotes": 3
+      "0 footnotes": 3,
+      "1 main": 0
     },
-    "usedIds": [0, 1, 2, 3]
+    "usedIds": [1, 2, 3, 4]
   },
   "mini-css-extract-plugin node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js??ref--5-2!node_modules/postcss-loader/src/index.js!src/css/style.css": [
     {

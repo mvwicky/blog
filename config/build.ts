@@ -1,59 +1,51 @@
-import * as path from "path";
+import * as util from "util";
 
-import * as esbuild from "esbuild";
+import webpack from "webpack";
 
-import * as pkg from "../package.json";
+const prod = process.env.NODE_ENV === "production";
 
-const rootDir = path.dirname(__dirname);
-
-function getEntries() {
-  const entrypoints = Object.entries(pkg.config.entrypoints);
-
-  const entries = entrypoints
-    .filter(([_, loc]) => /\.(ts|js)$/.test(loc))
-    .map(([_, loc]) => path.resolve(rootDir, loc));
-  return entries;
-}
-
-async function serviceBuild(service: esbuild.Service) {
-  const opts: esbuild.BuildOptions = {
-    entryPoints: getEntries(),
-    outdir: path.resolve(rootDir, "dist", "assets"),
-    logLevel: "info",
-    bundle: true,
-    target: "es2017",
-    sourcemap: "external",
-    format: "esm",
-  };
-  try {
-    await service.build(opts);
-  } catch (error) {
-    console.error(error);
-    service.stop();
-    process.exit(1);
-  } finally {
-    service.stop();
+async function getConfig() {
+  if (prod) {
+    const prodConf = await import("../webpack.prod");
+    return prodConf.default;
+  } else {
+    const devConf = await import("../webpack.config");
+    return devConf.default;
   }
 }
 
+function handleStats(stats: webpack.Stats) {
+  const info = stats.toJson();
+  if (stats.hasErrors()) {
+    console.error(info.errors);
+  }
+
+  if (stats.hasWarnings()) {
+    console.warn(info.warnings);
+  }
+  const statsString = stats.toString({
+    all: false,
+    timings: true,
+    assets: true,
+    colors: true,
+    excludeAssets: (asset) => !/\.(js|css)$/.test(asset),
+  });
+  process.stdout.write(statsString);
+  process.stdout.write("\n");
+}
+
 async function build() {
-  const opts: esbuild.BuildOptions = {
-    entryPoints: getEntries(),
-    outdir: path.resolve(rootDir, "dist", "assets"),
-    logLevel: "info",
-    bundle: true,
-    target: "es2017",
-    sourcemap: false,
-    format: "esm",
-    platform: "browser",
-    metafile: path.resolve(rootDir, "dist", "assets", "manifest.json"),
-  };
+  const config = await getConfig();
+  const compiler = webpack(config);
+  const run = util.promisify(compiler.run.bind(compiler));
   try {
-    const result = await esbuild.build(opts);
-    console.log(result);
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
+    const stats = await run();
+    handleStats(stats);
+  } catch (e) {
+    console.error(e.stack || e);
+    if (e.details) {
+      console.error(e.details);
+    }
   }
 }
 

@@ -1,8 +1,8 @@
 /**
  * @param {string} content
- * @param {import("../types").Link} linkObj
+ * @param {import("../../lib/types").Link} linkObj
  */
-function linkSection(content, linkObj) {
+function linksection(content, linkObj) {
   const title = linkObj
     ? `#### [${linkObj.title}](${linkObj.href}) {.link-title}`
     : "";
@@ -18,4 +18,4 @@ ${content}
   </section>`;
 }
 
-module.exports = { linkSection };
+module.exports = { linksection };

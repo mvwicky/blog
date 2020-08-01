@@ -6,8 +6,8 @@ import type { Configuration, Entry, Plugin } from "webpack";
 import { DefinePlugin, HashedModuleIdsPlugin } from "webpack";
 import ManifestPlugin from "webpack-manifest-plugin";
 
-import type { CacheLoaderRule } from "./config";
-import { envDefined } from "./config";
+import type { CacheLoaderRule } from "./lib";
+import { envDefined } from "./lib";
 import * as pkg from "./package.json";
 
 const log = debug("blog:webpack");
@@ -152,7 +152,7 @@ const config: Configuration = {
     excludeAssets: [/\.(woff)$/, /-(\d00|italic)\./],
     excludeModules: [/[\\/]fonts[\\/]/, /node_modules/],
     children: false,
-    modules: true,
+    modules: false,
     entrypoints: true,
     hash: true,
     version: false,

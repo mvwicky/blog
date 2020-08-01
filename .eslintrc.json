@@ -42,7 +42,7 @@
       "webpack": { "config": { "resolve": { "extensions": [".ts"] } } },
       "typescript": {
         "alwaysTryTypes": true,
-        "directory": ["tsconfig.json", "src/ts/tsconfig.json"]
+        "project": ["tsconfig.json", "src/ts/tsconfig.json"]
       }
     }
   },
@@ -54,17 +54,25 @@
         ".eleventy.js",
         "src/**/*.js"
       ],
-      "env": { "node": true, "es6": true, "browser": false },
+      "env": { "node": true, "browser": false },
       "parser": "espree"
     },
     {
       "files": [
         "webpack.*.ts",
-        "config/*.ts",
+        "config/**/*.ts",
         "config/**/*.js",
+        "lib/**/*.ts",
         "site/_data/*.js"
       ],
-      "env": { "node": true }
+      "env": { "node": true, "browser": false },
+      "rules": {
+        "import/dynamic-import-chunkname": ["off", {}]
+      }
+    },
+    {
+      "files": ["src/js/sw.js"],
+      "env": { "browser": false, "serviceworker": true, "node": false }
     }
   ],
   "root": true

@@ -29,7 +29,8 @@
       "0 main": 0,
       "0 styles": 1,
       "0 node_modules/cache-loader/dist/cjs.js??ref--4-0!node_modules/babel-loader/lib/index.js??ref--4-1!src/ts/main.ts ./footnotes": 2,
-      "1 node_modules/cache-loader/dist/cjs.js??ref--4-0!node_modules/babel-loader/lib/index.js??ref--4-1!src/ts/main.ts ./footnotes": 3
+      "1 node_modules/cache-loader/dist/cjs.js??ref--4-0!node_modules/babel-loader/lib/index.js??ref--4-1!src/ts/main.ts ./footnotes": 3,
+      "1 main": 0
     },
     "usedIds": [0, 1]
   },

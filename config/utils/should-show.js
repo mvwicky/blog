@@ -1,6 +1,6 @@
 const { env } = require("./env");
 
-/** @param {import("../types").CollectionItem} page */
+/** @param {import("../../lib/types").CollectionItem} page */
 function shouldShow(page) {
   const { published, tags } = page.data;
   const pub = env.unpublished || published;

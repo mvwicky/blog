@@ -11,8 +11,8 @@ const yaml = require("js-yaml");
 const { Settings } = require("luxon");
 
 const collections = require("./config/collections");
+const shortcodes = require("./config/shortcodes");
 const filters = require("./config/utils/filters");
-const { linkSection } = require("./config/utils/linksection");
 const pkg = require("./package.json");
 
 const log = debug("blog:11ty");
@@ -25,15 +25,11 @@ const MANIFEST = path.resolve(__dirname, "dist", "assets", "manifest.json");
 /** @returns {Record<string, string | undefined>} */
 function manifest() {
   const cts = fs.readFileSync(MANIFEST, { encoding: "utf-8" });
-  const m = JSON.parse(cts);
-  return m;
+  return JSON.parse(cts);
 }
 
 function configureMarkdown() {
   const markdownIt = require("markdown-it");
-  const markdownItFootnote = require("markdown-it-footnote");
-  const markdownItAnchor = require("markdown-it-anchor");
-  const markdownItAttrs = require("markdown-it-attrs");
 
   /** @type {import("markdown-it").Options} */
   const baseCfg = { html: true, typographer: true };
@@ -47,9 +43,9 @@ function configureMarkdown() {
     slugify: filters.extraSlug,
   };
   return markdownIt(baseCfg)
-    .use(markdownItFootnote)
-    .use(markdownItAnchor, anchorCfg)
-    .use(markdownItAttrs, {});
+    .use(require("markdown-it-footnote"))
+    .use(require("markdown-it-anchor"), anchorCfg)
+    .use(require("markdown-it-attrs"), {});
 }
 
 /**
@@ -79,6 +75,7 @@ function inlineWebpackAsset(name) {
   // @todo: Make this configurable (factory function which returns an inline function)
   const outputDir = path.resolve(__dirname, "dist");
   const assetPath = path.join(outputDir, asset);
+  log("%s, %s, %s", assetPath, name, asset);
   const assetCts = fs.readFileSync(assetPath, { encoding: "utf-8" });
   const ext = path.extname(asset);
   if (ext === ".js") {
@@ -142,18 +139,22 @@ module.exports = function (eleventyConfig) {
       ready: function (err, browserSync) {
         const content_404 = fs.readFileSync("dist/404.html");
         browserSync.addMiddleware("*", (req, res) => {
-          // Provides the 404 content without redirect.
-          res.write(content_404);
+          res.write(content_404); // Provides the 404 content without redirect.
           res.end();
         });
       },
     },
   });
 
-  eleventyConfig.addShortcode("webpackAsset", webpackAsset);
-  eleventyConfig.addShortcode("inlineWebpackAsset", inlineWebpackAsset);
+  const assets = shortcodes.configure({
+    root: __dirname,
+    output: pkgCfg.dir.output,
+  });
 
-  eleventyConfig.addPairedShortcode("linksection", linkSection);
+  eleventyConfig.addShortcode("webpackAsset", assets.webpackAsset);
+  eleventyConfig.addShortcode("inlineWebpackAsset", assets.inlineWebpackAsset);
+
+  eleventyConfig.addPairedShortcode("linksection", shortcodes.linksection);
 
   Object.entries(filters).forEach(([name, func]) =>
     eleventyConfig.addFilter(name, func)

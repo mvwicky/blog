@@ -9,12 +9,14 @@ YARN=yarn
 NODE_BIN=node_modules/.bin
 WEBPACK=$(NODE_BIN)/webpack
 ELEVENTY=$(NODE_BIN)/eleventy
+TS_NODE=$(NODE_BIN)/ts-node
 TSC=$(NODE_BIN)/tsc
 TRASH=$(NODE_BIN)/trash
 PKG=package.json
 NBUILD_SRC=config/build.nim
 NBUILD_DIR=bin
 NBUILD_EXE=$(NBUILD_DIR)/nbuild
+BUILD_SW=config/build-sw.ts
 
 GFIND=$(shell command -v gfind)
 FIND=$(or $(GFIND),$(GFIND),find)
@@ -29,7 +31,7 @@ VERSION_TAG=v$(VERSION)
 	ts-web yarn-version bump-major bump-minor bump-patch reinstall-locals
 
 build: export NODE_ENV=production
-build: clean-dist prod-assets eleventy
+build: clean-dist prod-assets eleventy service-worker
 
 prod: build
 
@@ -46,6 +48,9 @@ dev-assets: webpack
 
 eleventy:
 	$(ELEVENTY)
+
+service-worker:
+	$(TS_NODE) $(BUILD_SW)
 
 webpack:
 	$(WEBPACK) $(WEBPACK_ARGS)

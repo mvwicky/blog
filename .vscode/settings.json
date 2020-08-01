@@ -1,7 +1,7 @@
 {
   "files.exclude": {
     "**/node_modules": true,
-    "dist": true
+    "dist": false
   },
   "eslint.format.enable": true,
   "[nunjucks]": {
@@ -12,8 +12,17 @@
     "files.trimTrailingWhitespace": true
   },
   "css.validate": false,
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    }
+  },
   "[typescript]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    }
   },
   "stylelint.enable": true,
   "[css]": {

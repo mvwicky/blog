@@ -6,4 +6,5 @@ export function compact<T>(arr: (T | undefined)[]): T[] {
   return arr.filter((e) => e !== undefined && typeof e !== "undefined") as T[];
 }
 
+export { logger } from "./logging";
 export * from "./types";

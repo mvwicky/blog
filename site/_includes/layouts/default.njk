@@ -11,6 +11,7 @@
 
     {% if env.production %}{% include "sw.njk" %}{% endif %}
 
+
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />
     {% block extrahead %}{% endblock %}

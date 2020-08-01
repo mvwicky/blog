@@ -1,8 +1,7 @@
 import TerserPlugin = require("terser-webpack-plugin");
-import webpack, { Configuration, Options } from "webpack";
-import * as wb from "workbox-webpack-plugin";
+import { merge } from "webpack-merge";
 
-import * as base from "./webpack.config";
+import base from "./webpack.config";
 
 const terser = new TerserPlugin({
   test: /\.m?(j|t)s(\?.*)?$/i,
@@ -20,38 +19,8 @@ const terser = new TerserPlugin({
   },
 });
 
-const [maxEntries, maxAgeSeconds] = [30, 14 * 86400];
-const runtimeOpts: wb.RuntimeCacheOptions = {
-  cacheableResponse: { statuses: [200] },
-  expiration: { maxEntries, maxAgeSeconds },
-};
-
-const sw = new wb.GenerateSW({
-  swDest: "sw.js",
-  cacheId: "wherewasicaching",
-  cleanupOutdatedCaches: true,
-  maximumFileSizeToCacheInBytes: 4e6,
-  sourcemap: false,
-  runtimeCaching: [
-    {
-      urlPattern: /\/blog\//,
-      handler: "StaleWhileRevalidate",
-      options: { cacheName: "blog-posts", ...runtimeOpts },
-    },
-    {
-      urlPattern: /\/pages\//,
-      handler: "StaleWhileRevalidate",
-      options: { cacheName: "blog-pages", ...runtimeOpts },
-    },
-  ],
+const config = merge(base, {
+  optimization: { minimizer: [terser] },
 });
-
-const baseOpt: Options.Optimization = base.default?.optimization ?? {};
-
-const config: Configuration = {
-  ...base.default,
-  optimization: { ...baseOpt, minimizer: [terser] },
-  plugins: base.default.plugins?.concat([sw]),
-};
 
 export default config;
