@@ -32,7 +32,7 @@ async function build() {
   ];
   try {
     const { count, filePaths, size, warnings } = await workboxBuild.generateSW({
-      mode: "development",
+      mode: "production",
       swDest,
       globDirectory,
       globPatterns,
