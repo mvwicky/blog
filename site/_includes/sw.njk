@@ -1,7 +1,7 @@
 <script>
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
-      .register("/assets/sw.js", { scope: "/" })
+      .register("/sw.js", { scope: "/" })
       .then((reg) => {
         console.log(`Registered service worker with scope "${reg.scope}".`);
       })
