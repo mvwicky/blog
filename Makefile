@@ -14,9 +14,11 @@ TSC=$(NODE_BIN)/tsc
 TRASH=$(NODE_BIN)/trash
 PKG=package.json
 NBUILD_SRC=config/build.nim
-NBUILD_DIR=bin
+NBUILD_DIR=build
 NBUILD_EXE=$(NBUILD_DIR)/nbuild
 BUILD_SW=config/build-sw.ts
+LIB_DIR=lib
+LIB_OUT=$(LIB_DIR)/build
 
 GFIND=$(shell command -v gfind)
 FIND=$(or $(GFIND),$(GFIND),find)
@@ -27,8 +29,12 @@ OUTPUT_DIR=$(shell jq -r .config.eleventy.dir.output $(PKG))
 VERSION=$(shell jq -r .version $(PKG))
 VERSION_TAG=v$(VERSION)
 
-.PHONY: prod-assets dev-assets clean-cache clean-tsbuild clean version version-tag build \
-	ts-web yarn-version bump-major bump-minor bump-patch reinstall-locals
+LIB_INPUT=$(shell $(FIND) $(LIB_DIR) -path $(LIB_OUT) -prune -o -type f -name '*.ts')
+LIB_OUTPUT=$(shell $(FIND) $(LIB_OUT) -type f \( -name '*.js' -o -name '*.d.ts' \))
+
+.PHONY: build prod dev prod-assets dev-assets eleventy service-worker webpack ts-node \
+	ts-web clean-dist clean-cache trash-dir clean bump-major bump-minor bump-patch bump \
+	nbuild clean-nbuild version version-tag \
 
 build: export NODE_ENV=production
 build: clean-dist prod-assets eleventy service-worker
@@ -49,11 +55,18 @@ dev-assets: webpack
 eleventy:
 	$(ELEVENTY)
 
-service-worker:
-	$(TS_NODE) $(BUILD_SW)
+service-worker: TS_NODE_ARGS=$(BUILD_SW)
+service-worker: ts-node
+
+.PHONY: lib
+lib:
+	@echo $(LIB_INPUT)
 
 webpack:
 	$(WEBPACK) $(WEBPACK_ARGS)
+
+ts-node:
+	$(TS_NODE) $(TS_NODE_ARGS)
 
 ts-web:
 	$(TSC) -p src/ts/tsconfig.json

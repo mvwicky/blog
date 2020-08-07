@@ -1,5 +1,6 @@
 {
   "tabWidth": 2,
+  "arrowParens": "always",
   "overrides": [
     {
       "files": "*.njk",

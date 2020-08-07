@@ -1,6 +1,6 @@
 /**
  * @param {string} content
- * @param {import("../../lib/types").Link} linkObj
+ * @param {import("../types").Link} linkObj
  */
 function linksection(content, linkObj) {
   const title = linkObj

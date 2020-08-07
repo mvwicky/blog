@@ -14,8 +14,8 @@
   @apply inline text-justify;
 }
 
-.footnote-item > p:first-child {
-  text-indent: 0;
+.tippy-content p {
+  text-indent: 1rem;
 }
 
 .footnotes-sep {
@@ -29,4 +29,12 @@
 .footnote-ref,
 .footnote-backref {
   @apply text-blue-700;
+}
+
+.footnote-item > p:first-child {
+  text-indent: 0;
+}
+
+.tippy-content p:last-child {
+  @apply mb-0;
 }

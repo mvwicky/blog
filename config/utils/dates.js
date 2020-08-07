@@ -1,5 +1,7 @@
 const { DateTime } = require("luxon");
 
+const dates = require("../../lib/build/dates");
+
 /** @param {Date} date - a date */
 function linkDate(date) {
   const year = date.getUTCFullYear();
@@ -35,4 +37,4 @@ function htmlDateString(date) {
   return DateTime.fromJSDate(date).toISODate();
 }
 
-module.exports = { linkDate, readableDate, htmlDateString };
+module.exports = { linkDate, readableDate: dates.readableDate, htmlDateString };

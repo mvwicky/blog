@@ -1,24 +1,29 @@
 {
   "name": "blog",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A Blog",
   "repository": "https://github.com/mvwicky/blog.git",
   "license": "MIT",
   "author": "Michael Van Wickle <mvanwickle@gmail.com>",
   "scripts": {
-    "build": "cross-env NODE_ENV=production npm-run-all clean build:assets build:site build:sw",
+    "build": "cross-env NODE_ENV=production npm-run-all clean build:assets build:lib build:site build:sw",
     "build:assets": "webpack --config webpack.prod.ts -p",
+    "build:lib": "tsc --project lib",
     "build:site": "eleventy",
     "build:sw": "ts-node config/build-sw.ts",
-    "clean": "trash ./dist",
+    "clean": "npm-run-all clean:*",
+    "clean:lib": "trash ./lib/build",
+    "clean:site": "trash ./dist",
     "dev": "cross-env NODE_ENV=development npm-run-all clean webpack:assets --parallel dev:*",
     "dev:assets": "yarn run webpack:assets --watch",
+    "dev:lib": "tsc --project lib --watch",
     "dev:serve": "eleventy --serve",
+    "esb": "ts-node config/build.ts",
+    "lib": "npm-run-all clean:lib build:lib",
     "lint": "npm-run-all --parallel lint:*",
     "lint:eslint": "eslint --cache --cache-location .cache/.eslintcache '**/*.ts' '**/*.js'",
     "lint:styles": "stylelint --cache --cache-location .cache/.stylelintcache '**/*.css'",
-    "webpack:assets": "webpack --mode=development",
-    "esb": "ts-node config/build.ts"
+    "webpack:assets": "webpack --mode=development"
   },
   "husky": {
     "hooks": {
@@ -26,6 +31,9 @@
     }
   },
   "config": {
+    "assets": {
+      "output": "assets"
+    },
     "eleventy": {
       "dir": {
         "input": "site",
@@ -40,15 +48,13 @@
       "templateFormats": [
         "md",
         "njk",
-        "html"
+        "html",
+        "11ty.js"
       ]
     },
     "entrypoints": {
       "main": "src/ts/main.ts",
       "styles": "src/css/style.css"
-    },
-    "assets": {
-      "output": "assets"
     }
   },
   "devDependencies": {

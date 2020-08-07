@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "lib": ["es2020", "dom"],
+    "checkJs": false,
+    "module": "commonjs",
+    "target": "es2020",
+    "baseUrl": "..",
+    "types": ["debug", "node"],
+    "noEmit": false,
+    "declaration": true,
+    "declarationDir": "./build",
+    "incremental": true,
+    "preserveWatchOutput": true,
+    "strict": true
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["../node_modules/**", "./build/"],
+  "extends": "../config/tsconfig.base.json"
+}

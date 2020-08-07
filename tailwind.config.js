@@ -10,8 +10,8 @@ function msPixels(n) {
 }
 
 /**
- * @param  {number} rem
- * @param  {number} precision
+ * @param  {number} rem - A font size in rem
+ * @param  {number} precision - Decimal places
  * @return {string}
  */
 function normalizeRem(rem, precision = 3) {

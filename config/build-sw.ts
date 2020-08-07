@@ -2,7 +2,7 @@ import * as path from "path";
 
 import workboxBuild from "workbox-build";
 
-import { logger } from "../lib";
+import { humanBytes, logger } from "../lib";
 
 const log = logger("build:sw", true);
 
@@ -13,24 +13,8 @@ async function build() {
   const globDirectory = path.resolve(root, "dist");
   log("%o", { swDest, globDirectory });
   const globPatterns = ["**/*.{js,css,html,ico,woff,woff2}"];
-  const [maxEntries, maxAgeSeconds] = [30, 14 * 86400];
-  const runtimeOpts = {
-    cacheableResponse: { statuses: [200] },
-    expiration: { maxEntries, maxAgeSeconds },
-  };
-  const runtimeCaching = [
-    {
-      urlPattern: /\/blog\//,
-      handler: "StaleWhileRevalidate",
-      options: { cacheName: "blog-posts", ...runtimeOpts },
-    },
-    {
-      urlPattern: /\/pages\//,
-      handler: "StaleWhileRevalidate",
-      options: { cacheName: "blog-pages", ...runtimeOpts },
-    },
-  ];
   try {
+    const start = process.uptime();
     const { count, filePaths, size, warnings } = await workboxBuild.generateSW({
       mode: "production",
       swDest,
@@ -41,16 +25,20 @@ async function build() {
       cacheId: "wherewasicaching",
       cleanupOutdatedCaches: true,
       maximumFileSizeToCacheInBytes: 4e6,
-      // runtimeCaching,
     });
+    const elapsed = process.uptime() - start;
+    const elapsedStr = elapsed.toLocaleString(undefined, {
+      maximumFractionDigits: 2,
+    });
+    log("Elapsed: %s seconds", elapsedStr);
     log("%d warning%s", warnings.length, warnings.length === 1 ? "" : "s");
     warnings.forEach((warning) => console.warn(warning));
     if (count === 0 || size === 0) {
       throw new Error("Failed to precache anything");
     }
-    log("%d File%s Precached", count, count === 1 ? "" : "s");
-    log("Total Bytes Precached: %d", size);
-    log("Files Written: %O", filePaths);
+    log("%d file%s precached", count, count === 1 ? "" : "s");
+    log("Total size of precached files: %s", humanBytes(size), size);
+    log("Files written: %O", filePaths);
   } catch (e) {
     console.error(e);
   }

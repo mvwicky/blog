@@ -3,7 +3,8 @@
     "noEmit": true,
     "lib": ["es2020"],
     "checkJs": false,
-    "module": "commonjs"
+    "module": "commonjs",
+    "target": "es2020"
   },
   "files": ["webpack.config.ts", "webpack.prod.ts"],
   "include": ["config/*.ts", "config/**/*.js", "lib/**/*.ts"],

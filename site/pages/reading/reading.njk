@@ -1,11 +1,14 @@
 ---
 title: What I'm Reading
 date: Last Modified
+description: Some things that I have been or currently am reading.
 ---
 {% from "macro_utils.njk" import footsep %}
 
 <section class="section">
-  <h6>Last Modified: {{ page.date | readableDate }}</h6>
+  <span class="font-bold font-display">
+    Last Modified: <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+  </span>
 </section>
 
 <section class="section">

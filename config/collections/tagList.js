@@ -14,7 +14,7 @@ function keepTag(tag) {
   }
 }
 
-/** @param {import("../../lib/types").CollectionApi} collectionApi */
+/** @param {import("../types").CollectionApi} collectionApi */
 function getTagList(collectionApi) {
   const tagsSet = new Set();
   collectionApi
