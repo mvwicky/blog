@@ -3,3 +3,17 @@
   @apply pt-2 pb-1 border border-t-0 rounded-b;
   @apply bg-gray-200 border-gray-600 font-thin;
 }
+
+.footer-row {
+  @apply flex justify-center w-full;
+}
+
+.footer-text {
+  @apply text-xs mx-5;
+}
+
+@screen lg {
+  .footer-text {
+    @apply inline-block mt-0 mx-0;
+  }
+}

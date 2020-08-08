@@ -13,12 +13,10 @@ TS_NODE=$(NODE_BIN)/ts-node
 TSC=$(NODE_BIN)/tsc
 TRASH=$(NODE_BIN)/trash
 PKG=package.json
-NBUILD_SRC=config/build.nim
-NBUILD_DIR=build
-NBUILD_EXE=$(NBUILD_DIR)/nbuild
 BUILD_SW=config/build-sw.ts
 LIB_DIR=lib
-LIB_OUT=$(LIB_DIR)/build
+LIB_OUT=build/lib
+LIB_SENTINEL=.cache/lib.built
 
 GFIND=$(shell command -v gfind)
 FIND=$(or $(GFIND),$(GFIND),find)
@@ -29,15 +27,14 @@ OUTPUT_DIR=$(shell jq -r .config.eleventy.dir.output $(PKG))
 VERSION=$(shell jq -r .version $(PKG))
 VERSION_TAG=v$(VERSION)
 
-LIB_INPUT=$(shell $(FIND) $(LIB_DIR) -path $(LIB_OUT) -prune -o -type f -name '*.ts')
-LIB_OUTPUT=$(shell $(FIND) $(LIB_OUT) -type f \( -name '*.js' -o -name '*.d.ts' \))
+LIB_INPUT=$(shell $(FIND) $(LIB_DIR) -type f -name '*.ts')
 
 .PHONY: build prod dev prod-assets dev-assets eleventy service-worker webpack ts-node \
 	ts-web clean-dist clean-cache trash-dir clean bump-major bump-minor bump-patch bump \
-	nbuild clean-nbuild version version-tag \
+	version version-tag lib \
 
 build: export NODE_ENV=production
-build: clean-dist prod-assets eleventy service-worker
+build: clean-dist lib prod-assets eleventy service-worker
 
 prod: build
 
@@ -58,9 +55,11 @@ eleventy:
 service-worker: TS_NODE_ARGS=$(BUILD_SW)
 service-worker: ts-node
 
-.PHONY: lib
-lib:
-	@echo $(LIB_INPUT)
+lib: $(LIB_SENTINEL)
+
+$(LIB_SENTINEL): $(LIB_INPUT)
+	$(TSC) -p $(LIB_DIR)
+	date > $@
 
 webpack:
 	$(WEBPACK) $(WEBPACK_ARGS)
@@ -76,6 +75,9 @@ clean-dist: trash-dir
 
 clean-cache: TRASH_DIR+=.cache/build-cache
 clean-cache: trash-dir
+
+clean-lib: TRASH_DIR+=$(LIB_OUT) $(LIB_SENTINEL)
+clean-lib: trash-dir
 
 trash-dir:
 	$(TRASH) $(TRASH_DIR)
@@ -94,15 +96,6 @@ bump-patch: bump
 
 bump:
 	$(YARN) version $(YARN_VERSION_ARGS)
-
-nbuild: $(NBUILD_EXE)
-
-$(NBUILD_EXE): $(NBUILD_SRC)
-	mkdir -p $(@D)
-	nim compile --out:$(@F) --outdir:$(@D) $<
-
-clean-nbuild: TRASH_DIR+=$(NBUILD_DIR)
-clean-nbuild: trash-dir
 
 version:
 	@echo $(VERSION_TAG)

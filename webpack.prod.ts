@@ -24,3 +24,4 @@ const config = merge(base, {
 });
 
 export default config;
+export { config };

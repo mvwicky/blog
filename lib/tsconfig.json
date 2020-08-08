@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./build",
+    "outDir": "../build/lib",
     "lib": ["es2020", "dom"],
     "checkJs": false,
     "module": "commonjs",
@@ -9,7 +9,7 @@
     "types": ["debug", "node"],
     "noEmit": false,
     "declaration": true,
-    "declarationDir": "./build",
+    "declarationDir": "../build/lib",
     "incremental": true,
     "preserveWatchOutput": true,
     "strict": true

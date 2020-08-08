@@ -1,4 +1,4 @@
-const { colors } = require("tailwindcss/defaultTheme");
+const { colors, fontFamily } = require("tailwindcss/defaultTheme");
 
 const MS_RATIO = 1.2; /* Minor Third */
 const MS_BASE = 16; /* Pixels */
@@ -41,9 +41,11 @@ const config = {
   theme: {
     extend: {},
     fontFamily: {
-      display: ['"Fira Sans"', "sans-serif"],
-      body: ['"Spectral"', "serif"],
-      mono: ['"IBM Plex Mono"', "monospace"],
+      sans: ['"Fira Sans"', ...fontFamily.sans],
+      serif: ['"Spectral"', ...fontFamily.serif],
+      display: ['"Fira Sans"', ...fontFamily.sans],
+      body: ['"Spectral"', ...fontFamily.serif],
+      mono: ['"IBM Plex Mono"', ...fontFamily.mono],
     },
     fontSize: {
       xs: ms(-2),

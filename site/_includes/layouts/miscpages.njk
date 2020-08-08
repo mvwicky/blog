@@ -5,9 +5,16 @@ tags:
 ---
 <header class="header">
   <h2>{{ title }}</h2>
+  <!-- <small>{{ tags }}</small> -->
 </header>
 
 <div class="content">
   {{ content | safe }}
 </div>
 
+
+{# <section class="section self-center">
+  <span class="font-bold font-display">
+    Last Modified: <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+  </span>
+</section> #}

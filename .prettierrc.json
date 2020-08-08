@@ -1,6 +1,7 @@
 {
   "tabWidth": 2,
   "arrowParens": "always",
+  "trailingComma": "es5",
   "overrides": [
     {
       "files": "*.njk",

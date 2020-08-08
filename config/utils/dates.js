@@ -1,6 +1,6 @@
 const { DateTime } = require("luxon");
 
-const dates = require("../../lib/build/dates");
+const { dates } = require("../../build/lib");
 
 /** @param {Date} date - a date */
 function linkDate(date) {

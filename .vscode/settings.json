@@ -37,5 +37,6 @@
       "fileMatch": ["local_modules/eslint-config-wherewasigoing/config.json"],
       "url": "https://json.schemastore.org/eslintrc"
     }
-  ]
+  ],
+  "svg.preview.background": "transparent"
 }

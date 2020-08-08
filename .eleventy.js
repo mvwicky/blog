@@ -6,27 +6,18 @@
 const fs = require("fs");
 const path = require("path");
 
-const debug = require("debug");
 const yaml = require("js-yaml");
 const { Settings } = require("luxon");
 
+const { logger, env } = require("./build/lib");
 const collections = require("./config/collections");
 const shortcodes = require("./config/shortcodes");
 const filters = require("./config/utils/filters");
 const pkg = require("./package.json");
 
-const log = debug("blog:11ty");
-log.enabled = true;
-
-const prod = process.env.NODE_ENV === "production";
+const log = logger("11ty", true);
 
 const MANIFEST = path.resolve(__dirname, "dist", "assets", "manifest.json");
-
-/** @returns {Record<string, string | undefined>} */
-function manifest() {
-  const cts = fs.readFileSync(MANIFEST, { encoding: "utf-8" });
-  return JSON.parse(cts);
-}
 
 function configureMarkdown() {
   const markdownIt = require("markdown-it");
@@ -49,45 +40,6 @@ function configureMarkdown() {
 }
 
 /**
- * Link to a build asset.
- *
- * @param {string} name
- */
-function webpackAsset(name) {
-  const asset = manifest()[name];
-  if (!asset) {
-    throw new Error(`The asset ${name} does not exist in ${MANIFEST}`);
-  }
-  return asset;
-}
-
-/**
- * @description Inline a build asset
- *
- * @param {string} name - An asset name.
- * @returns {string} - The asset contents, wrapped in an appropriate tag.
- */
-function inlineWebpackAsset(name) {
-  const asset = manifest()[name];
-  if (!asset) {
-    throw new Error(`The asset ${name} does not exist in ${MANIFEST}`);
-  }
-  // @todo: Make this configurable (factory function which returns an inline function)
-  const outputDir = path.resolve(__dirname, "dist");
-  const assetPath = path.join(outputDir, asset);
-  log("%s, %s, %s", assetPath, name, asset);
-  const assetCts = fs.readFileSync(assetPath, { encoding: "utf-8" });
-  const ext = path.extname(asset);
-  if (ext === ".js") {
-    return `<script>${assetCts}</script>`;
-  } else if (ext === ".css") {
-    return `<style>${assetCts}</style>`;
-  } else {
-    throw new Error(`Unknown asset type ${ext}`);
-  }
-}
-
-/**
  * @param {{input: string, includes: string}} dirs - 1tty dir config value
  * @returns {[string, string][]} - Alias names and their relative paths
  */
@@ -107,7 +59,7 @@ function layoutAliases(dirs) {
 }
 
 module.exports = function (eleventyConfig) {
-  log("NODE_ENV=%s", process.env.NODE_ENV);
+  log("NODE_ENV=%s", env.NODE_ENV);
   Settings.defaultZoneName = "utc";
 
   const pkgCfg = pkg.config.eleventy;

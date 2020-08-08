@@ -1,8 +1,11 @@
-const prod = process.env.NODE_ENV === "production";
+const postcssImport = require("postcss-import");
+const tailwindcss = require("tailwindcss");
 
-const plugins = [require("postcss-import"), require("tailwindcss")];
+const { env } = require("./build/lib");
 
-if (prod) {
+const plugins = [postcssImport, tailwindcss];
+
+if (env.PROD) {
   const cssnano = require("cssnano");
   const autoprefixer = require("autoprefixer");
   plugins.push(autoprefixer({ flexbox: "no-2009" }));

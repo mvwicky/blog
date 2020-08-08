@@ -6,8 +6,6 @@
 @import "./theme/theme.css";
 
 @import "tailwindcss/components";
-
-/* @import "tippy.js/dist/tippy.css"; */
 @import "./components/footnotes.css";
 @import "./components/forms.css";
 @import "./components/links.css";

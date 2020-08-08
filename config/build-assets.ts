@@ -2,16 +2,18 @@ import * as util from "util";
 
 import webpack from "webpack";
 
-const prod = process.env.NODE_ENV === "production";
+import { env, logger } from "../lib";
 
-async function getConfig() {
-  if (prod) {
-    const prodConf = await import("../webpack.prod");
-    return prodConf.default;
-  } else {
-    const devConf = await import("../webpack.config");
-    return devConf.default;
-  }
+const log = logger("assets", true);
+
+log("NODE_ENV=%s", env.NODE_ENV);
+
+async function getConfig(): Promise<webpack.Configuration> {
+  const conf = env.PROD
+    ? import("../webpack.prod")
+    : import("../webpack.config");
+  const { config } = await conf;
+  return config;
 }
 
 function handleStats(stats: webpack.Stats) {

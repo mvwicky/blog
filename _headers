@@ -10,7 +10,7 @@
   cache-control: no-store
   cache-control: must-revalidate
 
-/assets/sw.js
+/manifest.webmanifest
   Service-Worker-Allowed: /
   cache-control: max-age=0
   cache-control: private

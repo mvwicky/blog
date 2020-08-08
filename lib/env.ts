@@ -28,6 +28,10 @@ function checkFalse(v: string): boolean {
   return FALSY.some((s) => v.localeCompare(s) === 0);
 }
 
+function defined(key: string): boolean {
+  return process.env[key] !== undefined;
+}
+
 function getBool(key: string, defaultValue: boolean): boolean {
   const rValue = process.env[key];
   const value = rValue !== undefined ? rValue : defaultValue;
@@ -55,4 +59,7 @@ function getStr(key: string, defaultValue: string): string {
   return value;
 }
 
-export { getBool, getStr };
+const NODE_ENV = getStr("NODE_ENV", "development");
+const PROD = NODE_ENV === "production";
+
+export { getBool, getStr, defined, PROD, NODE_ENV };

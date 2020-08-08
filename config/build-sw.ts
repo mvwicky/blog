@@ -1,22 +1,30 @@
 import * as path from "path";
 
+import findUp from "find-up";
 import workboxBuild from "workbox-build";
 
-import { humanBytes, logger } from "../lib";
+import { env, humanBytes, logger } from "../lib";
+import * as pkg from "../package.json";
 
-const log = logger("build:sw", true);
+const log = logger("sw", true);
 
-const root = path.dirname(__dirname);
+log("NODE_ENV=%s", env.NODE_ENV);
 
-async function build() {
-  const swDest = path.resolve(root, "dist", "sw.js");
-  const globDirectory = path.resolve(root, "dist");
-  log("%o", { swDest, globDirectory });
+const defaultRoot = path.dirname(__dirname);
+
+async function build(rootDir: string) {
+  const relToRoot = (p: string) => path.relative(rootDir, p);
+  const { dir: dirs } = pkg.config.eleventy;
+  const outputDir = path.resolve(rootDir, dirs.output);
+  const swDest = path.join(outputDir, "sw.js");
+  const globDirectory = outputDir;
+
+  log("%o", { swDest: relToRoot(swDest) });
   const globPatterns = ["**/*.{js,css,html,ico,woff,woff2}"];
   try {
     const start = process.uptime();
     const { count, filePaths, size, warnings } = await workboxBuild.generateSW({
-      mode: "production",
+      mode: env.NODE_ENV,
       swDest,
       globDirectory,
       globPatterns,
@@ -37,13 +45,22 @@ async function build() {
       throw new Error("Failed to precache anything");
     }
     log("%d file%s precached", count, count === 1 ? "" : "s");
-    log("Total size of precached files: %s", humanBytes(size), size);
-    log("Files written: %O", filePaths);
+    log("Total size of precached files: %s", humanBytes(size));
+    const nWritten = filePaths.length;
+    log("%d file%s written", nWritten, nWritten == 1 ? "" : "s");
   } catch (e) {
     console.error(e);
   }
 }
 
 (async function () {
-  await build();
+  const start = process.uptime();
+  const rootPkg = await findUp("package.json");
+  const root = rootPkg !== undefined ? path.dirname(rootPkg) : defaultRoot;
+  await build(root);
+  const elapsed = process.uptime() - start;
+  const elapsedStr = elapsed.toLocaleString(undefined, {
+    maximumFractionDigits: 2,
+  });
+  log("Elapsed: %s seconds", elapsedStr);
 })();

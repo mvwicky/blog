@@ -1,24 +1,20 @@
 import * as path from "path";
 
-import debug from "debug";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import type { Configuration, Entry, Plugin } from "webpack";
 import { DefinePlugin, HashedModuleIdsPlugin } from "webpack";
 import ManifestPlugin from "webpack-manifest-plugin";
 
 import type { CacheLoaderRule } from "./config/types";
-import { envDefined } from "./lib";
+import { env, logger } from "./lib";
 import * as pkg from "./package.json";
 
-const log = debug("blog:webpack");
-log.enabled = true;
+const log = logger("webpack", true);
 
-const prod = process.env.NODE_ENV === "production";
-
-log("NODE_ENV=%s", process.env.NODE_ENV);
+log("NODE_ENV=%s", env.NODE_ENV);
 
 function prodOr<P = any, D = any>(pVal: P, dVal: D): P | D {
-  return prod ? pVal : dVal;
+  return env.PROD ? pVal : dVal;
 }
 
 const rootDir = __dirname;
@@ -28,7 +24,7 @@ const outPath = path.resolve(rootDir, "dist", "assets");
 
 const hashFn = prodOr("sha256", "md5");
 
-const hashLen = prodOr(32, 10);
+const hashLen = prodOr(20, 10);
 const fontHash = `${hashFn}:hash:hex:${hashLen}`;
 const fontName = `[name].[${fontHash}].[ext]`;
 
@@ -53,6 +49,7 @@ const plugins: Plugin[] = [
   }),
   new MiniCssExtractPlugin({
     filename: prodOr(`style.[contenthash:${hashLen}].css`, "style.css"),
+    chunkFilename: prodOr(`[name].[chunkhash:${hashLen}].css`, "[name].css"),
   }),
   new ManifestPlugin({
     publicPath: "/assets/",
@@ -75,9 +72,12 @@ const config: Configuration = {
   output: {
     path: outPath,
     filename: prodOr(`[name].[contenthash].js`, "[name].js"),
+    chunkFilename: prodOr("[name].[chunkhash].js", "[name].js"),
     hashFunction: hashFn,
     hashDigestLength: 20,
     publicPath: "/assets/",
+    // chunkLoadTimeout: 30000,
+    // jsonpScriptType: "module",
   },
   devtool: prodOr("source-map", "cheap-module-eval-source-map"),
   plugins,
@@ -97,7 +97,7 @@ const config: Configuration = {
                   "@babel/preset-env",
                   {
                     corejs: { version: 3, proposals: true },
-                    debug: envDefined("BABEL_ENV_DEBUG"),
+                    debug: env.defined("BABEL_ENV_DEBUG"),
                     useBuiltIns: "usage",
                     targets: { esmodules: true },
                     bugfixes: true,
@@ -149,7 +149,7 @@ const config: Configuration = {
     ],
   },
   stats: {
-    excludeAssets: [/\.(woff)$/, /-(\d00|italic)\./],
+    excludeAssets: [/\.woff2?$/, /-(\d+|italic)\./, /\.(map)$/],
     excludeModules: [/[\\/]fonts[\\/]/, /node_modules/],
     children: false,
     modules: false,
@@ -159,6 +159,7 @@ const config: Configuration = {
     builtAt: false,
     cachedAssets: false,
     env: true,
+    assetsSort: "size",
   },
   resolve: {
     extensions: [".ts", ".js"],
@@ -172,5 +173,5 @@ const config: Configuration = {
   },
 };
 
-export { getCacheDir };
+export { getCacheDir, config };
 export default config;
