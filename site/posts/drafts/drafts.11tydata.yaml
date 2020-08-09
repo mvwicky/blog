@@ -2,3 +2,4 @@
 published: false
 tags:
   - draft
+permalink: "drafts/{{ page.date | linkDate }}/{{ page.fileSlug | lower }}/"

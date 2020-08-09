@@ -3,3 +3,10 @@ title: "Where Was I Going With That?"
 author: Michael Van Wickle
 description: A blog, which generally consists of posts that are lists of links, followed by thoughts on said links
 short_name: "Where Was I Going"
+icon_sizes:
+  - 96
+  - 128
+  - 192
+  - 256
+  - 384
+  - 512

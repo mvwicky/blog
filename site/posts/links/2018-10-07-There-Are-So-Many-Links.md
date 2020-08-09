@@ -2,7 +2,7 @@
 title: "Rebecca Solnit and friends."
 date: 2018-10-07
 description: "PLACEHOLDER DESCRIPTION."
-tags: [Solnit, Dictionary, SCOTUS]
+tags: [Solnit, SCOTUS]
 links:
   dict:
     href: "https://www.fastcompany.com/90235948/dictionary-com-is-political-now"

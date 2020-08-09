@@ -8,5 +8,8 @@
 {% else %}
 <span class="footer-link invisible"></span>
 {% endif %}
+{%- endmacro %}
 
+{% macro linkSeq(page, rel) %}
+{% if page %}<link rel="{{ rel }}" href="{{ page.url }}">{% endif %}
 {%- endmacro %}

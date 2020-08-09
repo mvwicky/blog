@@ -5,18 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>{{ localData.title or title }} | {{ meta.title }}</title>
-
     {% if env.production %}{% include "sw.njk" %}{% endif %}
-
-    <link rel="shortcut icon" href="/img/icons/favicon.ico" type="image/x-icon" />
+    {% include "icons.njk" %}
     <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />
     <link rel="manifest" href="/manifest.webmanifest">
 
+    <link rel="author" href="/humans.txt">
     <meta name="author" content="{{ meta.author }}">
     <meta name="generator" content="eleventy">
     {% if description %}<meta name="description" content="{{ description }}">{% endif %}
 
-    {% block extrahead %}{% endblock -%}
+    {%- block extrahead %}{% endblock -%}
   </head>
   <body>
     <div class="container pt-2">
@@ -33,7 +32,7 @@
           {%- set headerClass = headerClasses | select() | join(" ") -%}
           <a href="{{ headerUrl }}" class="{{ headerClass }}">{{ link.text }}</a>
         {% endfor -%}
-        <a href="{{ nav.github.url }}" class="header-link boxed-header-link ml-auto">
+        <a href="{{ nav.github.url }}" class="header-link boxed-header-link ml-auto shadow-inner">
           {{ nav.github.text }}
         </a>
       </nav>

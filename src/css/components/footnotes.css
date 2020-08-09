@@ -2,16 +2,20 @@
   @apply px-3 mx-3 text-sm leading-relaxed;
 }
 
-.footnotes > ol {
-  @apply mx-4;
-}
-
-.footnotes-list {
-  @apply list-decimal list-outside;
+ol.footnotes-list {
+  @apply list-decimal list-outside mx-4;
 }
 
 .footnote-item > p {
   @apply inline text-justify;
+}
+
+.footnote-item:target {
+  @apply border-b underline;
+}
+
+.footnote-item:target::marker {
+  @apply text-yellow-700;
 }
 
 .tippy-content p {

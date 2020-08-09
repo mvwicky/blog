@@ -1,5 +1,13 @@
 {% extends "./default.njk" %}
-{% from "macro_utils.njk" import footerlink %}
+{% from "macro_utils.njk" import footerlink,linkSeq %}
+
+{%- set prevPage = collections.published | getPreviousCollectionItem(page) -%}
+{%- set nextPage = collections.published | getNextCollectionItem(page) -%}
+
+{%- block extrahead -%}
+{{ linkSeq(prevPage, "prev") }}
+{{ linkSeq(nextPage, "next") }}
+{%- endblock %}
 
 {% block content %}
   <header class="header post-header">
@@ -12,12 +20,5 @@
   </article>
 {% endblock %}
 
-{%- block footerprev -%}
-  {%- set prevPage = collections.published | getPreviousCollectionItem(page) -%}
-  {{ footerlink(prevPage, "Previous") }}
-{%- endblock -%}
-
-{%- block footernext -%}
-  {%- set nextPage = collections.published | getNextCollectionItem(page) -%}
-  {{ footerlink(nextPage, "Next") }}
-{%- endblock -%}
+{%- block footerprev -%}{{ footerlink(prevPage, "Older") }}{%- endblock -%}
+{%- block footernext -%}{{ footerlink(nextPage, "Newer") }}{%- endblock -%}

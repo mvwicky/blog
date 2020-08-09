@@ -39,12 +39,15 @@ const config = {
     content: ["site/**/*.njk", "site/**/*.md"],
   },
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        display: ['"Fira Sans"', ...fontFamily.sans],
+        body: ['"Spectral"', ...fontFamily.serif],
+      },
+    },
     fontFamily: {
       sans: ['"Fira Sans"', ...fontFamily.sans],
       serif: ['"Spectral"', ...fontFamily.serif],
-      display: ['"Fira Sans"', ...fontFamily.sans],
-      body: ['"Spectral"', ...fontFamily.serif],
       mono: ['"IBM Plex Mono"', ...fontFamily.mono],
     },
     fontSize: {

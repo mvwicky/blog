@@ -1,8 +1,19 @@
-module.exports = class {
+/**
+ * @file Generate web app manifest.
+ */
+
+/**
+ * @typedef {object} Meta - The data from `site/_data/meta.yaml`
+ * @property {number[]} icon_sizes
+ * @property {string} title
+ * @property {string} short_name
+ * @property {string} description
+ */
+
+class Manifest {
   data() {
     return {
       permalink: "/manifest.webmanifest",
-      eleventyExcludeFromCollections: true,
     };
   }
 
@@ -18,23 +29,22 @@ module.exports = class {
     };
   }
 
-  render({ meta }) {
+  /** @param {{meta: Meta}}  */
+  render({ meta: { short_name, description, ...meta } }) {
     const SPACE = "  ";
+    const icons = meta.icon_sizes.map((sz) => this.makeIcon(sz));
     const manifest = {
       name: meta.title,
-      short_name: meta.short_name,
-      description: meta.description,
+      short_name,
+      description,
       display: "standalone",
       start_url: ".",
-      icons: [
-        this.makeIcon(96),
-        this.makeIcon(128),
-        this.makeIcon(192),
-        this.makeIcon(512),
-      ],
+      icons,
       background_color: "",
       theme_color: "",
     };
     return JSON.stringify(manifest, undefined, SPACE);
   }
-};
+}
+
+module.exports = Manifest;
