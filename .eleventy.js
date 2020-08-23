@@ -74,7 +74,7 @@ module.exports = function (eleventyConfig) {
   const md = configureMarkdown();
   eleventyConfig.setLibrary("md", md);
 
-  eleventyConfig.addPassthroughCopy("_headers");
+  // eleventyConfig.addPassthroughCopy("_headers");
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
 

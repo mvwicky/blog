@@ -32,9 +32,19 @@ function defined(key: string): boolean {
   return process.env[key] !== undefined;
 }
 
-function getBool(key: string, defaultValue: boolean): boolean {
-  const rValue = process.env[key];
-  const value = rValue !== undefined ? rValue : defaultValue;
+function rGet(key: string) {
+  return process.env[key];
+}
+
+function requiredError(key: string): never {
+  throw new Error(`Environment variable ${key} must be defined.`);
+}
+
+function getBool(key: string, defaultValue?: boolean): boolean {
+  const value = rGet(key) ?? defaultValue;
+  if (value === undefined) {
+    requiredError(key);
+  }
   if (typeof value === "string") {
     if (checkTrue(value)) {
       return true;
@@ -50,16 +60,35 @@ function getBool(key: string, defaultValue: boolean): boolean {
   }
 }
 
-function getStr(key: string, defaultValue: string): string {
-  const rValue = process.env[key];
-  const value = rValue !== undefined ? rValue : defaultValue;
+function getStr(key: string, defaultValue?: string): string {
+  const value = rGet(key) ?? defaultValue;
   if (value === undefined) {
-    throw new Error(`Expected to find ${key}`);
+    requiredError(key);
   }
   return value;
+}
+
+function getNumber(key: string, defaultValue?: number | string): number {
+  const value = rGet(key) ?? defaultValue;
+  if (value === undefined) {
+    requiredError(key);
+  }
+  const numVal = Number(value);
+  if (Number.isNaN(numVal)) {
+    throw new Error(`Unable to parse a number from ${value} for ${key}`);
+  }
+  return numVal;
+}
+
+function getInt(key: string, defaultValue?: number | string): number {
+  const numVal = getNumber(key, defaultValue);
+  if (!Number.isInteger(numVal)) {
+    throw new Error(`Expected an integer value for ${key}`);
+  }
+  return numVal;
 }
 
 const NODE_ENV = getStr("NODE_ENV", "development");
 const PROD = NODE_ENV === "production";
 
-export { getBool, getStr, defined, PROD, NODE_ENV };
+export { getBool, getStr, defined, PROD, NODE_ENV, getNumber, getInt };
