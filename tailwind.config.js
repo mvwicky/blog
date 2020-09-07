@@ -82,6 +82,9 @@ const config = {
   },
   variants: {},
   plugins: [],
+  future: {
+    removeDeprecatedGapUtilities: true,
+  },
 };
 
 module.exports = config;
