@@ -15,6 +15,6 @@
     "strict": true
   },
   "include": ["./**/*.ts"],
-  "exclude": ["../node_modules/**", "./build/"],
+  "exclude": ["../node_modules/**"],
   "extends": "../config/tsconfig.base.json"
 }

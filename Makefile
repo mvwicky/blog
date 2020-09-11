@@ -6,7 +6,7 @@ MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
 YARN=yarn
-YRUN=$(YARN) run
+YRUN=$(YARN) --silent run
 WEBPACK=$(YRUN) webpack
 ELEVENTY=$(YRUN) eleventy
 TS_NODE=$(YRUN) ts-node
