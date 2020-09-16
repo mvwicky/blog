@@ -17,8 +17,8 @@ function makeCombos(arr: Readonly<string[]>): string[] {
   return dedupe(arr.concat(arrTx));
 }
 
-const TRUTHY = makeCombos(BASE_TRUTHY);
-const FALSY = makeCombos(BASE_FALSY).concat([""]);
+const TRUTHY: Readonly<string[]> = makeCombos(BASE_TRUTHY);
+const FALSY: Readonly<string[]> = makeCombos(BASE_FALSY).concat([""]);
 
 function checkTrue(v: string): boolean {
   return TRUTHY.some((s) => v.localeCompare(s) === 0);

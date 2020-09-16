@@ -1,5 +1,4 @@
 node_modules/
 dist/
-!.eleventy.js
-lib/build/
 build/
+!.eleventy.js

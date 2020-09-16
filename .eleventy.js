@@ -12,6 +12,7 @@ const { Settings } = require("luxon");
 const { logger, env } = require("./build/lib");
 const collections = require("./config/collections");
 const shortcodes = require("./config/shortcodes");
+const transforms = require("./config/transforms");
 const filters = require("./config/utils/filters");
 const pkg = require("./package.json");
 
@@ -107,6 +108,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addShortcode("inlineWebpackAsset", assets.inlineWebpackAsset);
 
   eleventyConfig.addPairedShortcode("linksection", shortcodes.linksection);
+
+  eleventyConfig.addTransform("critical", transforms.critical);
 
   Object.entries(filters).forEach(([name, func]) =>
     eleventyConfig.addFilter(name, func)

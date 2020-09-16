@@ -76,8 +76,6 @@ const config: Configuration = {
     hashFunction: hashFn,
     hashDigestLength: 20,
     publicPath: "/assets/",
-    // chunkLoadTimeout: 30000,
-    // jsonpScriptType: "module",
   },
   devtool: prodOr("source-map", "cheap-module-eval-source-map"),
   plugins,
