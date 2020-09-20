@@ -22,7 +22,7 @@
 }
 
 .boxed-header-link {
-  @apply px-4 py-3 border rounded border-indigo-800;
+  @apply px-3 py-3 border rounded border-indigo-800;
 }
 
 .boxed-header-link:hover {

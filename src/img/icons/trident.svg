@@ -6,7 +6,7 @@
   height="512"
   viewBox="0 0 77 77"
 >
-  <rect width="100%" height="100%" fill="#00aaff" rx="3" />
+  <rect width="100%" height="100%" fill="#00aaff" rx="3" ry="3" />
   <path
     d="M 38.5,1 28.125,21.21875
        c 1.980001,-0.907 3.99375,-1.20625 6.09375,-0.90625

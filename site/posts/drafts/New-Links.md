@@ -24,10 +24,18 @@ links:
 # cSpell:enable
 ---
 
-{% from "link_macro.njk" import link_heading %}
+{% linksection links.capitalb %}
+{% proofText 1,3 %}
+{% endlinksection %}
 
-{{ link_heading(links.capitalb) }}
+{% linksection links.uighurs %}
+{% proofText 2 %}
+{% endlinksection %}
 
-{{ link_heading(links.uighurs) }}
+{% linksection links.ntsb %}
+{% proofText 2 %}
+{% endlinksection %}
 
-{{ link_heading(links.ntsb) }}
+{% linksection links.police %}
+{% proofText 2,3 %}
+{% endlinksection %}

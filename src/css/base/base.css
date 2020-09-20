@@ -12,6 +12,10 @@ body {
   @apply max-w-xl mx-auto;
 }
 
+.container > main {
+  @apply pt-4 pb-5;
+}
+
 a[href]:not(.never-underline):hover {
   @apply underline;
 }
@@ -23,7 +27,7 @@ p {
 }
 
 .content {
-  @apply px-6 w-full;
+  @apply px-3 w-full;
 }
 
 .content h4 {

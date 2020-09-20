@@ -19,7 +19,7 @@
     "dev:assets": "yarn run webpack:assets --watch",
     "dev:lib": "tsc --project lib --watch",
     "dev:serve": "eleventy --serve",
-    "lib": "npm-run-all clean:lib build:lib",
+    "compile": "npm-run-all clean:lib build:lib",
     "lint": "npm-run-all -p lint:*",
     "lint:eslint": "eslint --format=pretty --cache --cache-location=.cache/.eslintcache '**/*.ts' '**/*.js'",
     "lint:styles": "stylelint --cache --cache-location .cache/.stylelintcache '**/*.css'",

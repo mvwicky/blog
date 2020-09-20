@@ -75,7 +75,6 @@ module.exports = function (eleventyConfig) {
   const md = configureMarkdown();
   eleventyConfig.setLibrary("md", md);
 
-  // eleventyConfig.addPassthroughCopy("_headers");
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
 
@@ -106,6 +105,8 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addShortcode("webpackAsset", assets.webpackAsset);
   eleventyConfig.addShortcode("inlineWebpackAsset", assets.inlineWebpackAsset);
+
+  eleventyConfig.addShortcode("proofText", shortcodes.proofText);
 
   eleventyConfig.addPairedShortcode("linksection", shortcodes.linksection);
 

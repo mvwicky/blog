@@ -1,7 +1,7 @@
 const { colors, fontFamily } = require("tailwindcss/defaultTheme");
 
-const MS_RATIO = 1.2; /* Minor Third */
-const MS_BASE = 16; /* Pixels */
+const [MS_RATIO, MS_BASE] = [1.2 /* Minor Third */, 16 /* Pixels */];
+
 const TRAILING_RE = /(\d+\.[1-9]*)0+$/;
 
 /** @param {number} n */
@@ -16,7 +16,8 @@ function msPixels(n) {
  */
 function normalizeRem(rem, precision = 3) {
   const fixed = rem.toFixed(precision);
-  const match = TRAILING_RE.exec(fixed);
+  const match = fixed.match(TRAILING_RE);
+  // const match = TRAILING_RE.exec(fixed);
   if (match !== null) {
     const f = match[1];
     if (f.endsWith(".")) {
@@ -36,6 +37,7 @@ function ms(n) {
 
 const config = {
   purge: {
+    mode: "layers",
     content: ["site/**/*.njk", "site/**/*.md"],
   },
   theme: {

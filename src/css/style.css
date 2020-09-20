@@ -12,6 +12,7 @@
 @import "./components/lists.css";
 @import "./layout/footer.css";
 @import "./layout/header.css";
+@import "./layout/sections.css";
 
 /* purgecss end ignore */
 

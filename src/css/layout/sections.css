@@ -1,0 +1,7 @@
+.link-section {
+  @apply pt-3;
+}
+
+section + .link-section {
+  @apply border-t;
+}

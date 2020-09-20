@@ -40,8 +40,8 @@ class Manifest {
       display: "standalone",
       start_url: ".",
       icons,
-      background_color: "",
-      theme_color: "",
+      background_color: "#90cdf4",
+      theme_color: "#90cdf4",
     };
     return JSON.stringify(manifest, undefined, SPACE);
   }

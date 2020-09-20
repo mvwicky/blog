@@ -1,5 +1,5 @@
-function dedupe<T>(inputArr: T[]): T[] {
-  return inputArr.filter((val, i, arr) => arr.indexOf(val) >= i);
+function dedupe<T>(inputArray: T[]): T[] {
+  return inputArray.filter((val, i, arr) => arr.indexOf(val) >= i);
 }
 
 const BASE_TRUTHY = ["1", "on", "y", "yes", "true", "t"] as const;
@@ -91,4 +91,13 @@ function getInt(key: string, defaultValue?: number | string): number {
 const NODE_ENV = getStr("NODE_ENV", "development");
 const PROD = NODE_ENV === "production";
 
-export { getBool, getStr, defined, PROD, NODE_ENV, getNumber, getInt };
+const env = {
+  unpublished: getBool("UNPUBLISHED", false),
+  drafts: getBool("DRAFTS", false),
+  future: getBool("FUTURE", false),
+  NODE_ENV: NODE_ENV,
+  production: PROD,
+  ENABLE_CRITICAL_CSS: getBool("ENABLE_CRITICAL_CSS", false),
+};
+
+export { getBool, getStr, defined, PROD, NODE_ENV, getNumber, getInt, env };
