@@ -5,7 +5,7 @@ import type { Configuration, Entry, Plugin } from "webpack";
 import { DefinePlugin, HashedModuleIdsPlugin } from "webpack";
 import ManifestPlugin from "webpack-manifest-plugin";
 
-import type { CacheLoaderRule } from "./config/types";
+import type { CacheLoaderRule } from "./lib";
 import { env, logger } from "./lib";
 import * as pkg from "./package.json";
 

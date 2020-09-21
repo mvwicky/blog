@@ -13,3 +13,4 @@ export function compact<T>(arr: (T | undefined)[]): T[] {
 export * from "./logging";
 export * as env from "./env";
 export * as dates from "./dates";
+export * from "./types";

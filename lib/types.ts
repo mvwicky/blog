@@ -44,3 +44,30 @@ export interface CollectionApi {
   getFilteredByTags(...tags: string[]): CollectionItem[];
   getFilteredByGlob(glob: string | string[]): CollectionItem[];
 }
+
+export interface Dirs {
+  root: string;
+  output: string;
+}
+
+export interface CriticalOptions {
+  inline?: boolean;
+  base?: string;
+  html?: string;
+  css?: string[];
+  width?: number;
+  height?: number;
+  target?: { css: string; html: string; uncritical?: string };
+  minify?: boolean;
+  extract?: boolean;
+  ignore?: Record<string, unknown>;
+}
+
+export interface Asset {
+  url: string;
+  pathname: string;
+  absolutePath: string;
+  relativePath: string;
+  search: string;
+  hash: string;
+}

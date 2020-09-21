@@ -1,10 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 
-/**
- * @typedef {{root: string, output: string}} Dirs - Directories
- */
-
 /** @param {string} manifestPath */
 function makeManifest(manifestPath) {
   return () => {
@@ -14,7 +10,7 @@ function makeManifest(manifestPath) {
 }
 
 /**
- * @param {Dirs} dirs
+ * @param {import("../../build/lib").Dirs} dirs
  */
 function configure(dirs) {
   const { root, output } = dirs;

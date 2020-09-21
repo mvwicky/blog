@@ -26,9 +26,7 @@
     </div>
     <div class="container">
       <main id="main" class="bg-blue-100 bg-opacity-75 pt-4 pb-6 border border-gray-600 min-h-screen flex flex-col">
-        {% block content %}
-        {{ content | safe }}
-        {% endblock %}
+        {% block content %}{{ content | safe }}{% endblock %}
       </main>
     </div>
     <div class="container pb-4">

@@ -17,7 +17,6 @@ function msPixels(n) {
 function normalizeRem(rem, precision = 3) {
   const fixed = rem.toFixed(precision);
   const match = fixed.match(TRAILING_RE);
-  // const match = TRAILING_RE.exec(fixed);
   if (match !== null) {
     const f = match[1];
     if (f.endsWith(".")) {
