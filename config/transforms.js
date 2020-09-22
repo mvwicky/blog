@@ -18,7 +18,7 @@ function rebase(asset) {
 }
 
 const criticalConfig = {
-  inline: { polyfill: false, preload: true },
+  inline: { polyfill: false, preload: false },
   base: "dist/",
   dimensions: [{ width: 1200, height: 800 }],
   rebase,

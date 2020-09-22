@@ -10,3 +10,5 @@ icon_sizes:
   - 256
   - 384
   - 512
+theme_color: "#90cdf4"
+background_color: "#90cdf4"

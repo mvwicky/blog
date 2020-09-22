@@ -8,6 +8,8 @@
  * @property {string} title
  * @property {string} short_name
  * @property {string} description
+ * @property {string} theme_color
+ * @property {string} background_color
  */
 
 class Manifest {
@@ -40,8 +42,8 @@ class Manifest {
       display: "standalone",
       start_url: ".",
       icons,
-      background_color: "#90cdf4",
-      theme_color: "#90cdf4",
+      background_color: meta.background_color,
+      theme_color: meta.theme_color,
     };
     return JSON.stringify(manifest, undefined, SPACE);
   }
