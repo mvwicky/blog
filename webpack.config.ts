@@ -1,3 +1,5 @@
+import * as crypto from "crypto";
+import * as fs from "fs";
 import * as path from "path";
 
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
@@ -30,6 +32,13 @@ const fontName = `[name].[${fontHash}].[ext]`;
 
 const relToRoot = (...args: string[]) => path.resolve(rootDir, ...args);
 const relToSrc = (...args: string[]) => path.join(srcDir, ...args);
+
+function hashFile(p: string): string {
+  const contents = fs.readFileSync(p, "utf-8");
+  const hash = crypto.createHash("md5");
+  hash.update(contents);
+  return hash.digest("hex");
+}
 
 function getCacheDir(name: string): string {
   return path.join(cacheBase, prodOr("prod", "dev"), name);

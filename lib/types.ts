@@ -71,3 +71,13 @@ export interface Asset {
   search: string;
   hash: string;
 }
+
+export interface Meta {
+  icon_sizes: string[];
+  title: string;
+  short_name: string;
+  description: string;
+  theme_color: string;
+  background_color: string;
+  url: string;
+}

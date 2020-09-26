@@ -4,8 +4,14 @@ class Robots {
       permalink: "/robots.txt",
     };
   }
-  render(data) {
-    return ["User-agent: *", "Disallow: /drafts/"].join("\n");
+  /** @param {{meta: import("../../lib").Meta}}  */
+  render({ meta }) {
+    const lines = [
+      "User-agent: *",
+      "Disallow: /drafts/",
+      `Sitemap: ${meta.url}/sitemap.xml`,
+    ];
+    return lines.join("\n");
   }
 }
 

@@ -2,16 +2,6 @@
  * @file Generate web app manifest.
  */
 
-/**
- * @typedef {object} Meta - The data from `site/_data/meta.yaml`
- * @property {number[]} icon_sizes
- * @property {string} title
- * @property {string} short_name
- * @property {string} description
- * @property {string} theme_color
- * @property {string} background_color
- */
-
 class Manifest {
   data() {
     return {
@@ -31,7 +21,7 @@ class Manifest {
     };
   }
 
-  /** @param {{meta: Meta}}  */
+  /** @param {{meta: import("../../lib").Meta}}  */
   render({ meta: { short_name, description, ...meta } }) {
     const SPACE = "  ";
     const icons = meta.icon_sizes.map((sz) => this.makeIcon(sz));

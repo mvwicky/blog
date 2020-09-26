@@ -6,6 +6,7 @@
 const fs = require("fs");
 const path = require("path");
 
+const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 const yaml = require("js-yaml");
 const { Settings } = require("luxon");
 
@@ -68,6 +69,10 @@ module.exports = function (eleventyConfig) {
   layoutAliases(pkgCfg.dir).forEach(([baseName, relPath]) =>
     eleventyConfig.addLayoutAlias(baseName, relPath)
   );
+
+  eleventyConfig.addPlugin(sitemap, {
+    sitemap: { hostname: "https://www.wherewasigoing.com" },
+  });
 
   eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addDataExtension("yaml", (cts) => yaml.safeLoad(cts));

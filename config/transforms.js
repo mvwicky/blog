@@ -1,10 +1,14 @@
+const path = require("path");
+
 const critical = require("critical");
 const multimatch = require("multimatch");
 
 const { logger } = require("../build/lib");
+const { config } = require("../package.json");
 const { env } = require("./utils/env");
 
 const log = logger("11ty:transforms", true);
+const ROOT_DIR = path.dirname(__dirname);
 
 /** @type {string[]} */
 const GLOBS_TO_TX = ["dist/index.html", "dist/tags/*/index.html"];
@@ -19,7 +23,7 @@ function rebase(asset) {
 
 const criticalConfig = {
   inline: { polyfill: false, preload: false },
-  base: "dist/",
+  base: path.join(ROOT_DIR, config.eleventy.dir.output),
   dimensions: [{ width: 1200, height: 800 }],
   rebase,
 };
@@ -45,8 +49,12 @@ async function transformCritical(content, outputPath) {
     log("Extracting critical css from %s", outputPath);
     try {
       const config = { ...criticalConfig, html: content };
-      const { html } = await critical.generate(config);
-      log("Extracted critical css from %s", outputPath);
+      const { html, uncritical, css } = await critical.generate(config);
+      const origLength = content.length;
+      const txLength = html.length;
+      const m = txLength / origLength;
+      log("Extracted critical css from %s (%s)", outputPath, m.toFixed(3));
+      log("critical: %d, uncritical: %d", css.length, uncritical.length);
       return html;
     } catch (e) {
       console.error(e);
