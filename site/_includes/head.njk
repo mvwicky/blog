@@ -3,6 +3,12 @@
 
 <title>{{ localData.title or title }} | {{ meta.title }}</title>
 {% if env.production %}{% include "sw.njk" %}{% endif %} {% include "icons.njk" %}
+<script
+  async
+  defer
+  data-website-id="6152f1a8-cf77-4797-90c7-dd565bfe1faf"
+  src="https://analytics.wherewasigoing.com/umami.js"
+></script>
 <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />
 <link rel="manifest" href="/manifest.webmanifest" />
 
