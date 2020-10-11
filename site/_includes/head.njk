@@ -2,13 +2,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>{{ localData.title or title }} | {{ meta.title }}</title>
-{% if env.production %}{% include "sw.njk" %}{% endif %} {% include "icons.njk" %}
+{%- if env.production %}{% include "sw.njk" %}{% endif %} {% include "icons.njk" -%} {% if env.production %}
 <script
   async
   defer
   data-website-id="6152f1a8-cf77-4797-90c7-dd565bfe1faf"
   src="https://analytics.wherewasigoing.com/umami.js"
 ></script>
+{% endif %}
 <link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />
 <link rel="manifest" href="/manifest.webmanifest" />
 

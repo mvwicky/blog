@@ -2,7 +2,7 @@ import webpack from "webpack";
 import type { Compiler, Configuration, Stats, compilation } from "webpack";
 
 import { env, logger } from "../lib";
-import { getConfig, runHandler } from "./build-utils";
+import { getWebpackConfig, runHandler } from "./build-utils";
 
 type Compilation = compilation.Compilation;
 
@@ -67,7 +67,7 @@ class WatchWrapper {
 }
 
 async function watch() {
-  const config = await getConfig();
+  const config = await getWebpackConfig();
   const watcher = new WatchWrapper(config, process.stdout);
   watcher.start();
 }

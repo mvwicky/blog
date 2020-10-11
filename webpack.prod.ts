@@ -8,10 +8,9 @@ const terser = new TerserPlugin({
   parallel: true,
   sourceMap: true,
   terserOptions: {
-    ecma: 8,
+    ecma: 2018,
     module: true,
     compress: {
-      passes: 2,
       drop_debugger: true,
       drop_console: true,
       module: true,
@@ -23,5 +22,5 @@ const config = merge(base, {
   optimization: { minimizer: [terser] },
 });
 
-export default config;
+export default base;
 export { config };

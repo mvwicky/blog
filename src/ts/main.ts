@@ -1,4 +1,5 @@
 import { elemIsTag } from "./elem-is-tag";
+import { debounce } from "./helpers/debounce";
 import { initPostlist } from "./postslist";
 
 (async function () {
@@ -17,4 +18,33 @@ import { initPostlist } from "./postslist";
     );
     initFootnotes();
   }
+  if ("onresize" in window) {
+    const sizeContainer = document.createElement("div");
+    addResizeListener(sizeContainer);
+  }
 })();
+
+function getBreakpointName(width: number): string {
+  if (width < 576) {
+    return "sm";
+  } else if (width < 768) {
+    return "md";
+  } else if (width < 992) {
+    return "lg";
+  } else {
+    return "xl";
+  }
+}
+
+function showSize(el: HTMLElement) {
+  const [width, height] = [window.innerWidth, window.innerHeight];
+  const bp = getBreakpointName(width);
+  el.innerHTML = `<code>${width}&times;${height} (${bp})</code>`;
+}
+
+function addResizeListener(container: HTMLElement) {
+  const resizeHandler = debounce(showSize.bind(null, container));
+  window.addEventListener("resize", resizeHandler);
+  showSize(container);
+  document.body.append(container);
+}

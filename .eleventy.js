@@ -30,7 +30,7 @@ function configureMarkdown() {
   const anchorCfg = {
     permalink: true,
     permalinkClass: "permalink-anchor text-gray-700",
-    permalinkSymbol: "ǂ",
+    permalinkSymbol: "ǂ", // Alveolar (or palatal?) click symbol
     permalinkBefore: true,
     level: [4],
     slugify: filters.extraSlug,
@@ -100,6 +100,10 @@ module.exports = function (eleventyConfig) {
           res.end();
         });
       },
+    },
+    https: {
+      key: "./localhost+3-key.pem",
+      cert: "./localhost+3.pem",
     },
   });
 

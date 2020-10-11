@@ -21,6 +21,10 @@ links:
     title: What the police really believe
     author: Zack Beauchamp
     href: "https://www.vox.com/policy-and-politics/2020/7/7/21293259/police-racism-violence-ideology-george-floyd"
+  jkrowling:
+    title: J.K. Rowling and the Limits of Imagination
+    author: Nathan J. Robinson
+    href: "https://www.currentaffairs.org/2020/07/jk-rowling-and-the-limits-of-imagination"
 # cSpell:enable
 ---
 

@@ -1,49 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% include "head.njk" %}
-    {%- block extrahead %}{% endblock -%}
+    {% include "head.njk" %} {%- block extrahead %}{% endblock -%}
   </head>
   <body>
-    <div class="container pt-2">
-      <div class="flex justify-center bg-gray-200 px-4 py-3 rounded">
-        <h1 class="font-semibold">
-          <a class="never-underline" href="{{ '/' | url }}">{{ meta.title }}</a>
-        </h1>
-      </div>
-      <nav class="leading-4 text-lg" id="nav-main">
-        <a class="header-link font-medium pr-6 text-2xl" href="{{ '/' | url }}">Home</a>
-        {% for link in nav.links %}
-          {%- set headerUrl = link.url | url -%}
-          {%- set headerClasses = ["header-link", "active" if headerUrl == page.url else ""] -%}
-          {%- set headerClass = headerClasses | select() | join(" ") -%}
-          <a href="{{ headerUrl }}" class="{{ headerClass }}">{{ link.text }}</a>
-        {% endfor -%}
-        <a href="{{ nav.github.url }}" class="header-link boxed-header-link ml-auto shadow-inner">
-          {{ nav.github.text }}
-        </a>
-      </nav>
-    </div>
+    {% include "header.njk" %}
+    <div class="container pt-2">{% include "nav.njk" %}</div>
     <div class="container">
-      <main id="main" class="bg-blue-100 bg-opacity-75 pt-4 pb-6 border border-gray-600 min-h-screen flex flex-col">
+      <main
+        id="main"
+        class="bg-blue-100 bg-opacity-75 pt-4 pb-6 border border-gray-600 min-h-screen flex flex-col"
+      >
         {% block content %}{{ content | safe }}{% endblock %}
       </main>
     </div>
     <div class="container pb-4">
       <footer class="footer">
         <div class="footer-row pb-2 px-56">
-          {% block footernext %}{% endblock %}
-          {% if page.url != "/" -%}
+          {% block footernext %}{% endblock %} {% if page.url != "/" -%}
           <a class="footer-link" href="{{ '/' | url }}">Home</a>
           {%- else -%}
           <span class="footer-link invisible"></span>
-          {%- endif %}
-          {% block footerprev %}{% endblock %}
+          {%- endif %} {% block footerprev %}{% endblock %}
         </div>
         <div class="footer-row border-t border-gray-500 pt-1">
-          <span class="footer-text tracking-tight"
-            >&copy; Michael Van Wickle</span
-          >
+          <span class="footer-text tracking-tight">&copy; Michael Van Wickle</span>
         </div>
         <div class="footer-row border-gray-500">
           <code class="footer-text tracking-tight">v{{ pkg.version }}</code>

@@ -2,18 +2,17 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-xargs_cmd='xargs'
-if type gxargs &>/dev/null; then
-  xargs_cmd='gxargs'
-fi
+default_src_file='src/img/icons/trident.svg'
+default_out_dir='src/img/icons/touch'
+src_file=${ICON_SOURCE_FILE:-$default_src_file}
+out_dir=${ICON_OUTPUT_DIR:-$default_out_dir}
 
-# inkscape -o touch/<filename> -w <width> -h <height> <input-name>
-
-src_file='src/img/icons/trident.svg'
-out_dir='src/img/icons/touch'
-out_tpl="$out_dir/icon-{}.png"
+echo "Source File: $src_file"
+echo "Output Dir:  $out_dir"
 
 sizes=(96 128 192 256 384 512)
-# dpis=(36 72 96 192 300)
-# printf '%s\000' "${dpis[@]}" | "$xargs_cmd" -t -0 -I'{}' inkscape -o "$out_tpl" -d '{}' ./trident.svg
-printf '%s\000' "${sizes[@]}" | "$xargs_cmd" -t -0 -I'{}' inkscape -o "$out_tpl" -w '{}' -h '{}' "$src_file"
+for size in "${sizes[@]}"; do
+  out_file="$out_dir/icon-${size}.png"
+  inkscape -o "$out_file" -w "$size" -h "$size" "$src_file"
+  echo "$out_file"
+done

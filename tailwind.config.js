@@ -45,6 +45,9 @@ const config = {
         display: ['"Fira Sans"', ...fontFamily.sans],
         body: ['"Spectral"', ...fontFamily.serif],
       },
+      screens: {
+        print: { raw: "print" },
+      },
     },
     fontFamily: {
       sans: ['"Fira Sans"', ...fontFamily.sans],
@@ -76,9 +79,16 @@ const config = {
     },
     container: {
       padding: {
-        default: "1.5rem",
+        default: ms(-1),
+        md: ms(2),
         lg: ms(16),
       },
+    },
+    screens: {
+      sm: "576px",
+      md: "768px",
+      lg: "992px",
+      xl: "1200px",
     },
   },
   variants: {},

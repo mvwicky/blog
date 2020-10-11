@@ -92,3 +92,4 @@ temp/
 .envrc
 !lib
 build/
+*.pem

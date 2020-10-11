@@ -2,14 +2,34 @@ import * as crypto from "crypto";
 import { promises as fs } from "fs";
 import * as path from "path";
 
+import * as esbuild from "esbuild";
+import findUp from "find-up";
+import mem from "mem";
 import postcss from "postcss";
 import type { Configuration, Stats } from "webpack";
 
-import { env } from "../lib";
+import { env, logger } from "../lib";
+import * as pkg from "../package.json";
 
-const ROOT = path.dirname(__dirname);
+const log = logger("assets", true);
 
-export async function getConfig(): Promise<Configuration> {
+export const ROOT = path.dirname(__dirname);
+
+async function _getRoot(): Promise<string> {
+  try {
+    const root = await findUp("package.json");
+    if (root !== undefined) {
+      return path.dirname(root);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return ROOT;
+}
+
+export const getRoot = mem(_getRoot);
+
+export async function getWebpackConfig(): Promise<Configuration> {
   const conf = env.PROD
     ? import("../webpack.prod")
     : import("../webpack.config");
@@ -53,20 +73,37 @@ export function showStats(stats: Stats, info: Stats.ToJsonOutput) {
   process.stdout.write("\n");
 }
 
-function hashedFilename(base: string, ext: string, contents: string): string {
-  const hash = crypto.createHash("md5");
-  hash.update(contents);
-  const digest = hash.digest("hex");
-  return [base, digest, ext].join(".");
+export function hashed(cts: crypto.BinaryLike, algorithm: string = "md5") {
+  const hash = crypto.createHash(algorithm);
+  hash.update(cts);
+  return hash.digest("hex");
+}
+
+interface HashedFileOptions {
+  baseName: string;
+  ext: string;
+  contents: crypto.BinaryLike;
+  digestLength: number;
+}
+
+function hashedFilename({
+  contents,
+  baseName,
+  ext,
+  digestLength,
+}: HashedFileOptions): string {
+  const digest = hashed(contents).slice(digestLength);
+  return [baseName, digest, ext].join(".");
 }
 
 export async function buildCSS() {
-  const styleFile = path.join(ROOT, "src", "css", "style.css");
+  const root = await getRoot();
+  const styleFile = path.resolve(root, pkg.config.entrypoints.styles);
   const [{ default: config }, styleCts] = await Promise.all([
     import("../postcss.config"),
     fs.readFile(styleFile, "utf-8"),
   ]);
-  const outDir = path.join(ROOT, "dist", "assets");
+  const outDir = path.join(root, "dist", "assets");
   const processor = postcss(config.plugins);
   const result = await processor.process(styleCts, {
     from: styleFile,
@@ -74,7 +111,44 @@ export async function buildCSS() {
     map: config.map,
   });
   const { css } = result;
-  const outName = env.PROD ? hashedFilename("style", "css", css) : "style.css";
+  const hashedOpts: HashedFileOptions = {
+    baseName: "style",
+    ext: "css",
+    contents: css,
+    digestLength: 16,
+  };
+  const outName = !env.PROD ? "style.css" : hashedFilename(hashedOpts);
   const outFile = path.join(outDir, outName);
   await fs.writeFile(outFile, css);
+}
+
+export async function buildTS() {
+  const main = path.resolve(ROOT, pkg.config.entrypoints.main);
+  const options: esbuild.BuildOptions = {
+    entryPoints: [main],
+    minify: env.PROD,
+    bundle: true,
+    outdir: path.resolve(ROOT, "dist", "assets"),
+    // splitting: true,
+    // format: "esm",
+    target: "es2017",
+    metafile: path.resolve(ROOT, "dist", "metafile.json"),
+    write: false,
+  };
+  const { warnings, outputFiles } = await esbuild.build(options);
+  if (warnings) {
+    log("%o", warnings);
+  }
+  if (!outputFiles) {
+    return;
+  }
+  await Promise.all(
+    outputFiles.map(({ contents, path }) => {
+      if (!env.PROD) {
+        return fs.writeFile(path, contents);
+      } else {
+        return fs.writeFile(path, contents);
+      }
+    })
+  );
 }

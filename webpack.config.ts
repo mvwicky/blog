@@ -7,8 +7,7 @@ import type { Configuration, Entry, Plugin } from "webpack";
 import { DefinePlugin, HashedModuleIdsPlugin } from "webpack";
 import ManifestPlugin from "webpack-manifest-plugin";
 
-import type { CacheLoaderRule } from "./lib";
-import { env, logger } from "./lib";
+import { CacheLoaderRule, compact, env, logger } from "./lib";
 import * as pkg from "./package.json";
 
 const log = logger("webpack", true);
@@ -44,11 +43,12 @@ function getCacheDir(name: string): string {
   return path.join(cacheBase, prodOr("prod", "dev"), name);
 }
 
-function getCacheLoader(name: string): CacheLoaderRule {
-  return {
-    loader: "cache-loader",
-    options: { cacheDirectory: getCacheDir(name) },
-  };
+function getCacheLoader(name: string): CacheLoaderRule | undefined {
+  return undefined;
+  // return {
+  //   loader: "cache-loader",
+  //   options: { cacheDirectory: getCacheDir(name) },
+  // };
 }
 
 const plugins: Plugin[] = [
@@ -58,11 +58,10 @@ const plugins: Plugin[] = [
   }),
   new MiniCssExtractPlugin({
     filename: prodOr(`style.[contenthash:${hashLen}].css`, "style.css"),
-    chunkFilename: prodOr(`[name].[chunkhash:${hashLen}].css`, "[name].css"),
   }),
   new ManifestPlugin({
     publicPath: "/assets/",
-    filter: (fd) => !/\.woff2?$/.test(fd.path),
+    // filter: (fd) => !/\.woff2?$/.test(fd.path),
   }),
   new DefinePlugin({
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
@@ -94,7 +93,7 @@ const config: Configuration = {
         test: /\.(ts)$/,
         include: [relToSrc("ts")],
         exclude: [/node_modules/],
-        use: [
+        use: compact([
           getCacheLoader("babel-loader"),
           {
             loader: "babel-loader",
@@ -118,7 +117,7 @@ const config: Configuration = {
               cacheCompression: false,
             },
           },
-        ],
+        ]),
       },
       {
         test: /\.(css)$/,
@@ -127,15 +126,15 @@ const config: Configuration = {
           relToSrc("ts"),
           relToRoot("node_modules", "tippy.js"),
         ],
-        use: [
-          { loader: MiniCssExtractPlugin.loader },
+        use: compact([
+          { loader: MiniCssExtractPlugin.loader, options: { esModule: false } },
           getCacheLoader("css-loader"),
           {
             loader: "css-loader",
             options: { esModule: true, importLoaders: 1 },
           },
           { loader: "postcss-loader" },
-        ],
+        ]),
       },
       {
         test: /\.(woff2?)$/,

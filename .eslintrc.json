@@ -1,14 +1,6 @@
 {
   "extends": "wherewasigoing",
   "rules": {
-    "no-unused-vars": "off",
-    "sort-imports": [
-      "error",
-      {
-        "ignoreDeclarationSort": true,
-        "memberSyntaxSortOrder": ["none", "all", "single", "multiple"]
-      }
-    ],
     "import/order": [
       "error",
       {

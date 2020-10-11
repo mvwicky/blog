@@ -11,14 +11,13 @@
   </div>
 </div>
 
-<div class="grid-posts-list px-2 text-lg leading-normal mt-3 pt-3 gap-y-2 gap-x-2" id="posts-list">
-{% for post in collections.published | reverse -%}
+<div
+  class="grid-posts-list leading-normal mt-3 pt-3 gap-y-2 gap-x-1 md:px-2 md:text-lg md:gap-x-2"
+  id="posts-list"
+>
+  {% for post in collections.published | reverse -%}
   <span class="posts-list-bullet" data-post="{{ loop.index0 }}">•</span>
-  <time
-    class="posts-list-date"
-    datetime="{{ post.date | htmlDateString }}"
-    data-post="{{ loop.index0 }}"
-  >
+  <time class="posts-list-date" datetime="{{ post.date | htmlDateString }}" data-post="{{ loop.index0 }}">
     {{ post.date | readableDate }}
   </time>
   <span class="posts-list-sep" data-post="{{ loop.index0 }}">&raquo;</span>
@@ -31,5 +30,5 @@
   >
     {{ post.data.title }}
   </a>
-{% endfor %}
+  {% endfor %}
 </div>

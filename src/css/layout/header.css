@@ -10,3 +10,15 @@
 .post-header {
   /* @apply mx-4 pb-2 mb-4 border-b border-gray-500; */
 }
+
+.title-header {
+  @apply flex justify-center;
+  @apply bg-gray-200;
+  @apply px-4 py-3 rounded;
+}
+
+@screen sm {
+  #nav-main {
+    @apply flex-no-wrap;
+  }
+}

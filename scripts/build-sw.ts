@@ -1,16 +1,26 @@
 import * as path from "path";
 
-import findUp from "find-up";
 import workboxBuild from "workbox-build";
 
 import { env, humanBytes, logger } from "../lib";
 import * as pkg from "../package.json";
+import { getRoot } from "./build-utils";
 
 const log = logger("sw", true);
 
 log("NODE_ENV=%s", env.NODE_ENV);
 
-const defaultRoot = path.dirname(__dirname);
+const EXTS_TO_GLOB: string[] = [
+  "js",
+  "css",
+  "html",
+  "ico",
+  "woff",
+  "woff2",
+  "txt",
+  "webmanifest",
+  "png",
+];
 
 async function build(rootDir: string) {
   const relToRoot = (p: string) => path.relative(rootDir, p);
@@ -18,9 +28,9 @@ async function build(rootDir: string) {
   const outputDir = path.resolve(rootDir, dirs.output);
   const swDest = path.join(outputDir, "sw.js");
   const globDirectory = outputDir;
-
-  log("%o", { swDest: relToRoot(swDest) });
-  const globPatterns = ["**/*.{js,css,html,ico,woff,woff2}"];
+  log("Output File: %s", relToRoot(swDest));
+  const globPatterns = EXTS_TO_GLOB.map((ext) => `**/*.${ext}`);
+  log("Glob Patterns: %o", globPatterns);
   try {
     const start = process.uptime();
     const { count, filePaths, size, warnings } = await workboxBuild.generateSW({
@@ -55,8 +65,7 @@ async function build(rootDir: string) {
 
 (async function () {
   const start = process.uptime();
-  const rootPkg = await findUp("package.json");
-  const root = rootPkg !== undefined ? path.dirname(rootPkg) : defaultRoot;
+  const root = await getRoot();
   await build(root);
   const elapsed = process.uptime() - start;
   const elapsedStr = elapsed.toLocaleString(undefined, {
