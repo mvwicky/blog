@@ -1,7 +1,7 @@
-import { promises as fsp } from "fs";
 import * as path from "path";
 
-import { Chunk, Compilation, Compiler, Configuration } from "webpack";
+import * as fse from "fs-extra";
+import { Chunk, Compilation, Compiler, Configuration, sources } from "webpack";
 
 import { logger } from ".";
 
@@ -24,21 +24,26 @@ interface Options {
   outputPath?: string;
   outputName: string;
 }
+type Dict<T> = Record<string, T>;
 
 const log = logger("plugin", true);
 
+const emitCount = new Map<string, number>();
+
 export class ManifestPlugin {
   private readonly options: Options;
+
   constructor(options: Partial<Options>) {
     this.options = { outputName: "manifest.json", ...options };
   }
 
   apply(compiler: Compiler): void {
-    const afterEmit = this.afterEmit.bind(this);
-    compiler.hooks.afterEmit.tapPromise("ManifestPlugin", afterEmit);
+    const options = { name: "ManifestPlugin", stage: Infinity };
+    const emit = this.emit.bind(this);
+    compiler.hooks.emit.tapPromise(options, emit);
   }
 
-  private async afterEmit(compilation: Compilation) {
+  private async emit(compilation: Compilation) {
     const { output } = compilation.options;
     const publicPath = this.options.publicPath ?? output.publicPath;
     const outputPath = this.options.outputPath ?? output.path;
@@ -73,7 +78,12 @@ export class ManifestPlugin {
     log("%O", manifest);
     const contents = JSON.stringify(manifest, undefined, 2);
     const outputFile = path.join(outputPath, this.options.outputName);
-    await fsp.writeFile(outputFile, contents, { encoding: "utf-8" });
+    await fse.outputFile(outputFile, contents, { encoding: "utf-8" });
+    return sources.CompatSource.from({
+      source() {
+        return contents;
+      },
+    });
   }
 
   private getFileType(s: string) {

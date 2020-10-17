@@ -1,7 +1,7 @@
 import "../css/style.css";
 
 import { elemIsTag } from "./elem-is-tag";
-import { env, prod } from "./helpers/const";
+import { prod } from "./helpers/const";
 import { debounce } from "./helpers/debounce";
 import { initPostlist } from "./postslist";
 
