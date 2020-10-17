@@ -1,8 +1,6 @@
-import { RuleSetLoader } from "webpack";
-
 // export interface EleventyConfig {};
 
-export interface CacheLoaderRule extends RuleSetLoader {
+export interface CacheLoaderRule {
   loader: "cache-loader";
   options: {
     cacheDirectory: string;

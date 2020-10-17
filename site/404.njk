@@ -2,35 +2,28 @@
 title: Not Found
 permalink: 404.html
 ---
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }}</title>
-  {% inlineWebpackAsset 'styles.css' %}
-  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
-</head>
-<body>
-  <div class="container pt-2">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    {% inlineWebpackAsset 'main.css' %}
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container pt-2">
       <div class="flex justify-center bg-gray-200 px-4 py-3 rounded">
         <h1 class="font-semibold">
           <a class="never-underline" href="{{ '/' | url }}">Where Was I Going With That?</a>
         </h1>
       </div>
       <nav class="leading-4 text-lg" id="nav-main">
-        <a class="header-link font-medium pr-6 text-2xl" href="{{ '/' | url }}">
-          Home
-        </a>
-        <a href="{{ '/reading/' | url }}" class="header-link">
-          Reading
-        </a>
-        <a href="{{ '/aboutme/' | url }}" class="header-link">
-          About Me
-        </a>
-        <a href="https://github.com/mvwicky" class="header-link boxed-header-link ml-auto">
-          Github
-        </a>
+        <a class="header-link font-medium pr-6 text-2xl" href="{{ '/' | url }}"> Home </a>
+        <a href="{{ '/reading/' | url }}" class="header-link"> Reading </a>
+        <a href="{{ '/aboutme/' | url }}" class="header-link"> About Me </a>
+        <a href="https://github.com/mvwicky" class="header-link boxed-header-link ml-auto"> Github </a>
       </nav>
     </div>
     <div class="container">
@@ -38,19 +31,16 @@ permalink: 404.html
         <header class="header">
           <h1>{{ title }}</h1>
         </header>
-
       </div>
     </div>
     <div class="container pb-4">
       <footer class="footer">
         <div class="flex justify-center pb-2 w-full px-56">
-          {% block footerprev %}{% endblock %}
-          {% if page.url != "/" -%}
+          {% block footerprev %}{% endblock %} {% if page.url != "/" -%}
           <a class="footer-link" href="{{ '/' | url }}">Home</a>
           {%- else -%}
           <span class="footer-link invisible"></span>
-          {%- endif %}
-          {% block footernext %}{% endblock %}
+          {%- endif %} {% block footernext %}{% endblock %}
         </div>
 
         <div class="flex justify-center w-full border-t border-gray-500 pt-1">
@@ -63,6 +53,5 @@ permalink: 404.html
         </div>
       </footer>
     </div>
-
-</body>
+  </body>
 </html>

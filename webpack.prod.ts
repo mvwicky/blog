@@ -6,7 +6,7 @@ import base from "./webpack.config";
 const terser = new TerserPlugin({
   test: /\.m?(j|t)s(\?.*)?$/i,
   parallel: true,
-  sourceMap: true,
+  // sourceMap: true,
   terserOptions: {
     ecma: 2018,
     module: true,
@@ -19,8 +19,15 @@ const terser = new TerserPlugin({
 });
 
 const config = merge(base, {
+  //@ts-expect-error
   optimization: { minimizer: [terser] },
+  cache: {
+    type: "filesystem",
+    buildDependencies: {
+      config: [__filename],
+    },
+  },
 });
 
-export default base;
+export default config;
 export { config };

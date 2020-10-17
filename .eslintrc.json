@@ -19,7 +19,8 @@
     "import/dynamic-import-chunkname": [
       2,
       { "importFunctions": ["import"], "webpackChunknameFormat": "[a-z0-9-]+" }
-    ]
+    ],
+    "no-unused-vars": "off"
   },
   "env": { "browser": true, "es6": true },
   "settings": {

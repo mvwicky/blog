@@ -42,15 +42,17 @@ dev: export NODE_ENV=development
 dev: clean-dist dev-assets eleventy
 
 prod-assets: export NODE_ENV=production
-prod-assets: WEBPACK_ARGS=--config webpack.prod.ts -p
+prod-assets: WEBPACK_ARGS=--config=./webpack.prod.ts
 prod-assets: webpack
 
 dev-assets: export NODE_ENV=development
-dev-assets: WEBPACK_ARGS=--mode=development
+dev-assets: WEBPACK_ARGS=--config=./webpack.config.ts
 dev-assets: webpack
 
 eleventy:
 	$(ELEVENTY)
+
+site: eleventy
 
 service-worker: TS_NODE_ARGS=$(BUILD_SW)
 service-worker: ts-node

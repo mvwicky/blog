@@ -1,10 +1,8 @@
 import webpack from "webpack";
-import type { Compiler, Configuration, Stats, compilation } from "webpack";
+import type { Compilation, Compiler, Configuration, Stats } from "webpack";
 
 import { env, logger } from "../lib";
 import { getWebpackConfig, runHandler } from "./build-utils";
-
-type Compilation = compilation.Compilation;
 
 const log = logger("watch", true);
 
@@ -57,12 +55,12 @@ class WatchWrapper {
     }
   }
 
-  private watchHandler(err: Error, stats: Stats) {
-    if (!stats.hash || this.#lastHash !== stats.hash) {
+  private watchHandler(err?: Error, stats?: Stats) {
+    if (!stats?.hash || this.#lastHash !== stats.hash) {
       log("Rebuilt");
       runHandler(err, stats);
     }
-    this.#lastHash = stats.hash;
+    this.#lastHash = stats?.hash;
   }
 }
 

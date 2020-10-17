@@ -1,4 +1,7 @@
+import "../css/style.css";
+
 import { elemIsTag } from "./elem-is-tag";
+import { env, prod } from "./helpers/const";
 import { debounce } from "./helpers/debounce";
 import { initPostlist } from "./postslist";
 
@@ -18,8 +21,12 @@ import { initPostlist } from "./postslist";
     );
     initFootnotes();
   }
-  if ("onresize" in window) {
+  if (!prod && "onresize" in window) {
     const sizeContainer = document.createElement("div");
+    sizeContainer.classList.add("size-container");
+    sizeContainer.style.position = "fixed";
+    sizeContainer.style.bottom = "0.5rem";
+    sizeContainer.style.left = "0.5rem";
     addResizeListener(sizeContainer);
   }
 })();

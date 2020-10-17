@@ -10,8 +10,9 @@ const { env } = require("./utils/env");
 const log = logger("11ty:transforms", true);
 const ROOT_DIR = path.dirname(__dirname);
 
+// const GLOBS_TO_TX = ["dist/index.html", "dist/tags/*/index.html"];
 /** @type {string[]} */
-const GLOBS_TO_TX = ["dist/index.html", "dist/tags/*/index.html"];
+const GLOBS_TO_TX = ["dist/index.html", "dist/page/*/index.html"];
 
 /**
  * @param asset {import("../lib").Asset}

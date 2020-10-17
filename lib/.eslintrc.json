@@ -3,7 +3,7 @@
     "@typescript-eslint/no-array-constructor": "error",
     "@typescript-eslint/no-empty-function": "error",
     "@typescript-eslint/no-extra-semi": "error",
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/require-await": "error",
     "@typescript-eslint/no-inferrable-types": "off",
     "no-array-constructor": "off",

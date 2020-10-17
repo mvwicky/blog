@@ -1,0 +1,19 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr min(65ch, 100%) 1fr;
+}
+
+.wrapper > * {
+  grid-column: 2;
+}
+
+.full-bleed {
+  grid-column: 1 / 4;
+  @apply w-full;
+}
+
+.mostly-full-bleed {
+  grid-column: 1 / 4;
+  @apply w-full max-w-6xl;
+  @apply mx-auto;
+}

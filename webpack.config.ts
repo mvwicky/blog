@@ -1,13 +1,12 @@
-import * as crypto from "crypto";
-import * as fs from "fs";
 import * as path from "path";
 
+import globby from "globby";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import type { Configuration, Entry, Plugin } from "webpack";
-import { DefinePlugin, HashedModuleIdsPlugin } from "webpack";
-import ManifestPlugin from "webpack-manifest-plugin";
+import type { Configuration, Entry } from "webpack";
+import { DefinePlugin } from "webpack";
 
-import { CacheLoaderRule, compact, env, logger } from "./lib";
+import { env, logger } from "./lib";
+import { ManifestPlugin } from "./lib/manifest-plugin";
 import * as pkg from "./package.json";
 
 const log = logger("webpack", true);
@@ -19,7 +18,6 @@ function prodOr<P = any, D = any>(pVal: P, dVal: D): P | D {
 }
 
 const rootDir = __dirname;
-const cacheBase = path.resolve(rootDir, ".cache", "build-cache");
 const srcDir = path.resolve(rootDir, "src");
 const outPath = path.resolve(rootDir, "dist", "assets");
 
@@ -27,50 +25,37 @@ const hashFn = prodOr("sha256", "md5");
 
 const hashLen = prodOr(20, 10);
 const fontHash = `${hashFn}:hash:hex:${hashLen}`;
-const fontName = `[name].[${fontHash}].[ext]`;
+const fontName = prodOr(`[name].[${fontHash}].[ext]`, "[name].[ext]");
 
 const relToRoot = (...args: string[]) => path.resolve(rootDir, ...args);
 const relToSrc = (...args: string[]) => path.join(srcDir, ...args);
 
-function hashFile(p: string): string {
-  const contents = fs.readFileSync(p, "utf-8");
-  const hash = crypto.createHash("md5");
-  hash.update(contents);
-  return hash.digest("hex");
-}
+const dependencies = globby.sync(["./lib/**/*.ts", "./*.config.js"], {
+  absolute: true,
+});
 
-function getCacheDir(name: string): string {
-  return path.join(cacheBase, prodOr("prod", "dev"), name);
-}
+const defs = Object.fromEntries(
+  Object.entries({
+    "process.env.NODE_ENV": prodOr("production", "development"),
+    NODE_ENV: prodOr("production", "development"),
+    PRODUCTION: prodOr(true, false),
+  }).map(([name, value]) => [name, JSON.stringify(value)])
+);
 
-function getCacheLoader(name: string): CacheLoaderRule | undefined {
-  return undefined;
-  // return {
-  //   loader: "cache-loader",
-  //   options: { cacheDirectory: getCacheDir(name) },
-  // };
-}
-
-const plugins: Plugin[] = [
-  new HashedModuleIdsPlugin({
-    hashDigestLength: 5,
-    hashFunction: "md5",
-  }),
+const plugins: Configuration["plugins"] = [
+  //@ts-expect-error
   new MiniCssExtractPlugin({
     filename: prodOr(`style.[contenthash:${hashLen}].css`, "style.css"),
   }),
-  new ManifestPlugin({
-    publicPath: "/assets/",
-    // filter: (fd) => !/\.woff2?$/.test(fd.path),
-  }),
-  new DefinePlugin({
-    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-  }),
+  new ManifestPlugin({ publicPath: "/assets/" }),
+  new DefinePlugin(defs),
 ];
 
 function getEntrypoints(): Entry {
   const entrypoints = Object.entries(pkg.config.entrypoints);
-  const entryEntries = entrypoints.map(([name, loc]) => [name, relToRoot(loc)]);
+  const entryEntries = entrypoints
+    .filter(([_, value]) => !value.match(/\.css$/))
+    .map(([name, loc]) => [name, relToRoot(loc)]);
   return Object.fromEntries(entryEntries);
 }
 
@@ -79,13 +64,13 @@ const config: Configuration = {
   entry: getEntrypoints(),
   output: {
     path: outPath,
-    filename: prodOr(`[name].[contenthash].js`, "[name].js"),
+    filename: prodOr("[name].[contenthash].js", "[name].js"),
     chunkFilename: prodOr("[name].[chunkhash].js", "[name].js"),
     hashFunction: hashFn,
     hashDigestLength: 20,
     publicPath: "/assets/",
   },
-  devtool: prodOr("source-map", "cheap-module-eval-source-map"),
+  devtool: prodOr("source-map", "inline-cheap-module-source-map"),
   plugins,
   module: {
     rules: [
@@ -93,8 +78,7 @@ const config: Configuration = {
         test: /\.(ts)$/,
         include: [relToSrc("ts")],
         exclude: [/node_modules/],
-        use: compact([
-          getCacheLoader("babel-loader"),
+        use: [
           {
             loader: "babel-loader",
             options: {
@@ -113,11 +97,10 @@ const config: Configuration = {
                 "@babel/preset-typescript",
               ],
               plugins: [["@babel/plugin-transform-runtime", {}]],
-              cacheDirectory: getCacheDir("babel"),
               cacheCompression: false,
             },
           },
-        ]),
+        ],
       },
       {
         test: /\.(css)$/,
@@ -126,15 +109,14 @@ const config: Configuration = {
           relToSrc("ts"),
           relToRoot("node_modules", "tippy.js"),
         ],
-        use: compact([
+        use: [
           { loader: MiniCssExtractPlugin.loader, options: { esModule: false } },
-          getCacheLoader("css-loader"),
           {
             loader: "css-loader",
             options: { esModule: true, importLoaders: 1 },
           },
           { loader: "postcss-loader" },
-        ]),
+        ],
       },
       {
         test: /\.(woff2?)$/,
@@ -161,11 +143,13 @@ const config: Configuration = {
     modules: false,
     entrypoints: true,
     hash: true,
-    version: false,
-    builtAt: false,
-    cachedAssets: false,
+    version: true,
+    builtAt: true,
+    cachedAssets: true,
     env: true,
     assetsSort: "size",
+    assets: true,
+    colors: true,
   },
   resolve: {
     extensions: [".ts", ".js"],
@@ -173,11 +157,21 @@ const config: Configuration = {
   recordsPath: relToSrc(`records-${prodOr("prod", "dev")}.json`),
   node: false,
   optimization: {
+    moduleIds: "deterministic",
+    chunkIds: "deterministic",
     splitChunks: {
       automaticNameDelimiter: "-",
     },
   },
+  cache: {
+    type: "filesystem",
+    buildDependencies: {
+      config: [__filename].concat(dependencies),
+      lib: [],
+    },
+    version: "1.0.0",
+  },
 };
 
-export { getCacheDir, config };
+export { config };
 export default config;
