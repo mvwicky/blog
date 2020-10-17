@@ -19,8 +19,11 @@ const terser = new TerserPlugin({
 });
 
 const config = merge(base, {
-  //@ts-expect-error
-  optimization: { minimizer: [terser] },
+  optimization: {
+    minimize: true,
+    //@ts-expect-error
+    minimizer: [terser],
+  },
   cache: {
     type: "filesystem",
     buildDependencies: {

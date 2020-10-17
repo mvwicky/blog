@@ -169,6 +169,7 @@ const config: Configuration = {
       config: [__filename].concat(dependencies),
       lib: [],
     },
+    cacheDirectory: relToRoot(".cache", "webpack"),
     version: "1.0.0",
   },
 };
