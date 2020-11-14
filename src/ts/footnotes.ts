@@ -11,11 +11,11 @@
  */
 
 import tippy from "tippy.js";
-// import "tippy.js/dist/tippy.css";
-// import "tippy.js/themes/light.css";
-// import "tippy.js/themes/light-border.css";
-// import "tippy.js/themes/material.css";
-// import "tippy.js/themes/translucent.css";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/themes/light-border.css";
+import "tippy.js/themes/material.css";
+import "tippy.js/themes/translucent.css";
 
 import { elemIsTag } from "./elem-is-tag";
 
@@ -53,7 +53,7 @@ function fromFnItem(item: HTMLElement) {
       onShow: (inst) => {
         console.log(inst);
       },
-      // theme: "light-border",
+      theme: "light-border",
       duration: [600, 500],
       inertia: true,
       placement: "auto-end",

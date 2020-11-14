@@ -6,7 +6,8 @@
   "eslint.format.enable": true,
   "[nunjucks]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "files.insertFinalNewline": false
   },
   "[plaintext]": {
     "files.trimTrailingWhitespace": true
@@ -31,7 +32,6 @@
     }
   },
   "cSpell.words": ["wickle"],
-  "eslint.enable": true,
   "json.schemas": [
     {
       "fileMatch": ["local_modules/eslint-config-wherewasigoing/config.json"],

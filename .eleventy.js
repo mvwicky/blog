@@ -82,8 +82,12 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
+  if (!env.PROD) {
+    eleventyConfig.addPassthroughCopy({ "src/css/theme/fonts": "fonts" });
+  }
 
   eleventyConfig.addWatchTarget(MANIFEST);
+  eleventyConfig.setWatchThrottleWaitTime(250);
   eleventyConfig.setBrowserSyncConfig({
     files: [MANIFEST],
     logConnections: true,
@@ -96,6 +100,7 @@ module.exports = function (eleventyConfig) {
       ready: function (err, browserSync) {
         const content_404 = fs.readFileSync("dist/404.html");
         browserSync.addMiddleware("*", (req, res) => {
+          res.statusCode = 404;
           res.write(content_404); // Provides the 404 content without redirect.
           res.end();
         });

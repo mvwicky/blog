@@ -3,7 +3,7 @@ import * as path from "path";
 import * as fse from "fs-extra";
 import { Chunk, Compilation, Compiler, Configuration, sources } from "webpack";
 
-import { logger } from ".";
+import { env, logger } from ".";
 
 export type StatsOptions = Exclude<
   Configuration["stats"],
@@ -32,12 +32,14 @@ const emitCount = new Map<string, number>();
 
 export class ManifestPlugin {
   private readonly options: Options;
+  private watching: boolean = false;
 
   constructor(options: Partial<Options>) {
     this.options = { outputName: "manifest.json", ...options };
   }
 
   apply(compiler: Compiler): void {
+    this.watching = compiler.options.watch ?? false;
     const options = { name: "ManifestPlugin", stage: Infinity };
     const emit = this.emit.bind(this);
     compiler.hooks.emit.tapPromise(options, emit);
@@ -75,10 +77,24 @@ export class ManifestPlugin {
   }
 
   private async writeManifest(outputPath: string, manifest: Manifest) {
-    log("%O", manifest);
     const contents = JSON.stringify(manifest, undefined, 2);
     const outputFile = path.join(outputPath, this.options.outputName);
-    await fse.outputFile(outputFile, contents, { encoding: "utf-8" });
+    const exists = await (env.PROD
+      ? Promise.resolve(false)
+      : fse.pathExists(outputFile));
+    let shouldWrite: boolean = true;
+    if (exists) {
+      const current = await fse.readFile(outputFile, { encoding: "utf-8" });
+      shouldWrite = current !== contents;
+    }
+    if (shouldWrite) {
+      log("%O", manifest);
+      await fse.outputFile(outputFile, contents, { encoding: "utf-8" });
+    } else if (this.watching) {
+      log("Touching manifest");
+      const now = new Date();
+      await fse.utimes(outputFile, now, now);
+    }
     return sources.CompatSource.from({
       source() {
         return contents;

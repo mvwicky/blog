@@ -1,16 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% include "head.njk" %} {%- block extrahead %}{% endblock -%}
+    {% block head -%}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ localData.title or title }} | {{ meta.title }}</title>
+    {%- if env.production %}{% include "sw.njk" %}{% endif %}
+    {% include "icons.njk" -%}
+    {% if env.production %}
+    <script
+      async
+      defer
+      data-website-id="6152f1a8-cf77-4797-90c7-dd565bfe1faf"
+      src="https://analytics.wherewasigoing.com/umami.js"
+    ></script>
+    {% endif %}
+    {%- if not env.production %}{% include "font_fallbacks.njk" %}{% endif %}
+    {% block styles %}<link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />{% endblock %}
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="author" href="/humans.txt" />
+    <meta name="author" content="{{ meta.author }}" />
+    <meta name="generator" content="Eleventy" />
+    <meta name="theme-color" content="{{ meta.theme_color }}" />
+    {% if description %}<meta name="description" content="{{ description }}" />{% endif -%}
+    {% if ld.type %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org"
+    }
+    </script>
+    {% endif %}
+    {% endblock %}
+    {%- block extrahead %}{% endblock -%}
   </head>
   <body>
     {% include "header.njk" %}
     <div class="container pt-2">{% include "nav.njk" %}</div>
     <div class="container">
-      <main
-        id="main"
-        class="bg-blue-100 bg-opacity-75 pt-4 pb-6 border border-gray-600 min-h-screen flex flex-col"
-      >
+      <main id="main" >
         {% block content %}{{ content | safe }}{% endblock %}
       </main>
     </div>
@@ -31,6 +59,8 @@
         </div>
       </footer>
     </div>
+    {% block endofbody %}
     <script type="module" src="{% webpackAsset 'main.js' %}"></script>
+    {% endblock %}
   </body>
 </html>

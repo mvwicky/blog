@@ -23,11 +23,19 @@
 }
 
 .boxed-nav-link {
-  @apply px-3 py-3 border rounded border-indigo-800;
+  @apply px-3 py-3 border rounded border-indigo-800 shadow-inner;
 }
 
 .boxed-nav-link:hover {
   @apply bg-blue-800 text-blue-100 border-indigo-100;
+}
+
+.link-title {
+  @apply tracking-tight;
+}
+
+.link-author {
+  @apply mb-2 tracking-tight;
 }
 
 @screen lg {
@@ -40,10 +48,8 @@
   }
 }
 
-.link-title {
-  @apply tracking-tight;
-}
-
-.link-author {
-  @apply mb-2 tracking-tight;
+@screen md {
+  .boxed-nav-link {
+    @apply ml-auto;
+  }
 }

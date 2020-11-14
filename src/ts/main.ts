@@ -1,5 +1,3 @@
-import "../css/style.css";
-
 import { elemIsTag } from "./elem-is-tag";
 import { prod } from "./helpers/const";
 import { debounce } from "./helpers/debounce";
@@ -23,7 +21,7 @@ import { initPostlist } from "./postslist";
   }
   if (!prod && "onresize" in window) {
     const sizeContainer = document.createElement("div");
-    sizeContainer.classList.add("size-container");
+    sizeContainer.classList.add("size-container", "print:hidden");
     sizeContainer.style.position = "fixed";
     sizeContainer.style.bottom = "0.5rem";
     sizeContainer.style.left = "0.5rem";
@@ -33,13 +31,13 @@ import { initPostlist } from "./postslist";
 
 function getBreakpointName(width: number): string {
   if (width < 576) {
-    return "sm";
+    return "SM";
   } else if (width < 768) {
-    return "md";
+    return "MD";
   } else if (width < 992) {
-    return "lg";
+    return "LG";
   } else {
-    return "xl";
+    return "XL";
   }
 }
 

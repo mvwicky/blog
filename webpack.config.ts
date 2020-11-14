@@ -30,9 +30,8 @@ const fontName = prodOr(`[name].[${fontHash}].[ext]`, "[name].[ext]");
 const relToRoot = (...args: string[]) => path.resolve(rootDir, ...args);
 const relToSrc = (...args: string[]) => path.join(srcDir, ...args);
 
-const dependencies = globby.sync(["./lib/**/*.ts", "./*.config.js"], {
-  absolute: true,
-});
+const globs = ["./lib/**/*.ts", "./*.config.js", "./scripts/*.ts"];
+const dependencies = globby.sync(globs, { absolute: true });
 
 const defs = Object.fromEntries(
   Object.entries({
@@ -45,7 +44,8 @@ const defs = Object.fromEntries(
 const plugins: Configuration["plugins"] = [
   //@ts-expect-error
   new MiniCssExtractPlugin({
-    filename: prodOr(`style.[contenthash:${hashLen}].css`, "style.css"),
+    filename: prodOr(`[name].[contenthash:${hashLen}].css`, "[name].css"),
+    chunkFilename: prodOr(`[name].[contenthash:${hashLen}].css`, "[name].css"),
   }),
   new ManifestPlugin({ publicPath: "/assets/" }),
   new DefinePlugin(defs),
@@ -53,9 +53,7 @@ const plugins: Configuration["plugins"] = [
 
 function getEntrypoints(): Entry {
   const entrypoints = Object.entries(pkg.config.entrypoints);
-  const entryEntries = entrypoints
-    .filter(([_, value]) => !value.match(/\.css$/))
-    .map(([name, loc]) => [name, relToRoot(loc)]);
+  const entryEntries = entrypoints.map(([name, loc]) => [name, relToRoot(loc)]);
   return Object.fromEntries(entryEntries);
 }
 
@@ -137,19 +135,20 @@ const config: Configuration = {
     ],
   },
   stats: {
-    excludeAssets: [/\.woff2?$/, /-(\d+|italic)\./, /\.(map)$/],
-    excludeModules: [/[\\/]fonts[\\/]/, /node_modules/],
-    children: false,
-    modules: false,
-    entrypoints: true,
-    hash: true,
-    version: true,
+    assets: true,
+    assetsSort: "size",
     builtAt: true,
     cachedAssets: true,
-    env: true,
-    assetsSort: "size",
-    assets: true,
+    children: false,
     colors: true,
+    entrypoints: true,
+    env: true,
+    excludeAssets: [/\.woff2?$/, /-(\d+|italic)\./, /\.(map)$/],
+    excludeModules: [/[\\/]fonts[\\/]/, /node_modules/],
+    hash: true,
+    modules: false,
+    version: true,
+    warnings: true,
   },
   resolve: {
     extensions: [".ts", ".js"],
@@ -169,7 +168,6 @@ const config: Configuration = {
       config: [__filename].concat(dependencies),
       lib: [],
     },
-    cacheDirectory: relToRoot(".cache", "webpack"),
     version: "1.0.0",
   },
 };

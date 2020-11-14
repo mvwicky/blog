@@ -1,11 +1,11 @@
-<nav class="leading-4 text-lg" id="nav-main">
+<nav id="nav-main">
   <a class="nav-link font-medium pr-6" href="{{ '/' | url }}">Home</a>
   {% for link in nav.links %} {%- set headerUrl = link.url | url -%} {%- set headerClasses = ["nav-link",
   "active" if headerUrl == page.url else ""] -%} {%- set headerClass = headerClasses | select() | join(" ")
   -%}
   <a href="{{ headerUrl }}" class="{{ headerClass }}">{{ link.text }}</a>
   {% endfor -%}
-  <a href="{{ nav.github.url }}" class="nav-link boxed-nav-link md:ml-auto shadow-inner">
+  <a href="{{ nav.github.url }}" class="nav-link boxed-nav-link" target="_blank" rel="noreferrer noopener">
     {{ nav.github.text }}
   </a>
 </nav>

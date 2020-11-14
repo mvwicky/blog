@@ -20,6 +20,7 @@ const EXTS_TO_GLOB: string[] = [
   "txt",
   "webmanifest",
   "png",
+  "map",
 ];
 
 async function build(rootDir: string) {

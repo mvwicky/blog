@@ -81,7 +81,7 @@ const config = {
       padding: {
         default: ms(-1),
         md: ms(2),
-        lg: ms(16),
+        lg: ms(15),
       },
     },
     screens: {

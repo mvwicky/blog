@@ -10,10 +10,10 @@
 @import "./components/forms.css";
 @import "./components/links.css";
 @import "./components/lists.css";
+@import "./layout/content.css";
 @import "./layout/footer.css";
 @import "./layout/header.css";
 @import "./layout/sections.css";
 
 /* purgecss end ignore */
-
 @import "tailwindcss/utilities";

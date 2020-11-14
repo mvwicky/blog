@@ -9,11 +9,7 @@ body {
 }
 
 .container {
-  @apply max-w-xl mx-auto;
-}
-
-.container > main {
-  @apply pt-4 pb-5;
+  @apply mx-auto;
 }
 
 a[href]:not(.never-underline):hover {
@@ -24,20 +20,4 @@ p {
   @apply mb-2 text-justify;
 
   text-indent: 1.5rem;
-}
-
-.content {
-  @apply px-3 w-full;
-}
-
-.content h4 {
-  @apply text-indigo-700;
-}
-
-.content h5 {
-  @apply ml-0;
-}
-
-.section + .section {
-  @apply mt-4;
 }

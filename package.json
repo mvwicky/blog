@@ -6,6 +6,8 @@
   "license": "MIT",
   "author": "Michael Van Wickle <mvanwickle@gmail.com>",
   "scripts": {
+    "assets:build": "ts-node scripts/build-assets.ts",
+    "assets:watch": "ts-node scripts/watch-assets.ts",
     "build": "npm-run-all clean build:lib build:assets build:site build:sw",
     "build:assets": "cross-env NODE_ENV=production webpack --config=./webpack.prod.ts",
     "build:lib": "cross-env NODE_ENV=production tsc --project lib",
@@ -17,11 +19,11 @@
     "compile": "npm-run-all clean:lib build:lib",
     "dev": "cross-env NODE_ENV=development npm-run-all clean webpack:assets build:lib --parallel dev:*",
     "dev:assets": "yarn run webpack:assets --watch",
-    "dev:lib": "tsc --project lib --watch",
     "dev:serve": "eleventy --serve",
     "lint": "npm-run-all -p lint:*",
     "lint:eslint": "eslint --format=pretty --cache --cache-location=.cache/.eslintcache '**/*.ts' '**/*.js'",
     "lint:styles": "stylelint --cache --cache-location .cache/.stylelintcache '**/*.css'",
+    "watch:lib": "tsc --project lib --watch",
     "webpack:assets": "webpack --config=./webpack.config.ts"
   },
   "husky": {
@@ -102,7 +104,7 @@
     "multimatch": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.0.6",
-    "postcss-import": "^12.0.1",
+    "postcss-import": "^13.0.0",
     "postcss-loader": "^4.0.1",
     "prettier": "^2.0.5",
     "pretty-quick": "^3.0",
