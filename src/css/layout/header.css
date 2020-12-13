@@ -20,7 +20,7 @@
 
 @screen sm {
   #nav-main {
-    @apply flex-no-wrap;
+    @apply flex-nowrap;
   }
 }
 

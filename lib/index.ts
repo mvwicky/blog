@@ -10,7 +10,6 @@ export function compact<T>(arr: (T | undefined)[]): T[] {
   return arr.filter((e) => isDef<T>(e)) as T[];
 }
 
-export * as constants from "./constants";
 export * as dates from "./dates";
 export * as env from "./env";
 export * as helpers from "./helpers";

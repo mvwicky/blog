@@ -16,5 +16,7 @@
 }
 
 @screen print {
-  @apply border-0;
+  #main {
+    @apply border-0;
+  }
 }

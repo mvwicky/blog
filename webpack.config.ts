@@ -32,11 +32,19 @@ const relToSrc = (...args: string[]) => path.join(srcDir, ...args);
 const globs = ["./lib/**/*.ts", "./*.config.js", "./scripts/*.ts"];
 const dependencies = globby.sync(globs, { absolute: true });
 
+const bps = Object.fromEntries(
+  Object.entries(pkg.config.ui.breakpoints).map(
+    ([key, value]) =>
+      [`BREAKPOINT_${key.toUpperCase()}`, value] as [string, number]
+  )
+);
+
 const defs = Object.fromEntries(
   Object.entries({
     "process.env.NODE_ENV": prodOr("production", "development"),
     NODE_ENV: prodOr("production", "development"),
     PRODUCTION: prodOr(true, false),
+    ...bps,
   }).map(([name, value]) => [name, JSON.stringify(value)])
 );
 

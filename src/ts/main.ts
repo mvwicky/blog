@@ -1,7 +1,11 @@
 import { elemIsTag } from "./elem-is-tag";
 import { prod } from "./helpers/const";
-import { debounce } from "./helpers/debounce";
 import { initPostlist } from "./postslist";
+
+declare const BREAKPOINT_XL: number;
+declare const BREAKPOINT_LG: number;
+declare const BREAKPOINT_MD: number;
+declare const BREAKPOINT_SM: number;
 
 (async function () {
   console.log("Loaded");
@@ -30,11 +34,11 @@ import { initPostlist } from "./postslist";
 })();
 
 function getBreakpointName(width: number): string {
-  if (width < 576) {
+  if (width < BREAKPOINT_SM) {
     return "SM";
-  } else if (width < 768) {
+  } else if (width < BREAKPOINT_MD) {
     return "MD";
-  } else if (width < 992) {
+  } else if (width < BREAKPOINT_LG) {
     return "LG";
   } else {
     return "XL";
@@ -48,7 +52,7 @@ function showSize(el: HTMLElement) {
 }
 
 function addResizeListener(container: HTMLElement) {
-  const resizeHandler = debounce(showSize.bind(null, container));
+  const resizeHandler = showSize.bind(null, container);
   window.addEventListener("resize", resizeHandler);
   showSize(container);
   document.body.append(container);

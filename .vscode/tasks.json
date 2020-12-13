@@ -6,7 +6,7 @@
       "tsconfig": "lib/tsconfig.json",
       "problemMatcher": ["$tsc"],
       "group": "build",
-      "label": "tsc: build - lib/tsconfig.json"
+      "label": "Build Lib"
     },
     {
       "type": "typescript",
@@ -15,6 +15,79 @@
       "problemMatcher": ["$tsc-watch"],
       "group": "build",
       "label": "tsc: watch - lib/tsconfig.json"
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "label": "Lint Full",
+      "dependsOn": ["Lint ESLint", "Lint Stylelint"]
+    },
+    {
+      "label": "Lint ESLint",
+      "type": "npm",
+      "script": "lint:eslint",
+      "problemMatcher": ["$eslint-stylish"],
+      "presentation": {
+        "echo": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      }
+    },
+    {
+      "label": "Lint Stylelint",
+      "type": "npm",
+      "script": "lint:stylelint"
+    },
+    {
+      "label": "Build",
+      "dependsOn": [
+        "Build Lib",
+        "Build Webpack",
+        "Build Site",
+        "Build Service Worker"
+      ],
+      "group": { "kind": "build", "isDefault": true },
+      "dependsOrder": "sequence",
+      "presentation": {
+        "showReuseMessage": false,
+        "clear": true,
+        "echo": false
+      }
+    },
+    {
+      "label": "Build Site",
+      "type": "npm",
+      "script": "build:site",
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "cross-env NODE_ENV=production eleventy",
+      "presentation": {
+        "showReuseMessage": false,
+        "echo": false
+      }
+    },
+    {
+      "label": "Build Service Worker",
+      "type": "npm",
+      "script": "build:sw",
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "showReuseMessage": false,
+        "echo": false
+      }
+    },
+    {
+      "label": "Build Webpack",
+      "type": "npm",
+      "script": "build:assets",
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "showReuseMessage": false,
+        "echo": false
+      }
     }
   ]
 }

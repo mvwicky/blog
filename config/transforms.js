@@ -4,6 +4,7 @@ const critical = require("critical");
 const multimatch = require("multimatch");
 
 const { logger } = require("../build/lib");
+const { formatSize } = require("../build/lib/helpers");
 const { config } = require("../package.json");
 const { env } = require("./utils/env");
 
@@ -54,8 +55,13 @@ async function transformCritical(content, outputPath) {
       const origLength = content.length;
       const txLength = html.length;
       const m = txLength / origLength;
-      log("Extracted critical css from %s (%s)", outputPath, m.toFixed(3));
-      log("critical: %d, uncritical: %d", css.length, uncritical.length);
+      log(
+        "Extracted critical css (%s) from %s in %ss (%s uncritical)",
+        formatSize(css.length),
+        outputPath,
+        m.toFixed(3),
+        formatSize(uncritical.length)
+      );
       return html;
     } catch (e) {
       console.error(e);

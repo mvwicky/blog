@@ -20,7 +20,7 @@
     "dev:assets": "yarn run webpack:assets --watch",
     "dev:serve": "eleventy --serve",
     "lint": "npm-run-all -p lint:*",
-    "lint:eslint": "eslint --format=pretty --cache --cache-location=.cache/.eslintcache '**/*.ts' '**/*.js'",
+    "lint:eslint": "eslint --cache --cache-location=.cache/.eslintcache '**/*.ts' '**/*.js'",
     "lint:styles": "stylelint --cache --cache-location=.cache/.stylelintcache '**/*.css'",
     "watch:assets": "ts-node scripts/watch-assets.ts",
     "watch:lib": "tsc --project lib --watch",
@@ -56,6 +56,19 @@
     "entrypoints": {
       "main": "src/ts/main.ts",
       "styles": "src/css/style.css"
+    },
+    "ui": {
+      "breakpoints": {
+        "sm": 640,
+        "md": 768,
+        "lg": 1024,
+        "xl": 1280,
+        "2xl": 1536
+      },
+      "ms": {
+        "ratio": 1.2,
+        "base": 16
+      }
     }
   },
   "browserslist": [
@@ -76,7 +89,6 @@
     "@types/markdown-it-anchor": "^4.0.4",
     "@types/mini-css-extract-plugin": "^1.0.0",
     "@types/terser-webpack-plugin": "^5.0.0",
-    "@types/webpack-manifest-plugin": "^2.1.0",
     "@types/workbox-build": "^5.0.0",
     "autoprefixer": "^10.0.0",
     "babel-loader": "^8.1.0",
@@ -110,15 +122,15 @@
     "pretty-quick": "^3.0",
     "stylelint": "^13.3.3",
     "stylelint-config-mvwicky": "^0.0.5",
-    "tailwindcss": "^1.4.4",
+    "tailwindcss": "^2.0.2",
     "tippy.js": "^6.2.5",
-    "trash-cli": "^3.0.0",
+    "trash-cli": "^4.0.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2",
     "webpack": "^5.0.0",
     "webpack-cli": "^4.0.0",
     "webpack-merge": "^5.0.9",
-    "workbox-build": "^5.1.3"
+    "workbox-build": "^6.0.2"
   },
   "engines": {
     "node": ">=12",

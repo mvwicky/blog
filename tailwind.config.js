@@ -1,8 +1,10 @@
 const { colors, fontFamily } = require("tailwindcss/defaultTheme");
 
 const {
-  constants: { BREAKPOINTS, MS },
-} = require("./build/lib");
+  config: {
+    ui: { breakpoints: BREAKPOINTS, ms: MS },
+  },
+} = require("./package.json");
 
 const breakpoints = Object.fromEntries(
   Object.entries(BREAKPOINTS).map(([sz, px]) => [sz, `${px}px`])
@@ -77,7 +79,7 @@ const config = {
     colors,
     container: {
       padding: {
-        default: ms(-1),
+        DEFAULT: ms(-1),
         md: ms(2),
         lg: ms(15),
       },
@@ -86,10 +88,6 @@ const config = {
   },
   variants: {},
   plugins: [],
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-  },
 };
-// console.log(config.theme);
+
 module.exports = config;

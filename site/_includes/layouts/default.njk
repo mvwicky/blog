@@ -19,7 +19,7 @@
     {% if description %}<meta name="description" content="{{ description }}" />{% endif -%}
     <meta name="generator" content="Eleventy" />
     <meta name="theme-color" content="{{ meta.colors.theme }}" />
-      {% block ld %}
+      {% block ld -%}
       {% if ld.type %}
       <script type="application/ld+json">
       {
@@ -36,7 +36,7 @@
     {% include "header.njk" %}
     <div class="container pt-2">{% include "nav.njk" %}</div>
     <div class="container">
-      <main id="main" >
+      <main id="main">
         {% block content %}{{ content | safe }}{% endblock %}
       </main>
     </div>

@@ -1,9 +1,15 @@
 {
-  "files.exclude": {
-    "**/node_modules": true,
-    "dist": false
+  "[css]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": true
+    }
   },
-  "eslint.format.enable": true,
+  "[javascript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    },
+    "editor.formatOnSave": true
+  },
   "[nunjucks]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
@@ -12,31 +18,19 @@
   "[plaintext]": {
     "files.trimTrailingWhitespace": true
   },
-  "css.validate": false,
-  "[javascript]": {
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true
-    }
-  },
   "[typescript]": {
-    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       "source.fixAll": true
-    }
-  },
-  "stylelint.enable": true,
-  "[css]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.stylelint": true
-    }
+    },
+    "editor.formatOnSave": true
   },
   "cSpell.words": ["wickle"],
-  "json.schemas": [
-    {
-      "fileMatch": ["local_modules/eslint-config-wherewasigoing/config.json"],
-      "url": "https://json.schemastore.org/eslintrc"
-    }
-  ],
+  "css.validate": false,
+  "eslint.format.enable": true,
+  "files.exclude": {
+    "**/node_modules": true,
+    "dist": false
+  },
+  "stylelint.enable": true,
   "svg.preview.background": "transparent"
 }

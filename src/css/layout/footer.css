@@ -1,7 +1,7 @@
 .footer {
   @apply flex flex-col;
   @apply pt-2 pb-1 border border-t-0 rounded-b;
-  @apply bg-gray-200 border-gray-600 font-thin;
+  @apply bg-gray-200 border-gray-600 font-extralight;
 }
 
 .footer-row {
