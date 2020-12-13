@@ -19,7 +19,7 @@ import "tippy.js/themes/translucent.css";
 
 import { elemIsTag } from "./elem-is-tag";
 
-const FN_ITEM_CLASS = "footnote-item";
+const FN_ITEM_CLASS = ".footnote-item";
 
 function truthy<T>(obj: T | undefined | null): obj is T {
   return obj !== undefined && obj !== null;
@@ -62,7 +62,7 @@ function fromFnItem(item: HTMLElement) {
   }
 }
 
-function getFootnotes() {
+async function getFootnotes() {
   Array.from(document.getElementsByClassName(FN_ITEM_CLASS), (e) =>
     fromFnItem(e as HTMLElement)
   );

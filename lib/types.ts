@@ -70,12 +70,12 @@ export interface Asset {
   hash: string;
 }
 
+/** Should match the `site/_data/meta.yaml` file structure. */
 export interface Meta {
   icon_sizes: string[];
   title: string;
   short_name: string;
   description: string;
-  theme_color: string;
-  background_color: string;
+  colors: { background: string; theme: string };
   url: string;
 }

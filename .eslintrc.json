@@ -17,7 +17,7 @@
       }
     ],
     "import/dynamic-import-chunkname": [
-      2,
+      0,
       { "importFunctions": ["import"], "webpackChunknameFormat": "[a-z0-9-]+" }
     ],
     "no-unused-vars": "off"
@@ -54,7 +54,6 @@
         "webpack.*.ts",
         "config/**/*.ts",
         "config/**/*.js",
-        "lib/**/*.ts",
         "site/**/*.js"
       ],
       "env": { "node": true, "browser": false },

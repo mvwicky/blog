@@ -26,6 +26,7 @@ OUTPUT_DIR=$(shell jq -r .config.eleventy.dir.output $(PKG))
 
 VERSION=$(shell jq -r .version $(PKG))
 VERSION_TAG=v$(VERSION)
+WEBPACK_ARGS=--progress
 
 LIB_INPUT=$(shell $(FIND) $(LIB_DIR) -type f -name '*.ts')
 
@@ -42,11 +43,11 @@ dev: export NODE_ENV=development
 dev: clean-dist dev-assets eleventy
 
 prod-assets: export NODE_ENV=production
-prod-assets: WEBPACK_ARGS=--config=./webpack.prod.ts
+prod-assets: WEBPACK_ARGS+= --config=./webpack.prod.ts
 prod-assets: webpack
 
 dev-assets: export NODE_ENV=development
-dev-assets: WEBPACK_ARGS=--config=./webpack.config.ts
+dev-assets: WEBPACK_ARGS+= --config=./webpack.config.ts
 dev-assets: webpack
 
 eleventy:

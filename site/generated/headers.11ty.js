@@ -28,6 +28,7 @@ const HEADERS = [
   ["/assets/fonts/*", { "cache-control": LONG_CACHE }],
   ["/assets/*.js", { "cache-control": LONG_CACHE }],
   ["/assets/*.css", { "cache-control": LONG_CACHE }],
+  ["/blog/assets/reading-schema.json", { "content-type": "application/json" }],
 ];
 class Headers {
   data() {

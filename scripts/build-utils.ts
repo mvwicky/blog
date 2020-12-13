@@ -1,8 +1,10 @@
 import * as path from "path";
+import * as util from "util";
 
+import { Debugger } from "debug";
 import findUp from "find-up";
 import mem from "mem";
-import type { Configuration, Stats } from "webpack";
+import { Configuration, Stats } from "webpack";
 
 import { env, logger } from "../lib";
 
@@ -65,8 +67,24 @@ export function showStats(
   info: Info | undefined
 ) {
   if (stats.hasWarnings() && info?.warnings) {
-    console.warn(info.warnings);
+    const { length } = info.warnings;
+    log("%d warning%s generated", length, length === 1 ? "" : "s");
   }
   process.stdout.write(stats.toString(config.stats));
   process.stdout.write("\n");
+}
+
+type TimeableFunc = () => void | Promise<unknown>;
+
+export async function timeCall<F extends TimeableFunc>(d: Debugger, f: F) {
+  const start = process.hrtime.bigint();
+  const res = f();
+  if (util.types.isPromise(res)) {
+    await res;
+  }
+  const elapsed = Number(process.hrtime.bigint() - start);
+  const elapsedStr = (elapsed / 1e9).toLocaleString(undefined, {
+    maximumFractionDigits: 2,
+  });
+  d("Elapsed: %s seconds", elapsedStr);
 }

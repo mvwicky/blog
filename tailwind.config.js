@@ -1,34 +1,42 @@
 const { colors, fontFamily } = require("tailwindcss/defaultTheme");
 
-const [MS_RATIO, MS_BASE] = [1.2 /* Minor Third */, 16 /* Pixels */];
+const {
+  constants: { BREAKPOINTS, MS },
+} = require("./build/lib");
 
-const TRAILING_RE = /(\d+\.[1-9]*)0+$/;
+const breakpoints = Object.fromEntries(
+  Object.entries(BREAKPOINTS).map(([sz, px]) => [sz, `${px}px`])
+);
 
-/** @param {number} n */
-function msPixels(n) {
-  return Math.pow(MS_RATIO, n) * MS_BASE;
+/** @type {Intl.NumberFormatOptions} */
+const LOCALE_OPTS = { maximumFractionDigits: 3, useGrouping: false };
+
+/**
+ * Calculate single threaded modular-scale value.
+ * @param {number} n
+ * @param {number} ratio
+ * @param {number} base
+ * @returns {number}
+ */
+function msPixels(n, ratio = MS.ratio, base = MS.base) {
+  return Math.pow(ratio, n) * base;
 }
 
 /**
  * @param  {number} rem - A font size in rem
  * @param  {number} precision - Decimal places
- * @return {string}
+ * @returns {string}
  */
 function normalizeRem(rem, precision = 3) {
-  const fixed = rem.toFixed(precision);
-  const match = fixed.match(TRAILING_RE);
-  if (match !== null) {
-    const f = match[1];
-    if (f.endsWith(".")) {
-      return f.substring(0, f.length - 1);
-    } else {
-      return f;
-    }
-  }
-  return fixed;
+  /** @type {Intl.NumberFormatOptions} */
+  const opts = { maximumFractionDigits: precision, ...LOCALE_OPTS };
+  return rem.toLocaleString(undefined, opts);
 }
 
-/** @param {number} n */
+/**
+ * @param {number} n
+ * @returns {string}
+ */
 function ms(n) {
   const rem = msPixels(n) / 16;
   return `${normalizeRem(rem)}rem`;
@@ -66,17 +74,7 @@ const config = {
       "5xl": ms(6),
       "6xl": ms(7),
     },
-    colors: {
-      black: colors.black,
-      white: colors.white,
-      gray: colors.gray,
-      red: colors.red,
-      yellow: colors.yellow,
-      green: colors.green,
-      blue: colors.blue,
-      indigo: colors.indigo,
-      purple: colors.purple,
-    },
+    colors,
     container: {
       padding: {
         default: ms(-1),
@@ -84,12 +82,7 @@ const config = {
         lg: ms(15),
       },
     },
-    screens: {
-      sm: "576px",
-      md: "768px",
-      lg: "992px",
-      xl: "1200px",
-    },
+    screens: breakpoints,
   },
   variants: {},
   plugins: [],
@@ -98,5 +91,5 @@ const config = {
     purgeLayersByDefault: true,
   },
 };
-
+// console.log(config.theme);
 module.exports = config;

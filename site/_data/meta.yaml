@@ -11,5 +11,9 @@ icon_sizes:
   - 256
   - 384
   - 512
-theme_color: "#90cdf4"
-background_color: "#90cdf4"
+colors:
+  background: "#90cdf4"
+  theme: "#90cdf4"
+analytics:
+  scriptUrl: "https://analytics.wherewasigoing.com/umami.js"
+  siteId: "6152f1a8-cf77-4797-90c7-dd565bfe1faf"

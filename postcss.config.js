@@ -6,10 +6,12 @@ const { env } = require("./build/lib");
 const plugins = [postcssImport, tailwindcss];
 
 if (env.PROD) {
-  const cssnano = require("cssnano");
+  /** @type {import("csso").MinifyOptions} */
+  const cssoOptions = {};
+  const csso = require("postcss-csso");
   const autoprefixer = require("autoprefixer");
   plugins.push(autoprefixer({ flexbox: "no-2009" }));
-  plugins.push(cssnano({ preset: "default" }));
+  plugins.push(csso(cssoOptions));
 }
 
 module.exports = { plugins, map: { inline: false } };

@@ -21,7 +21,6 @@ const terser = new TerserPlugin({
 const config = merge(base, {
   optimization: {
     minimize: true,
-    //@ts-expect-error
     minimizer: [terser],
   },
   cache: {

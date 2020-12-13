@@ -46,6 +46,7 @@ export class ManifestPlugin {
   }
 
   private async emit(compilation: Compilation) {
+    console.time("emit");
     const { output } = compilation.options;
     const publicPath = this.options.publicPath ?? output.publicPath;
     const outputPath = this.options.outputPath ?? output.path;
@@ -63,9 +64,10 @@ export class ManifestPlugin {
     files.sort((a, b) => b.path.localeCompare(a.path));
     const manifest: Manifest = files.reduce(
       (m, { path, name }) => ({ [name]: `${publicPath}${path}`, ...m }),
-      {} as Manifest
+      {}
     );
     await this.writeManifest(outputPath, manifest);
+    console.timeEnd("emit");
   }
 
   private chunkToFiles(chunk: Chunk): ManifestEntry[] {

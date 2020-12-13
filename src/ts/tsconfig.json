@@ -3,7 +3,8 @@
     "noEmit": true,
     "lib": ["DOM", "ES2020"],
     "target": "ES5",
-    "module": "es2020"
+    "module": "es2020",
+    "downlevelIteration": true
   },
   "extends": "../../config/tsconfig.base.json",
   "include": ["./**/*.ts"]

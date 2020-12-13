@@ -32,8 +32,8 @@ class Manifest {
       display: "standalone",
       start_url: ".",
       icons,
-      background_color: meta.background_color,
-      theme_color: meta.theme_color,
+      background_color: meta.colors.background,
+      theme_color: meta.colors.background,
     };
     return JSON.stringify(manifest, undefined, SPACE);
   }

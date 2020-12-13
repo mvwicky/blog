@@ -8,13 +8,12 @@
     "baseUrl": "..",
     "types": ["debug", "node"],
     "noEmit": false,
-    "declaration": true,
     "declarationDir": "../build/lib",
     "incremental": true,
     "preserveWatchOutput": true,
-    "strict": true
+    "strict": true,
+    "composite": true
   },
   "include": ["./**/*.ts"],
-  "exclude": ["../node_modules/**"],
   "extends": "../config/tsconfig.base.json"
 }

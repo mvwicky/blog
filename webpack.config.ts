@@ -21,9 +21,8 @@ const rootDir = __dirname;
 const srcDir = path.resolve(rootDir, "src");
 const outPath = path.resolve(rootDir, "dist", "assets");
 
-const hashFn = prodOr("sha256", "md5");
-
-const hashLen = prodOr(20, 10);
+const hashFn = "md5";
+const hashLen = 24;
 const fontHash = `${hashFn}:hash:hex:${hashLen}`;
 const fontName = prodOr(`[name].[${fontHash}].[ext]`, "[name].[ext]");
 
@@ -42,7 +41,6 @@ const defs = Object.fromEntries(
 );
 
 const plugins: Configuration["plugins"] = [
-  //@ts-expect-error
   new MiniCssExtractPlugin({
     filename: prodOr(`[name].[contenthash:${hashLen}].css`, "[name].css"),
     chunkFilename: prodOr(`[name].[contenthash:${hashLen}].css`, "[name].css"),
@@ -63,9 +61,9 @@ const config: Configuration = {
   output: {
     path: outPath,
     filename: prodOr("[name].[contenthash].js", "[name].js"),
-    chunkFilename: prodOr("[name].[chunkhash].js", "[name].js"),
+    chunkFilename: prodOr("[name].[contenthash].js", "[name].js"),
     hashFunction: hashFn,
-    hashDigestLength: 20,
+    hashDigestLength: hashLen,
     publicPath: "/assets/",
   },
   devtool: prodOr("source-map", "inline-cheap-module-source-map"),
@@ -169,6 +167,10 @@ const config: Configuration = {
       lib: [],
     },
     version: "1.0.0",
+  },
+  performance: {
+    hints: env.PROD ? "warning" : false,
+    assetFilter: (asset: string) => /\.(js|css)$/.test(asset),
   },
 };
 

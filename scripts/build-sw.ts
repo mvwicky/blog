@@ -4,7 +4,7 @@ import workboxBuild from "workbox-build";
 
 import { env, humanBytes, logger } from "../lib";
 import * as pkg from "../package.json";
-import { getRoot } from "./build-utils";
+import { getRoot, timeCall } from "./build-utils";
 
 const log = logger("sw", true);
 
@@ -33,7 +33,6 @@ async function build(rootDir: string) {
   const globPatterns = EXTS_TO_GLOB.map((ext) => `**/*.${ext}`);
   log("Glob Patterns: %o", globPatterns);
   try {
-    const start = process.uptime();
     const { count, filePaths, size, warnings } = await workboxBuild.generateSW({
       mode: env.NODE_ENV,
       swDest,
@@ -45,11 +44,6 @@ async function build(rootDir: string) {
       cleanupOutdatedCaches: true,
       maximumFileSizeToCacheInBytes: 4e6,
     });
-    const elapsed = process.uptime() - start;
-    const elapsedStr = elapsed.toLocaleString(undefined, {
-      maximumFractionDigits: 2,
-    });
-    log("Elapsed: %s seconds", elapsedStr);
     log("%d warning%s", warnings.length, warnings.length === 1 ? "" : "s");
     warnings.forEach((warning) => console.warn(warning));
     if (count === 0 || size === 0) {
@@ -59,18 +53,17 @@ async function build(rootDir: string) {
     log("Total size of precached files: %s", humanBytes(size));
     const nWritten = filePaths.length;
     log("%d file%s written", nWritten, nWritten == 1 ? "" : "s");
+    for (const filePath of filePaths) {
+      log("%s", filePath);
+    }
   } catch (e) {
     console.error(e);
   }
 }
 
 (async function () {
-  const start = process.uptime();
-  const root = await getRoot();
-  await build(root);
-  const elapsed = process.uptime() - start;
-  const elapsedStr = elapsed.toLocaleString(undefined, {
-    maximumFractionDigits: 2,
+  await timeCall(log, async () => {
+    const root = await getRoot();
+    await build(root);
   });
-  log("Elapsed: %s seconds", elapsedStr);
 })();

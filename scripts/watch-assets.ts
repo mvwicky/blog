@@ -20,20 +20,38 @@ class WatchWrapper {
   }
 
   start() {
-    this.#compiler.hooks.watchRun.intercept({
-      call: this.watchRunCall.bind(this),
-    });
-    this.#compiler.hooks.afterEmit.intercept({
-      call: this.afterEmitCall.bind(this),
-    });
-    const watch = this.#compiler.watch({}, this.watchHandler.bind(this));
-    const close = () => {
-      watch.close(() => {
-        log("Closing Watcher");
+    return new Promise<void>((resolve) => {
+      this.#compiler.hooks.watchRun.intercept({
+        call: this.watchRunCall.bind(this),
       });
-    };
-    process.on("SIGINT", close);
-    process.on("SIGTERM", close);
+      this.#compiler.hooks.afterEmit.intercept({
+        call: this.afterEmitCall.bind(this),
+      });
+      const watch = this.#compiler.watch({}, this.watchHandler.bind(this));
+      const close = () => {
+        log("Closing Watcher");
+        watch.close(() => {
+          log("Closed Watcher");
+          resolve();
+        });
+      };
+      process.on("SIGINT", close);
+      process.on("SIGTERM", close);
+    });
+    // this.#compiler.hooks.watchRun.intercept({
+    //   call: this.watchRunCall.bind(this),
+    // });
+    // this.#compiler.hooks.afterEmit.intercept({
+    //   call: this.afterEmitCall.bind(this),
+    // });
+    // const watch = this.#compiler.watch({}, this.watchHandler.bind(this));
+    // const close = () => {
+    //   watch.close(() => {
+    //     log("Closing Watcher");
+    //   });
+    // };
+    // process.on("SIGINT", close);
+    // process.on("SIGTERM", close);
   }
 
   private watchRunCall(comp: Compiler) {
@@ -59,7 +77,7 @@ class WatchWrapper {
 async function watch() {
   const config = await getWebpackConfig();
   const watcher = new WatchWrapper(config);
-  watcher.start();
+  await watcher.start();
 }
 
 (async function () {

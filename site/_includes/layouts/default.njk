@@ -4,33 +4,31 @@
     {% block head -%}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>{{ localData.title or title }} | {{ meta.title }}</title>
     {%- if env.production %}{% include "sw.njk" %}{% endif %}
     {% include "icons.njk" -%}
     {% if env.production %}
-    <script
-      async
-      defer
-      data-website-id="6152f1a8-cf77-4797-90c7-dd565bfe1faf"
-      src="https://analytics.wherewasigoing.com/umami.js"
-    ></script>
+    <script src="{{ meta.analytics.scriptUrl }}" async defer data-website-id="{{ meta.analytics.siteId }}"></script>
     {% endif %}
     {%- if not env.production %}{% include "font_fallbacks.njk" %}{% endif %}
     {% block styles %}<link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />{% endblock %}
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="author" href="/humans.txt" />
+    {% block metadata %}
     <meta name="author" content="{{ meta.author }}" />
-    <meta name="generator" content="Eleventy" />
-    <meta name="theme-color" content="{{ meta.theme_color }}" />
     {% if description %}<meta name="description" content="{{ description }}" />{% endif -%}
-    {% if ld.type %}
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org"
-    }
-    </script>
-    {% endif %}
+    <meta name="generator" content="Eleventy" />
+    <meta name="theme-color" content="{{ meta.colors.theme }}" />
+      {% block ld %}
+      {% if ld.type %}
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org"
+      }
+      </script>
+      {% endif %}
+      {% endblock %}
+    {% endblock %}
     {% endblock %}
     {%- block extrahead %}{% endblock -%}
   </head>
