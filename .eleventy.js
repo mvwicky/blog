@@ -23,10 +23,7 @@ const MANIFEST = path.resolve(__dirname, "dist", "assets", "manifest.json");
 
 function configureMarkdown() {
   const markdownIt = require("markdown-it");
-
-  /** @type {import("markdown-it").Options} */
   const baseCfg = { html: true, typographer: true };
-  /** @type {import("markdown-it-anchor").AnchorOptions} */
   const anchorCfg = {
     permalink: true,
     permalinkClass: "permalink-anchor text-gray-700",

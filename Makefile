@@ -21,7 +21,7 @@ LIB_SENTINEL=.cache/lib.built
 GFIND=$(shell command -v gfind)
 FIND=$(or $(GFIND),$(GFIND),find)
 
-YARN_VERSION_ARGS=--no-git-tag-version
+YARN_VERSION_ARGS=--no-commit-hooks
 OUTPUT_DIR=$(shell jq -r .config.eleventy.dir.output $(PKG))
 
 VERSION=$(shell jq -r .version $(PKG))
