@@ -1,13 +1,12 @@
 {
-  "name": "blog",
+  "name": "tests",
   "version": "0.0.1",
+  "description": "Tests",
   "main": "index.js",
-  "repository": "https://github.com/mvwicky/blog.git",
   "author": "Michael Van Wickle <me@michaelvanwickle.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "tests",
-    "site"
-  ]
+  "dependencies": {
+    "cypress": "^6.1.0"
+  }
 }
