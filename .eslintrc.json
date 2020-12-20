@@ -24,7 +24,7 @@
   },
   "env": { "browser": true, "es6": true },
   "settings": {
-    "import/cache": { "lifetime": 60 },
+    "import/cache": { "lifetime": 300 },
     "import/core-modules": ["os", "path", "process", "fs", "util", "crypto"],
     "import/extensions": [".js", ".ts"],
     "import/external-module-folders": ["node_modules"],
