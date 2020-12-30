@@ -15,7 +15,7 @@ class Manifest {
    */
   makeIcon(size) {
     return {
-      src: `/img/icons/touch/icon-${size}.png`,
+      src: `/blog/assets/img/icons/touch/icon-${size}.png`,
       type: "image/png",
       sizes: `${size}x${size}`,
     };
