@@ -7,9 +7,9 @@
     <title>{{ localData.title or title }} | {{ meta.title }}</title>
     {%- if env.production %}{% include "sw.njk" %}{% endif %}
     {% include "icons.njk" -%}
-    {% if env.production %}
+    {# {% if env.production %}
     <script src="{{ meta.analytics.scriptUrl }}" async defer data-website-id="{{ meta.analytics.siteId }}"></script>
-    {% endif %}
+    {% endif %} #}
     {%- if not env.production %}{% include "font_fallbacks.njk" %}{% endif %}
     {% block styles %}<link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />{% endblock %}
     <link rel="manifest" href="/manifest.webmanifest" />
