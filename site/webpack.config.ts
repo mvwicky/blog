@@ -12,6 +12,7 @@ import * as pkg from "./package.json";
 const log = logger("webpack", true);
 
 log("NODE_ENV=%s", env.NODE_ENV);
+log("CWD=%s", process.cwd());
 
 function prodOr<P = any, D = any>(pVal: P, dVal: D): P | D {
   return env.PROD ? pVal : dVal;
@@ -108,11 +109,11 @@ const config: Configuration = {
       },
       {
         test: /\.(css)$/,
-        include: [
-          relToSrc("css"),
-          relToSrc("ts"),
-          relToRoot("node_modules", "tippy.js"),
-        ],
+        // include: [
+        //   relToSrc("css"),
+        //   relToSrc("ts"),
+        //   relToRoot("node_modules", "tippy.js"),
+        // ],
         use: [
           { loader: MiniCssExtractPlugin.loader, options: { esModule: false } },
           {

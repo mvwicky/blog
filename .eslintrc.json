@@ -24,46 +24,18 @@
   },
   "env": { "browser": true, "es6": true },
   "settings": {
-    "import/cache": { "lifetime": 300 },
+    "import/cache": { "lifetime": 0 },
     "import/core-modules": ["os", "path", "process", "fs", "util", "crypto"],
     "import/extensions": [".js", ".ts"],
     "import/external-module-folders": ["node_modules"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts"]
-    },
-    "import/resolver": {
-      "webpack": { "config": "./webpack.config.ts" },
-      "typescript": {
-        "alwaysTryTypes": true,
-        "project": ["tsconfig.json", "src/ts/tsconfig.json"]
-      }
     }
   },
   "overrides": [
     {
-      "files": [
-        "tailwind.config.js",
-        "postcss.config.js",
-        ".eleventy.js",
-        "src/**/*.js"
-      ],
+      "files": ["*.config.js"],
       "env": { "node": true, "browser": false }
-    },
-    {
-      "files": [
-        "webpack.*.ts",
-        "config/**/*.ts",
-        "config/**/*.js",
-        "site/**/*.js"
-      ],
-      "env": { "node": true, "browser": false },
-      "rules": {
-        "import/dynamic-import-chunkname": ["off", {}]
-      }
-    },
-    {
-      "files": ["src/js/sw.js"],
-      "env": { "browser": false, "serviceworker": true, "node": false }
     }
   ],
   "root": true

@@ -1,5 +1,4 @@
-node_modules/
-dist/
-build/
-!.eleventy.js
+**/node_modules/
+**/dist/
+**/build/
 **/.eslintrc.js
