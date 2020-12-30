@@ -2,3 +2,5 @@
 **/dist/
 **/build/
 **/.eslintrc.js
+
+!.eleventy.js

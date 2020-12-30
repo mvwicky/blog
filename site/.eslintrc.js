@@ -1,16 +1,22 @@
+const path = require("path");
+
+function toAbs(...parts) {
+  return path.resolve(__dirname, ...parts);
+}
+
 module.exports = {
   settings: {
     "import/resolver": {
-      webpack: { config: "./webpack.config.ts" },
+      webpack: { config: toAbs("webpack.config.ts") },
       typescript: {
         alwaysTryTypes: true,
-        project: ["tsconfig.json", "src/ts/tsconfig.json"],
+        project: [toAbs("tsconfig.json"), toAbs("src", "ts", "tsconfig.json")],
       },
     },
   },
   overrides: [
     {
-      files: [".eleventy.js", "src/**/*.js", "*.config.js"],
+      files: ["**/.eleventy.js", "src/**/*.js", "*.config.js"],
       env: { node: true, browser: false },
     },
     {
