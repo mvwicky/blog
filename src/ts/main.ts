@@ -2,6 +2,7 @@ import { elemIsTag } from "./elem-is-tag";
 import { prod } from "./helpers/const";
 import { initPostlist } from "./postslist";
 
+declare const BREAKPOINT_2XL: number;
 declare const BREAKPOINT_XL: number;
 declare const BREAKPOINT_LG: number;
 declare const BREAKPOINT_MD: number;
@@ -34,14 +35,16 @@ declare const BREAKPOINT_SM: number;
 })();
 
 function getBreakpointName(width: number): string {
-  if (width < BREAKPOINT_SM) {
+  if (width < BREAKPOINT_MD) {
     return "SM";
-  } else if (width < BREAKPOINT_MD) {
-    return "MD";
   } else if (width < BREAKPOINT_LG) {
+    return "MD";
+  } else if (width < BREAKPOINT_XL) {
     return "LG";
-  } else {
+  } else if (width < BREAKPOINT_2XL) {
     return "XL";
+  } else {
+    return "2XL";
   }
 }
 

@@ -7,5 +7,5 @@
 }
 
 section + .link-section {
-  @apply border-t;
+  @apply border-t border-gray-600;
 }

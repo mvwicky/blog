@@ -1,10 +1,10 @@
 import * as path from "path";
 import * as util from "util";
 
-import { Debugger } from "debug";
+import type { Debugger } from "debug";
 import findUp from "find-up";
 import mem from "mem";
-import { Configuration, Stats } from "webpack";
+import type { Configuration, Stats } from "webpack";
 
 import { env, logger } from "../lib";
 

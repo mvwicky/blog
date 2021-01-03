@@ -78,10 +78,12 @@ const config = {
     },
     colors,
     container: {
+      center: true,
       padding: {
         DEFAULT: ms(-1),
         md: ms(2),
-        lg: ms(15),
+        lg: ms(12),
+        xl: ms(16),
       },
     },
     screens: breakpoints,

@@ -1,11 +1,12 @@
-/* purgecss start ignore */
 @import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 @import "./base/base.css";
 
 @import "./theme/fonts.css";
 @import "./theme/theme.css";
 
-@import "tailwindcss/components";
 @import "./components/footnotes.css";
 @import "./components/forms.css";
 @import "./components/links.css";
@@ -14,6 +15,3 @@
 @import "./layout/footer.css";
 @import "./layout/header.css";
 @import "./layout/sections.css";
-
-/* purgecss end ignore */
-@import "tailwindcss/utilities";

@@ -1,23 +1,14 @@
-*,
-*::after,
-*::before {
-  @apply box-border;
-}
-
-body {
-  @apply w-full bg-gray-100;
-}
-
-.container {
-  @apply mx-auto;
-}
-
 a[href]:not(.never-underline):hover {
   @apply underline;
 }
 
-p {
-  @apply mb-2 text-justify;
+@layer base {
+  p {
+    @apply text-justify;
 
-  text-indent: 1.5rem;
+    text-indent: 1.5rem;
+  }
+  p + p {
+    @apply mt-2;
+  }
 }

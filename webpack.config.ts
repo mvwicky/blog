@@ -9,7 +9,7 @@ import { env, logger } from "./lib";
 import { ManifestPlugin } from "./lib/manifest-plugin";
 import * as pkg from "./package.json";
 
-const log = logger("webpack", true);
+const log = logger("webpack");
 
 log("NODE_ENV=%s", env.NODE_ENV);
 
@@ -29,11 +29,12 @@ const fontName = prodOr(`[name].[${fontHash}].[ext]`, "[name].[ext]");
 const relToRoot = (...args: string[]) => path.resolve(rootDir, ...args);
 const relToSrc = (...args: string[]) => path.join(srcDir, ...args);
 
-const globs = ["./lib/**/*.ts", "./*.config.js", "./scripts/*.ts"];
+const globs = ["./lib/**/*.ts", "./*.config.js"];
 const dependencies = globby.sync(globs, { absolute: true });
 
+const { breakpoints } = pkg.config.ui;
 const bps = Object.fromEntries(
-  Object.entries(pkg.config.ui.breakpoints).map(
+  Object.entries(breakpoints).map(
     ([key, value]) =>
       [`BREAKPOINT_${key.toUpperCase()}`, value] as [string, number]
   )
