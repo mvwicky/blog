@@ -70,9 +70,14 @@ export interface Asset {
   hash: string;
 }
 
+interface Icons {
+  root: string;
+  sizes: number[];
+}
+
 /** Should match the `site/_data/meta.yaml` file structure. */
 export interface Meta {
-  icon_sizes: string[];
+  icons: Icons;
   title: string;
   short_name: string;
   description: string;

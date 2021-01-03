@@ -57,7 +57,7 @@ dev-assets: export NODE_ENV=development
 dev-assets: WEBPACK_ARGS+=--config=./webpack.config.ts
 dev-assets: webpack
 
-eleventy:
+eleventy: lib
 	$(ELEVENTY)
 
 site: eleventy
@@ -71,7 +71,7 @@ serve:
 lib: $(LIB_SENTINEL) $(LIB_OUTPUT)
 
 $(LIB_SENTINEL): $(LIB_INPUT)
-	$(TSC) --build $(LIB_DIR)
+	$(TSC) --build --verbose --pretty $(LIB_DIR)
 	date > $@
 
 webpack: lib

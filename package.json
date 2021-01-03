@@ -4,12 +4,12 @@
   "description": "A Blog",
   "repository": "https://github.com/mvwicky/blog.git",
   "license": "MIT",
-  "author": "Michael Van Wickle <mvanwickle@gmail.com>",
+  "author": "Michael Van Wickle <me@michaelvanwickle.com>",
   "scripts": {
     "assets:build": "ts-node scripts/build-assets.ts",
     "build": "npm-run-all clean build:lib build:assets build:site build:sw",
     "build:assets": "cross-env NODE_ENV=production webpack --config=./webpack.prod.ts",
-    "build:lib": "cross-env NODE_ENV=production tsc --build lib",
+    "build:lib": "cross-env NODE_ENV=production tsc --build --verbose --pretty lib",
     "build:site": "cross-env NODE_ENV=production eleventy",
     "build:sw": "cross-env NODE_ENV=production ts-node scripts/build-sw.ts",
     "clean": "trash ./dist",
@@ -34,6 +34,22 @@
   "config": {
     "assets": {
       "output": "assets"
+    },
+    "critical": {
+      "globs": [
+        "dist/index.html",
+        "dist/page/*/index.html"
+      ],
+      "dimensions": [
+        {
+          "width": 1280,
+          "height": 800
+        },
+        {
+          "width": 1536,
+          "height": 800
+        }
+      ]
     },
     "eleventy": {
       "dir": {
@@ -69,22 +85,6 @@
         "ratio": 1.2,
         "base": 16
       }
-    },
-    "critical": {
-      "globs": [
-        "dist/index.html",
-        "dist/page/*/index.html"
-      ],
-      "dimensions": [
-        {
-          "width": 1280,
-          "height": 800
-        },
-        {
-          "width": 1536,
-          "height": 800
-        }
-      ]
     }
   },
   "browserslist": [

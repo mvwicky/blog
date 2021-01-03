@@ -1,8 +1,8 @@
-{% set iconRoot = "/blog/assets/img/icons" %}
-<link rel="icon" href="{{ iconRoot }}/favicon.ico" type="image/x-icon" sizes="77x77" />
+<link rel="icon" href="{{ meta.icons.root }}/favicon.ico" type="image/x-icon" sizes="77x77" />
 {%- set iconTypes = ["icon", "apple-touch-icon"] -%}
 {%- for rel in iconTypes %}
-{% for size in meta.icon_sizes -%}
-{%- set iconUrl = iconRoot ~ "/touch/icon-" ~ size ~ ".png" -%}
-<link rel="{{ rel }}" href="{{ iconUrl }}" type="image/png" sizes="{{ size }}x{{ size }}" />
-{% endfor -%} {%- endfor %}
+{% for size in meta.icons.sizes -%}
+  {%- set iconUrl = meta.icons.root ~ "/touch/icon-" ~ size ~ ".png" -%}
+  <link rel="{{ rel }}" href="{{ iconUrl }}" type="image/png" sizes="{{ size }}x{{ size }}" />
+{% endfor -%}
+{%- endfor %}

@@ -4,13 +4,15 @@ url: https://www.wherewasigoing.com
 author: Michael Van Wickle
 description: A blog, which generally consists of posts that are lists of links, followed by thoughts on said links
 short_name: "Where Was I Going"
-icon_sizes:
-  - 96
-  - 128
-  - 192
-  - 256
-  - 384
-  - 512
+icons:
+  root: /blog/assets/img/icons
+  sizes:
+    - 96
+    - 128
+    - 192
+    - 256
+    - 384
+    - 512
 colors:
   background: "#90cdf4"
   theme: "#90cdf4"
