@@ -1,13 +1,10 @@
-# cSpell:disable
-
 {# Render a link.
   link: {href, title, author}
   #### [{{ link.title }}]({{ link.href }})
   ##### {{ link.author }}
 #}
 {% macro link_heading(link) %}
-<hr class="mt-8 mb-2">
-
+{# <hr class="mt-8 mb-2"> #}
 #### [{{ link.title }}]({{ link.href }}) {.link-title}
 
 ##### {{ link.author }} {.link-author}
@@ -18,6 +15,13 @@
 {{ _trimmed.replace(r/\s+/g, "-") | urlencode }}
 {%- endmacro -%}
 
+
+{% macro link_section(link) %}
+<section class="section link-section">
+  {{ link_heading(link) }}
+  {{ caller() }}
+</section>
+{% endmacro %}
 
 {#
 <h4 class="link-name" id="{{ link.title | extraSlug | safe }}">

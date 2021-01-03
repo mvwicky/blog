@@ -5,15 +5,16 @@ const multimatch = require("multimatch");
 
 const { logger } = require("../build/lib");
 const { formatSize } = require("../build/lib/helpers");
-const { config } = require("../package.json");
+const {
+  config: {
+    critical: { globs, dimensions },
+    eleventy,
+  },
+} = require("../package.json");
 const { env } = require("./utils/env");
 
 const log = logger("11ty:transforms", true);
-const ROOT_DIR = path.dirname(__dirname);
-
-// const GLOBS_TO_TX = ["dist/index.html", "dist/tags/*/index.html"];
-/** @type {string[]} */
-const GLOBS_TO_TX = ["dist/index.html", "dist/page/*/index.html"];
+const ROOT_DIR = path.dirname(require.resolve("../package.json"));
 
 /**
  * @param asset {import("../lib").Asset}
@@ -25,9 +26,12 @@ function rebase(asset) {
 
 const criticalConfig = {
   inline: { polyfill: false, preload: false },
-  base: path.join(ROOT_DIR, config.eleventy.dir.output),
-  dimensions: [{ width: 1200, height: 800 }],
+  base: path.join(ROOT_DIR, eleventy.dir.output),
+  dimensions,
   rebase,
+  ignore: {
+    // rule: [/\.?container/],
+  },
 };
 
 /**
@@ -38,7 +42,7 @@ function shouldTransform(path) {
   if (!env.production || !path) {
     return false;
   }
-  return multimatch([path], GLOBS_TO_TX).length !== 0;
+  return multimatch([path], globs).length !== 0;
 }
 
 /**
@@ -50,18 +54,20 @@ async function transformCritical(content, outputPath) {
   if (tx) {
     log("Extracting critical css from %s", outputPath);
     try {
-      const config = { ...criticalConfig, html: content };
-      const { html, uncritical, css } = await critical.generate(config);
-      const origLength = content.length;
-      const txLength = html.length;
-      const m = txLength / origLength;
-      log(
-        "Extracted critical css (%s) from %s in %ss (%s uncritical)",
-        formatSize(css.length),
+      const cfg = { ...criticalConfig, html: content };
+      const start = process.hrtime.bigint();
+      const { html, css, uncritical } = await critical.generate(cfg);
+      const ns = process.hrtime.bigint() - start;
+      const elapsed = Number(ns) / 1e9;
+      const fmt =
+        "Extracted critical css from %s in %ss (%s critical, %s uncritical)";
+      const args = [
         outputPath,
-        m.toFixed(3),
-        formatSize(uncritical.length)
-      );
+        elapsed.toFixed(3),
+        formatSize(css.length),
+        formatSize(uncritical.length),
+      ];
+      log(fmt, ...args);
       return html;
     } catch (e) {
       console.error(e);

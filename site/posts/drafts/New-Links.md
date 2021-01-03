@@ -28,18 +28,24 @@ links:
 # cSpell:enable
 ---
 
-{% linksection links.capitalb %}
+{% from "link_macro.njk" import link_section %}
+
+{% call link_section(links.capitalb) %}
 {% proofText 1,3 %}
-{% endlinksection %}
+{% endcall %}
 
-{% linksection links.uighurs %}
+{% call link_section(links.uighurs) %}
 {% proofText 2 %}
-{% endlinksection %}
+{% endcall %}
 
-{% linksection links.ntsb %}
+{% call link_section(links.ntsb) %}
 {% proofText 2 %}
-{% endlinksection %}
+{% endcall %}
 
-{% linksection links.police %}
+{% call link_section(links.police) %}
 {% proofText 2,3 %}
-{% endlinksection %}
+{% endcall %}
+
+{% call link_section(links.jkrowling) %}
+{% proofText 2,3 %}
+{% endcall %}

@@ -29,7 +29,7 @@ links:
     author: "Adam Entous and Ronan Farrow"
 ---
 
-{% from "link_macro.njk" import link_heading %}
+{% from "link_macro.njk" import link_section %}
 
 <section class="section">
 
@@ -45,12 +45,12 @@ Anyways, I thought that his little anecdote was a good illustration of the poten
 
 </section>
 
-{% linksection links.marriott %}
+{% call link_section(links.marriott) %}
 I have stayed at many a Marriott hotel.
 But compared to these people, I have never even seen a Marriott.
-{% endlinksection %}
+{% endcall %}
 
-{% linksection  links.pedantic %}
+{% call link_section(links.pedantic) %}
 I'm using this as a prop to reiterate an annoyance I have with the scientific community (and academic community writ large, I guess).
 My annoyance is essentially the thesis of this article, that oftentimes, academic types[^1] focus too much on being "_correct_," as opposed to "_right_," or, like "_making a cogent/coherent/convincing argument_."
 And I know that I am not innocent in all this, I have been a pedant in my life.
@@ -60,25 +60,25 @@ It's ignoring, intentionally or not, the broader point for the satisfaction of b
 And all this is not to say that being technically correct is _per se_ pointless.[^2]
 But it shouldn't be the entire point of an argument.
 If the fulcrum of a debate or of an argument is a technical point, then the parties can just look it up and the debate will be settled; philosophical and moral disagreements are not settled so easily.
-{% endlinksection %}
+{% endcall %}
 
-{% linksection links.timwu %}
+{% call link_section(links.timwu) %}
 I read this dude's book.[^3]
 Antitrust laws should be enforced more rigorously.
-{% endlinksection %}
+{% endcall %}
 
-{% linksection links.fox %}
+{% call link_section(links.fox) %}
 The lack of surprise that I felt upon reading this article was probably the most disturbing part of it.
-{% endlinksection %}
+{% endcall %}
 
-{% linksection links.staceyabrams %}
+{% call link_section(links.staceyabrams) %}
 Yay Stacey Abrams.
-{% endlinksection %}
+{% endcall %}
 
-{% linksection links.mossad %}
+{% call link_section(links.mossad) %}
 Unlike the Fox News article, this one had me kinda freaking out.
 And it's one thing to interfere in a high profile national election, but to screw around in such a specific election seems almost sociopathic.[^5]
-{% endlinksection %}
+{% endcall %}
 
 [^1]: I'm including myself in that group, even though I am not currently in academia.
 [^2]: Again, relating this to my engineering education, I tend to get annoyed when efficiency is used as the ultimate benchmark for efficacy, but efficiency is, obviously, not in and of itself a vice. And a lot of the time efficiency is measured narrowly, i.e., in terms of dollars and/or time (the two are equivalent in a capitalist society). To take a contemporary example, A.I. is an efficient tool for classifying data, e.g., finding hate speech on Facebook or identifying obscenity on YouTube; there are great fiscal gains in not having to pay human beings to do things. But the built in biases to such a system are inefficient in a much different way.

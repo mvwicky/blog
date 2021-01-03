@@ -1,6 +1,6 @@
 {
   "extends": ["stylelint-config-mvwicky"],
   "rules": {
-    "at-rule-no-unknown": [true, { "ignoreAtRules": ["screen"] }]
+    "at-rule-no-unknown": [true, { "ignoreAtRules": ["screen", "layer"] }]
   }
 }

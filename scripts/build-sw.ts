@@ -1,6 +1,6 @@
 import * as path from "path";
 
-import workboxBuild from "workbox-build";
+import { generateSW } from "workbox-build";
 
 import { env, humanBytes, logger } from "../lib";
 import * as pkg from "../package.json";
@@ -33,7 +33,7 @@ async function build(rootDir: string) {
   const globPatterns = EXTS_TO_GLOB.map((ext) => `**/*.${ext}`);
   log("Glob Patterns: %o", globPatterns);
   try {
-    const { count, filePaths, size, warnings } = await workboxBuild.generateSW({
+    const { count, filePaths, size, warnings } = await generateSW({
       mode: env.NODE_ENV,
       swDest,
       globDirectory,
@@ -54,7 +54,7 @@ async function build(rootDir: string) {
     const nWritten = filePaths.length;
     log("%d file%s written", nWritten, nWritten == 1 ? "" : "s");
     for (const filePath of filePaths) {
-      log("%s", filePath);
+      log("%s", relToRoot(filePath));
     }
   } catch (e) {
     console.error(e);

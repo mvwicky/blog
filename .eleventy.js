@@ -119,8 +119,6 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addShortcode("proofText", shortcodes.proofText);
 
-  eleventyConfig.addPairedShortcode("linksection", shortcodes.linksection);
-
   eleventyConfig.addTransform("critical", transforms.critical);
 
   Object.entries(filters).forEach(([name, func]) =>

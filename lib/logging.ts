@@ -2,9 +2,11 @@ import debug, { Debugger } from "debug";
 
 const LOG_NS = "blog";
 
-export function logger(name: string, enabled: boolean = false): Debugger {
+export function logger(name: string, enabled?: boolean): Debugger {
   const log = debug(`${LOG_NS}:${name}`);
-  log.enabled = enabled;
+  if (typeof enabled === "boolean") {
+    log.enabled = enabled;
+  }
   return log;
 }
 

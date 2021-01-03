@@ -38,11 +38,12 @@ export class ManifestPlugin {
     this.options = { outputName: "manifest.json", ...options };
   }
 
-  apply(compiler: Compiler): void {
-    this.watching = compiler.options.watch ?? false;
-    const options = { name: "ManifestPlugin", stage: Infinity };
+  apply({ options, hooks }: Compiler): void {
+    const name = ManifestPlugin.constructor.name;
+    this.watching = options.watch ?? false;
+    const emitOptions = { name, stage: Infinity };
     const emit = this.emit.bind(this);
-    compiler.hooks.emit.tapPromise(options, emit);
+    hooks.emit.tapPromise(emitOptions, emit);
   }
 
   private async emit(compilation: Compilation) {
@@ -97,11 +98,7 @@ export class ManifestPlugin {
       const now = new Date();
       await fse.utimes(outputFile, now, now);
     }
-    return sources.CompatSource.from({
-      source() {
-        return contents;
-      },
-    });
+    return new sources.RawSource(contents);
   }
 
   private getFileType(s: string) {
