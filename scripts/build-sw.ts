@@ -10,18 +10,19 @@ const log = logger("sw", true);
 
 log("NODE_ENV=%s", env.NODE_ENV);
 
-const EXTS_TO_GLOB: string[] = [
-  "js",
+const EXTS_TO_GLOB: readonly string[] = [
   "css",
   "html",
   "ico",
-  "woff",
-  "woff2",
+  "js",
+  "map",
+  "png",
+  "svg",
   "txt",
   "webmanifest",
-  "png",
-  "map",
-];
+  "woff",
+  "woff2",
+] as const;
 
 async function build(rootDir: string) {
   const relToRoot = (p: string) => path.relative(rootDir, p);
@@ -50,11 +51,15 @@ async function build(rootDir: string) {
       throw new Error("Failed to precache anything");
     }
     log("%d file%s precached", count, count === 1 ? "" : "s");
-    log("Total size of precached files: %s", humanBytes(size));
+    log(
+      "Total size of precached file%s: %s",
+      count === 1 ? "" : "s",
+      humanBytes(size)
+    );
     const nWritten = filePaths.length;
     log("%d file%s written", nWritten, nWritten == 1 ? "" : "s");
     for (const filePath of filePaths) {
-      log("%s", relToRoot(filePath));
+      log("    - %s", relToRoot(filePath));
     }
   } catch (e) {
     console.error(e);

@@ -4,12 +4,11 @@ class Robots {
       permalink: "/robots.txt",
     };
   }
-  /** @param {{meta: import("../../lib").Meta}}  */
-  render({ meta }) {
+  render({ pkg }) {
     const lines = [
       "User-agent: *",
       "Disallow: /drafts/",
-      `Sitemap: ${meta.url}/sitemap.xml`,
+      `Sitemap: ${pkg.homepage}/sitemap.xml`,
     ];
     return lines.join("\n");
   }

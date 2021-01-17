@@ -32,5 +32,5 @@
     "dist": false
   },
   "stylelint.enable": true,
-  "svg.preview.background": "transparent"
+  "svg.preview.background": "custom"
 }

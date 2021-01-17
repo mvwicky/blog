@@ -3,7 +3,7 @@
   {% for link in nav.links %} {%- set headerUrl = link.url | url -%}
     {%- set headerClasses = ["nav-link", "active" if headerUrl == page.url else ""] -%}
     {%- set headerClass = headerClasses | select() | join(" ") -%}
-    <a href="{{ headerUrl }}" class="{{ headerClass }}">{{ link.text }}</a>
+    <a class="{{ headerClass }}" href="{{ headerUrl }}">{{ link.text }}</a>
   {% endfor -%}
   <a href="{{ nav.github.url }}" class="nav-link boxed-nav-link" target="_blank" rel="noreferrer noopener">
     {{ nav.github.text }}

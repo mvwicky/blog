@@ -6,6 +6,12 @@
   viewBox="0 0 77 77"
   xmlns="http://www.w3.org/2000/svg"
 >
+  <style>
+    .text {
+      font-size: 18px;
+      font-family: sans-serif;
+    }
+  </style>
   <defs>
     <radialGradient id="radGradient">
       <stop offset="30%" stop-color="#0af" />
@@ -32,4 +38,13 @@
        c1.2696-0.18138 2.4871-4.6e-5 3.6842 0.5479z"
     stroke-width=".60458"
   />
+  <text
+    class="text"
+    x="0"
+    y="80%"
+    transform="rotate(35) translate(-10 0)"
+    transform-origin="bottom left"
+    fill="#13b413"
+    text-decoration="underline"
+  >Dev</text>
 </svg>

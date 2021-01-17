@@ -39,7 +39,7 @@ LIB_OUTPUT=$(call TO_OUT,d.ts) $(call TO_OUT,js)
 
 .PHONY: build prod dev prod-assets dev-assets eleventy service-worker webpack ts-node \
 	ts-web clean-dist clean-cache trash clean bump-major bump-minor bump-patch bump \
-	version version-tag lib \
+	version version-tag lib
 
 build: export NODE_ENV=production
 build: clean-dist lib prod-assets eleventy service-worker
@@ -95,8 +95,7 @@ clean-cache: trash
 clean-lib: TRASH_ARGS+=$(LIB_OUT) $(LIB_SENTINEL)
 clean-lib: trash
 
-clean-lint: TRASH_ARGS+=$(CACHE_DIR)/.eslintcache
-clean-lint: TRASH_ARGS+=$(CACHE_DIR)/.stylelintcache
+clean-lint: TRASH_ARGS+=$(CACHE_DIR)/.eslintcache $(CACHE_DIR)/.stylelintcache
 clean-lint: trash
 
 trash:
@@ -120,4 +119,4 @@ version-tag:
 	git tag $(VERSION_TAG)
 
 t:
-	@: $(foreach f,$(LIB_OUTPUT),$(wildcard $(f)))
+	: $(foreach f,$(LIB_OUTPUT),$(wildcard $(f)))

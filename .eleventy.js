@@ -68,11 +68,11 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.addPlugin(sitemap, {
-    sitemap: { hostname: "https://www.wherewasigoing.com" },
+    sitemap: { hostname: pkg.homepage },
   });
 
   eleventyConfig.setDataDeepMerge(true);
-  eleventyConfig.addDataExtension("yaml", (cts) => yaml.safeLoad(cts));
+  eleventyConfig.addDataExtension("yaml", (cts) => yaml.load(cts));
 
   const md = configureMarkdown();
   eleventyConfig.setLibrary("md", md);
