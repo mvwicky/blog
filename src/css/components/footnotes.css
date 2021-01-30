@@ -23,11 +23,7 @@ ol.footnotes-list {
 }
 
 .footnotes-sep {
-  @apply mt-8 mb-4;
-  @apply border-l-0 border-r-0 border-b-0 border-t;
-  @apply h-0;
-  @apply overflow-visible;
-  @apply text-gray-400;
+  @apply mt-8 mb-4 h-0 overflow-visible border-gray-400;
 }
 
 .footnote-ref,

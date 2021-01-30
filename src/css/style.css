@@ -7,11 +7,13 @@
 @import "./theme/fonts.css";
 @import "./theme/theme.css";
 
+@import "./layout/content.css";
+@import "./layout/footer.css";
+@import "./layout/grid.css";
+@import "./layout/header.css";
+@import "./layout/sections.css";
+
 @import "./components/footnotes.css";
 @import "./components/forms.css";
 @import "./components/links.css";
 @import "./components/lists.css";
-@import "./layout/content.css";
-@import "./layout/footer.css";
-@import "./layout/header.css";
-@import "./layout/sections.css";

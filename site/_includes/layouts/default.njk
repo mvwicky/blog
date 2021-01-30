@@ -7,9 +7,6 @@
     <title>{{ localData.title or title }} | {{ meta.title }}</title>
     {%- if env.production %}{% include "sw.njk" %}{% endif %}
     {% include "icons.njk" -%}
-    {# {% if env.production %}
-    <script src="{{ meta.analytics.scriptUrl }}" async defer data-website-id="{{ meta.analytics.siteId }}"></script>
-    {% endif %} #}
     {%- if not env.production %}{% include "font_fallbacks.njk" %}{% endif %}
     {% block styles %}<link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />{% endblock %}
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -34,28 +31,35 @@
   </head>
   <body>
     {% include "header.njk" %}
-    <div class="container pt-2">{% include "nav.njk" %}</div>
-    <div class="container">
-      <main id="main">
-        {% block content %}{{ content | safe }}{% endblock %}
-      </main>
-    </div>
-    <div class="container pb-4">
-      <footer class="footer">
-        <div class="footer-row pb-2 px-56">
-          {% block footernext %}{% endblock %} {% if page.url != "/" -%}
-          <a class="footer-link" href="{{ '/' | url }}">Home</a>
-          {%- else -%}
-          <span class="footer-link invisible"></span>
-          {%- endif %} {% block footerprev %}{% endblock %}
-        </div>
-        <div class="footer-row border-t border-gray-500 pt-1">
-          <span class="footer-text tracking-tight">&copy; Michael Van Wickle</span>
-        </div>
-        <div class="footer-row border-gray-500">
-          <code class="footer-text tracking-tight">v{{ pkg.version }}</code>
-        </div>
-      </footer>
+    <div class="wrapper">
+      <div class="pt-2">{% include "nav.njk" %}</div>
+      <div>
+        <main class="flex flex-col" id="main">
+          {% block content %}{{ content | safe }}{% endblock %}
+        </main>
+      </div>
+      <div class="pb-4">
+        <footer class="footer flex flex-col pb-1 border border-t-0 rounded-b">
+          {%- set row_class = "flex justify-center" -%}
+          <div class="footer-row {{ row_class }} py-1">
+            {% block footernext %}{% endblock -%}
+
+            {% if page.url != "/" -%}
+              <a class="footer-link" href="{{ '/' | url }}">Home</a>
+            {%- else -%}
+              <span class="footer-link invisible"></span>
+            {%- endif %}
+
+            {%- block footerprev %}{% endblock %}
+          </div>
+          <div class="footer-row {{ row_class }} border-t border-gray-500 pt-1">
+            <span class="footer-text tracking-tight">&copy; Michael Van Wickle</span>
+          </div>
+          <div class="footer-row {{ row_class }} border-gray-500">
+            <code class="footer-text tracking-tight">v{{ pkg.version }}</code>
+          </div>
+        </footer>
+      </div>
     </div>
     {% block endofbody %}
     <script type="module" src="{% webpackAsset 'main.js' %}"></script>

@@ -32,5 +32,6 @@
     "dist": false
   },
   "stylelint.enable": true,
-  "svg.preview.background": "custom"
+  "svg.preview.background": "custom",
+  "restructuredtext.languageServer.disabled": true
 }

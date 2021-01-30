@@ -1,22 +1,17 @@
 {
   "chunks": {
     "byName": {
-      "core-js": 4,
-      "footnotes": 2,
-      "main": 4,
-      "print": 740,
-      "styles": 1,
-      "vendors-footnotes": 3
+      "footnotes": 424,
+      "main": 179,
+      "styles": 532
     },
     "bySource": {
-      "0 footnotes": 3,
-      "0 main": 4,
-      "0 print": 740,
-      "0 styles": 1,
-      "1 footnotes": 2,
-      "1 main": 0
+      "0 footnotes": 788,
+      "0 main": 179,
+      "0 styles": 532,
+      "1 footnotes": 424
     },
-    "usedIds": [1, 2, 3, 4]
+    "usedIds": [179, 424, 532, 788]
   },
   "mini-css-extract-plugin /Users/michael/Code/GitHub/blog/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/dist/tippy.css": [
     {
@@ -123,50 +118,6 @@
       }
     }
   ],
-  "mini-css-extract-plugin /Users/michael/Code/GitHub/blog/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/css/print.css": [
-    {
-      "chunks": {
-        "byName": {
-          "mini-css-extract-plugin": 323
-        },
-        "bySource": {
-          "0 mini-css-extract-plugin": 323
-        },
-        "usedIds": [323]
-      },
-      "modules": {
-        "byIdentifier": {
-          "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/css/print.css": 333,
-          "./node_modules/css-loader/dist/runtime/api.js": 645,
-          "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js": 15,
-          "./node_modules/css-loader/dist/runtime/getUrl.js": 667,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-600.woff": 914,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-600.woff2": 383,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-700.woff": 658,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-700.woff2": 186,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-italic.woff": 248,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-italic.woff2": 826,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-regular.woff": 965,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-regular.woff2": 213,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-700.woff": 41,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-700.woff2": 596,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-italic.woff": 704,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-italic.woff2": 249,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-regular.woff": 392,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-regular.woff2": 92,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-200.woff": 916,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-200.woff2": 237,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-700.woff": 216,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-700.woff2": 926,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-italic.woff": 593,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-italic.woff2": 176,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-regular.woff": 702,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-regular.woff2": 523
-        },
-        "usedIds": [15, 333, 645]
-      }
-    }
-  ],
   "mini-css-extract-plugin /Users/michael/Code/GitHub/blog/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/css/style.css": [
     {
       "chunks": {
@@ -184,159 +135,57 @@
           "./node_modules/css-loader/dist/runtime/api.js": 645,
           "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js": 15,
           "./node_modules/css-loader/dist/runtime/getUrl.js": 667,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-600.woff": 914,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-600.woff2": 383,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-700.woff": 658,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-700.woff2": 186,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-italic.woff": 248,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-italic.woff2": 826,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-regular.woff": 965,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/fira-sans/fira-sans-v9-regular.woff2": 213,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-700.woff": 41,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-700.woff2": 596,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-italic.woff": 704,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-italic.woff2": 249,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-regular.woff": 392,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-regular.woff2": 92,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-200.woff": 916,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-200.woff2": 237,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-700.woff": 216,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-700.woff2": 926,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-italic.woff": 593,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-italic.woff2": 176,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-regular.woff": 702,
-          "./node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[2].use[0]!./src/css/theme/fonts/spectral/spectral-v6-regular.woff2": 523
+          "./src/css/theme/fonts/fira-sans/fira-sans-v9-600.woff": 692,
+          "./src/css/theme/fonts/fira-sans/fira-sans-v9-600.woff2": 195,
+          "./src/css/theme/fonts/fira-sans/fira-sans-v9-700.woff": 545,
+          "./src/css/theme/fonts/fira-sans/fira-sans-v9-700.woff2": 291,
+          "./src/css/theme/fonts/fira-sans/fira-sans-v9-italic.woff": 350,
+          "./src/css/theme/fonts/fira-sans/fira-sans-v9-italic.woff2": 830,
+          "./src/css/theme/fonts/fira-sans/fira-sans-v9-regular.woff": 74,
+          "./src/css/theme/fonts/fira-sans/fira-sans-v9-regular.woff2": 288,
+          "./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-700.woff": 402,
+          "./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-700.woff2": 510,
+          "./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-italic.woff": 315,
+          "./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-italic.woff2": 417,
+          "./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-regular.woff": 310,
+          "./src/css/theme/fonts/ibm-plex-mono/plex-mono-v5-regular.woff2": 831,
+          "./src/css/theme/fonts/spectral/spectral-v6-200.woff": 475,
+          "./src/css/theme/fonts/spectral/spectral-v6-200.woff2": 460,
+          "./src/css/theme/fonts/spectral/spectral-v6-700.woff": 695,
+          "./src/css/theme/fonts/spectral/spectral-v6-700.woff2": 491,
+          "./src/css/theme/fonts/spectral/spectral-v6-italic.woff": 376,
+          "./src/css/theme/fonts/spectral/spectral-v6-italic.woff2": 621,
+          "./src/css/theme/fonts/spectral/spectral-v6-regular.woff": 702,
+          "./src/css/theme/fonts/spectral/spectral-v6-regular.woff2": 902
         },
         "usedIds": [
           15,
-          41,
-          92,
-          176,
-          186,
-          213,
-          216,
-          237,
-          248,
-          249,
+          74,
+          195,
+          288,
+          291,
+          310,
+          315,
           318,
-          383,
-          392,
-          523,
-          593,
-          596,
+          350,
+          376,
+          402,
+          417,
+          460,
+          475,
+          491,
+          510,
+          545,
+          621,
           645,
-          658,
           667,
+          692,
+          695,
           702,
-          704,
-          826,
-          914,
-          916,
-          926,
-          965
+          830,
+          831,
+          902
         ]
-      }
-    }
-  ],
-  "mini-css-extract-plugin node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js!node_modules/postcss-loader/src/index.js!src/css/style.css": [
-    {
-      "chunks": {
-        "byName": {
-          "mini-css-extract-plugin": 0
-        },
-        "bySource": {
-          "0 mini-css-extract-plugin": 0
-        },
-        "usedIds": [0]
-      },
-      "modules": {
-        "byIdentifier": {},
-        "usedIds": {}
-      }
-    }
-  ],
-  "mini-css-extract-plugin node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js??ref--5-2!node_modules/postcss-loader/dist/cjs.js!node_modules/tippy.js/dist/tippy.css": [
-    {
-      "chunks": {
-        "byName": {
-          "mini-css-extract-plugin": 0
-        },
-        "bySource": {
-          "0 mini-css-extract-plugin": 0
-        },
-        "usedIds": [0]
-      },
-      "modules": {
-        "byIdentifier": {},
-        "usedIds": {}
-      }
-    }
-  ],
-  "mini-css-extract-plugin node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js??ref--5-2!node_modules/postcss-loader/dist/cjs.js!src/css/style.css": [
-    {
-      "chunks": {
-        "byName": {
-          "mini-css-extract-plugin": 0
-        },
-        "bySource": {
-          "0 mini-css-extract-plugin": 0
-        },
-        "usedIds": [0]
-      },
-      "modules": {
-        "byIdentifier": {},
-        "usedIds": {}
-      }
-    }
-  ],
-  "mini-css-extract-plugin node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js??ref--5-2!node_modules/postcss-loader/src/index.js!node_modules/tippy.js/dist/tippy.css": [
-    {
-      "chunks": {
-        "byName": {
-          "mini-css-extract-plugin": 0
-        },
-        "bySource": {
-          "0 mini-css-extract-plugin": 0
-        },
-        "usedIds": [0]
-      },
-      "modules": {
-        "byIdentifier": {},
-        "usedIds": {}
-      }
-    }
-  ],
-  "mini-css-extract-plugin node_modules/cache-loader/dist/cjs.js??ref--5-1!node_modules/css-loader/dist/cjs.js??ref--5-2!node_modules/postcss-loader/src/index.js!src/css/style.css": [
-    {
-      "chunks": {
-        "byName": {
-          "mini-css-extract-plugin": 0
-        },
-        "bySource": {
-          "0 mini-css-extract-plugin": 0
-        },
-        "usedIds": [0]
-      },
-      "modules": {
-        "byIdentifier": {},
-        "usedIds": {}
-      }
-    }
-  ],
-  "mini-css-extract-plugin node_modules/css-loader/dist/cjs.js??ref--5-1!node_modules/postcss-loader/dist/cjs.js!src/css/style.css": [
-    {
-      "chunks": {
-        "byName": {
-          "mini-css-extract-plugin": 0
-        },
-        "bySource": {
-          "0 mini-css-extract-plugin": 0
-        },
-        "usedIds": [0]
-      },
-      "modules": {
-        "byIdentifier": {},
-        "usedIds": {}
       }
     }
   ],
@@ -344,9 +193,7 @@
     "byIdentifier": {
       "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/elem-is-tag.ts": 710,
       "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/footnotes.ts": 3288,
-      "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/main.ts|19713749f8ea0bf4dff1eb85c6fdd227": 938,
-      "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/main.ts|55c9dbaa64c8b458041073fb862b2357": 703,
-      "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/main.ts|f6a10bbe9e2a198102d5d322670e0f62": 8766,
+      "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/main.ts|55c9dbaa64c8b458041073fb862b2357": 3703,
       "./node_modules/core-js/internals/a-function.js": 3099,
       "./node_modules/core-js/internals/a-possible-prototype.js": 6077,
       "./node_modules/core-js/internals/add-to-unscopables.js": 1223,
@@ -354,7 +201,6 @@
       "./node_modules/core-js/internals/an-instance.js": 5787,
       "./node_modules/core-js/internals/an-object.js": 9670,
       "./node_modules/core-js/internals/array-includes.js": 1318,
-      "./node_modules/core-js/internals/call-with-safe-iteration-closing.js": 3411,
       "./node_modules/core-js/internals/check-correctness-of-iteration.js": 7072,
       "./node_modules/core-js/internals/classof-raw.js": 4326,
       "./node_modules/core-js/internals/classof.js": 648,
@@ -370,8 +216,8 @@
       "./node_modules/core-js/internals/document-create-element.js": 317,
       "./node_modules/core-js/internals/dom-iterables.js": 8324,
       "./node_modules/core-js/internals/engine-is-ios.js": 6833,
-      "./node_modules/core-js/internals/engine-is-node.js": 268,
-      "./node_modules/core-js/internals/engine-is-webos-webkit.js": 36,
+      "./node_modules/core-js/internals/engine-is-node.js": 5268,
+      "./node_modules/core-js/internals/engine-is-webos-webkit.js": 1036,
       "./node_modules/core-js/internals/engine-user-agent.js": 8113,
       "./node_modules/core-js/internals/engine-v8-version.js": 7392,
       "./node_modules/core-js/internals/enum-bug-keys.js": 748,
@@ -399,7 +245,7 @@
       "./node_modules/core-js/internals/is-pure.js": 1913,
       "./node_modules/core-js/internals/is-regexp.js": 7850,
       "./node_modules/core-js/internals/iterate.js": 408,
-      "./node_modules/core-js/internals/iterator-close.js": 212,
+      "./node_modules/core-js/internals/iterator-close.js": 9212,
       "./node_modules/core-js/internals/iterators-core.js": 3383,
       "./node_modules/core-js/internals/iterators.js": 7497,
       "./node_modules/core-js/internals/microtask.js": 5948,
@@ -474,46 +320,44 @@
       "./node_modules/core-js/modules/esnext.set.symmetric-difference.js": 5285,
       "./node_modules/core-js/modules/esnext.set.union.js": 9865,
       "./node_modules/core-js/modules/web.dom-collections.iterator.js": 3948,
-      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/dist/tippy.css": 548,
-      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/light-border.css": 870,
-      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/light.css": 425,
-      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/material.css": 796,
-      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/translucent.css": 488,
-      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/css/print.css": 724,
-      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/css/style.css": 177,
-      "./node_modules/tippy.js/dist/tippy.esm.js|39723ad5d9b7a6c10045b8b465947c48": 418,
-      "./node_modules/tippy.js/dist/tippy.esm.js|5e88afb70dd05093add8e259653a1d66": 160,
-      "./node_modules/tippy.js/dist/tippy.esm.js|6b378c44631d16d180dacc2fd493c068": 705,
-      "./node_modules/tippy.js/dist/tippy.esm.js|e0346f3d58f87fbb421407e4f095466e": 5252
+      "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/dist/tippy.css": 456,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/light-border.css": 917,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/light.css": 349,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/material.css": 760,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/translucent.css": 656,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/css/style.css": 960,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/dist/tippy.css": 2548,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/light-border.css": 7870,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/light.css": 8647,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/material.css": 4796,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/translucent.css": 6488,
+      "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/css/style.css": 6177,
+      "./node_modules/tippy.js/dist/tippy.esm.js|39723ad5d9b7a6c10045b8b465947c48": 5418
     },
     "usedIds": [
       30,
-      36,
       111,
       133,
-      177,
-      212,
       261,
-      268,
       317,
+      349,
       401,
       408,
-      418,
-      425,
+      456,
       465,
-      488,
       490,
-      548,
       647,
       648,
       654,
-      703,
+      656,
       710,
       748,
-      796,
+      760,
       842,
       857,
-      870,
+      917,
+      960,
+      1036,
       1223,
       1236,
       1238,
@@ -548,6 +392,7 @@
       3501,
       3505,
       3599,
+      3703,
       3887,
       3948,
       4092,
@@ -563,10 +408,12 @@
       5112,
       5164,
       5181,
+      5268,
       5285,
       5296,
       5306,
       5389,
+      5418,
       5465,
       5656,
       5787,
@@ -613,6 +460,7 @@
       8880,
       8921,
       9114,
+      9212,
       9478,
       9518,
       9670,

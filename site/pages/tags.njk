@@ -2,11 +2,11 @@
 title: All Tags
 ---
 
-<ul>
+<ul class="list-disc list-inside text-lg leading-relaxed">
   {% for tag in collections.tagList %}
   {% set tagUrl %}/tags/{{ tag | lower }}{% endset %}
   <li>
-    <a href="{{ tagUrl | url }}">{{ tag }}</a>
+    <a class="text-blue-900" href="{{ tagUrl | url }}">{{ tag }} ({{ collections[tag] | length }})</a>
   </li>
   {% endfor %}
 </ul>

@@ -1,5 +1,5 @@
 {% extends "./default.njk" %}
-{% from "macro_utils.njk" import footerlink,linkSeq %}
+{% from "macro_utils.njk" import footerlink, linkSeq %}
 
 {%- set prevPage = collections.published | getPreviousCollectionItem(page) -%}
 {%- set nextPage = collections.published | getNextCollectionItem(page) -%}

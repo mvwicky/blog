@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "noEmit": true,
-    "lib": ["es2020"],
+    "lib": ["es2020", "WebWorker"],
     "checkJs": false,
     "module": "commonjs",
-    "target": "es2020"
+    "target": "es2020",
+    "outDir": "./build"
   },
   "files": ["webpack.config.ts", "webpack.prod.ts"],
-  "include": ["config/*.ts", "config/**/*.js", "lib/**/*.ts", "scripts/*.ts"],
   "exclude": ["src/**", "node_modules/**"],
   "extends": "./config/tsconfig.base.json",
   "references": [{ "path": "./lib/tsconfig.json" }]
