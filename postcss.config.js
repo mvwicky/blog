@@ -14,4 +14,4 @@ if (env.PROD) {
   plugins.push(csso(cssoOptions));
 }
 
-module.exports = { plugins, map: { inline: false } };
+module.exports = { plugins };

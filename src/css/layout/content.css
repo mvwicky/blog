@@ -1,25 +1,21 @@
-.content {
-  @apply px-3 w-full;
-}
+@layer base {
+  .content {
+    @apply px-3 w-full;
+  }
 
-.content h4 {
-  @apply text-indigo-700;
-}
+  .content h4 {
+    @apply text-indigo-700;
+  }
 
-.content h5 {
-  @apply ml-0;
-}
+  .content h5 {
+    @apply ml-0;
+  }
 
-#main {
-  @apply min-h-screen pt-4 pb-6;
-  @apply bg-blue-100 bg-opacity-75 border border-gray-600;
-  @apply flex flex-col;
-
-  /* display: grid; */
-}
-
-@screen print {
   #main {
-    @apply border-0;
+    @apply min-h-screen pt-4 pb-6;
+    @apply bg-blue-100 bg-opacity-75 border border-gray-600;
+    @apply flex flex-col;
+
+    @apply print:border-0;
   }
 }

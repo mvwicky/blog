@@ -2,6 +2,7 @@
   .nav-link,
   .footer-link {
     @apply block leading-4;
+    @apply lg:inline-block;
   }
 
   .nav-link {
@@ -15,6 +16,7 @@
   .footer-link {
     @apply rounded p-1 text-center;
     @apply text-sm tracking-tight underline;
+    @apply lg:mx-0;
 
     flex-basis: 33%;
   }
@@ -44,13 +46,7 @@
     @apply mb-2 tracking-tight;
   }
 
-  @screen lg {
-    .footer-link,
-    .nav-link {
-      @apply inline-block;
-    }
-    .footer-link {
-      @apply mx-0;
-    }
+  .permalink-anchor {
+    @apply text-gray-700;
   }
 }

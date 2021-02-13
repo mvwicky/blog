@@ -15,7 +15,7 @@ const collections = require("./config/collections");
 const shortcodes = require("./config/shortcodes");
 const transforms = require("./config/transforms");
 const filters = require("./config/utils/filters");
-const pkg = require("./package.json");
+const { config, homepage } = require("./package.json");
 
 const log = logger("11ty", true);
 
@@ -26,7 +26,7 @@ function configureMarkdown() {
   const baseCfg = { html: true, typographer: true };
   const anchorCfg = {
     permalink: true,
-    permalinkClass: "permalink-anchor text-gray-700",
+    permalinkClass: "permalink-anchor",
     permalinkSymbol: "ǂ", // Alveolar (or palatal?) click symbol
     permalinkBefore: true,
     level: [4],
@@ -61,15 +61,13 @@ module.exports = function (eleventyConfig) {
   log("NODE_ENV=%s", env.NODE_ENV);
   Settings.defaultZoneName = "utc";
 
-  const pkgCfg = pkg.config.eleventy;
+  const pkgCfg = config.eleventy;
 
   layoutAliases(pkgCfg.dir).forEach(([baseName, relPath]) =>
     eleventyConfig.addLayoutAlias(baseName, relPath)
   );
 
-  eleventyConfig.addPlugin(sitemap, {
-    sitemap: { hostname: pkg.homepage },
-  });
+  eleventyConfig.addPlugin(sitemap, { sitemap: { hostname: homepage } });
 
   eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addDataExtension("yaml", (cts) => yaml.load(cts));

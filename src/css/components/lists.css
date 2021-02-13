@@ -1,21 +1,23 @@
-.posts-list {
-  @apply leading-tight;
-}
+@layer components {
+  .posts-list {
+    @apply leading-tight;
+  }
 
-.grid-posts-list {
-  @apply w-full items-center justify-center inline-grid;
+  .grid-posts-list {
+    @apply w-full items-center justify-center inline-grid;
 
-  grid-auto-rows: minmax(1.75em, auto);
-  grid-template-columns: auto max-content auto 1fr;
-  justify-items: baseline;
-}
+    grid-auto-rows: minmax(1.75em, auto);
+    grid-template-columns: auto max-content auto 1fr;
+    justify-items: baseline;
+  }
 
-.grid-posts-list.sep {
-  bottom: 1.5px;
-  position: relative;
-}
+  .grid-posts-list.sep {
+    bottom: 1.5px;
+    position: relative;
+  }
 
-.posts-list-sep {
-  bottom: 1.5px;
-  position: relative;
+  .posts-list-sep {
+    bottom: 1.5px;
+    position: relative;
+  }
 }

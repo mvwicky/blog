@@ -7,5 +7,5 @@ links:
     text: Reading
   - url: "/page/aboutme/"
     text: About Me
-  # - url: "/tags/"
-  #   text: Tags
+  - url: "/page/tags/"
+    text: Tags

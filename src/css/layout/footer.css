@@ -1,13 +1,4 @@
-.footer {
-  @apply bg-gray-200 border-gray-600 font-extralight;
-}
-
 .footer-text {
   @apply text-xs mx-5;
-}
-
-@screen lg {
-  .footer-text {
-    @apply inline-block mt-0 mx-0;
-  }
+  @apply lg:inline-block lg:mt-0 lg:mx-0;
 }

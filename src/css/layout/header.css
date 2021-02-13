@@ -1,33 +1,20 @@
-#nav-main {
-  @apply flex flex-row items-center justify-start flex-wrap;
-  @apply bg-blue-300 py-3 px-4 rounded-t mt-2 border border-b-0 border-gray-600;
-  @apply leading-4 text-lg;
-}
-
-.header {
-  @apply mx-4 pb-2 mb-4 border-b border-gray-500;
-}
-
-.title-header {
-  @apply flex justify-center;
-  @apply bg-gray-200;
-  @apply px-4 py-3 rounded;
-}
-
-@screen md {
+@layer components {
   #nav-main {
-    @apply py-6;
+    @apply flex flex-row items-center justify-start flex-wrap;
+    @apply bg-blue-300 py-3 px-4 rounded-t mt-2 border border-b-0 border-gray-600;
+    @apply leading-4 text-lg;
+    @apply md:py-6;
+    @apply sm:flex-nowrap;
+    @apply print:hidden;
   }
-}
 
-@screen sm {
-  #nav-main {
-    @apply flex-nowrap;
+  .header {
+    @apply mx-4 pb-2 mb-4 border-b border-gray-500;
   }
-}
 
-@screen print {
-  #nav-main {
-    @apply hidden;
+  .title-header {
+    @apply flex justify-center;
+    @apply bg-gray-200;
+    @apply px-4 py-3 rounded;
   }
 }
