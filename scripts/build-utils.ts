@@ -4,18 +4,13 @@ import * as util from "util";
 import type { Debugger } from "debug";
 import findUp from "find-up";
 import mem from "mem";
-import type { Configuration, Stats } from "webpack";
+import type { Configuration, Stats, StatsCompilation } from "webpack";
 
 import { env, logger } from "../lib";
 
 const log = logger("assets", true);
 
 export const ROOT = path.dirname(__dirname);
-
-interface Info {
-  errors: string[];
-  warnings: string[];
-}
 
 async function _getRoot(): Promise<string> {
   try {
@@ -44,7 +39,7 @@ export function makeRunHandler(config: Configuration) {
 }
 
 export function runHandler(config: Configuration, err?: Error, stats?: Stats) {
-  const info: Info | undefined = stats?.toJson();
+  const info: StatsCompilation | undefined = stats?.toJson();
   if (err || stats?.hasErrors()) {
     if (info?.errors) {
       console.error(info.errors);
@@ -64,7 +59,7 @@ export function runHandler(config: Configuration, err?: Error, stats?: Stats) {
 export function showStats(
   config: Configuration,
   stats: Stats,
-  info: Info | undefined
+  info: StatsCompilation | undefined
 ) {
   if (stats.hasWarnings() && info?.warnings) {
     const { length } = info.warnings;

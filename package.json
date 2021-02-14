@@ -2,8 +2,8 @@
   "name": "blog",
   "version": "0.8.3",
   "description": "A Blog",
-  "repository": "https://github.com/mvwicky/blog.git",
   "homepage": "https://www.wherewasigoing.com",
+  "repository": "https://github.com/mvwicky/blog.git",
   "license": "MIT",
   "author": "Michael Van Wickle <me@michaelvanwickle.com>",
   "scripts": {
@@ -20,17 +20,13 @@
     "dev": "cross-env NODE_ENV=development npm-run-all clean webpack:assets build:lib --parallel dev:*",
     "dev:assets": "yarn run webpack:assets --watch --progress",
     "dev:serve": "eleventy --serve",
+    "postinstall": "husky install",
     "lint": "npm-run-all -p lint:*",
     "lint:eslint": "eslint --cache --cache-location=.cache/.eslintcache '**/*.ts' '**/*.js'",
     "lint:styles": "stylelint --cache --cache-location=.cache/.stylelintcache '**/*.css'",
     "watch:assets": "ts-node scripts/watch-assets.ts",
     "watch:lib": "tsc --project lib --watch",
     "webpack:assets": "webpack --config=./webpack.config.ts"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn run lint && pretty-quick --staged"
-    }
   },
   "config": {
     "assets": {
@@ -118,7 +114,7 @@
     "find-up": "^5.0.0",
     "fs-extra": "^9.0.1",
     "globby": "^11.0.1",
-    "husky": "^4.2.5",
+    "husky": "^5",
     "js-yaml": "^4.0.0",
     "luxon": "^1.24.1",
     "markdown-it": "^12.0.0",
@@ -132,7 +128,7 @@
     "postcss": "^8.0.6",
     "postcss-csso": "^5.0.0",
     "postcss-import": "^14.0.0",
-    "postcss-loader": "^4.0.1",
+    "postcss-loader": "^5",
     "prettier": "^2.0.5",
     "pretty-quick": "^3.0",
     "stylelint": "^13.3.3",

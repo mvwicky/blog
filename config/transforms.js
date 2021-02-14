@@ -17,7 +17,7 @@ const log = logger("11ty:transforms", true);
 const ROOT_DIR = path.dirname(require.resolve("../package.json"));
 
 /**
- * @param asset {import("../lib").Asset}
+ * @param {import("../lib").Asset} asset
  * @returns {string}
  */
 function rebase(asset) {
@@ -35,7 +35,7 @@ const criticalConfig = {
 };
 
 /**
- * @param path {string | undefined}
+ * @param {string | undefined} path The path to test
  * @returns {boolean}
  */
 function shouldTransform(path) {
@@ -46,8 +46,9 @@ function shouldTransform(path) {
 }
 
 /**
- * @param content {string}
- * @param outputPath {string | undefined}
+ * @param {string} content
+ * @param {string | undefined} outputPath
+ * @returns {string} The transformed HTML (if it matches `config.globs`)
  */
 async function transformCritical(content, outputPath) {
   const tx = shouldTransform(outputPath);
@@ -70,6 +71,7 @@ async function transformCritical(content, outputPath) {
       log(fmt, ...args);
       return html;
     } catch (e) {
+      log("Critical CSS extraction failed.");
       console.error(e);
     }
   }

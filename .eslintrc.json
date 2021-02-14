@@ -27,7 +27,6 @@
     "import/cache": { "lifetime": 30 },
     "import/core-modules": ["os", "path", "process", "fs", "util", "crypto"],
     "import/extensions": [".js", ".ts"],
-    "import/external-module-folders": ["node_modules"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts"]
     },
@@ -41,12 +40,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "tailwind.config.js",
-        "postcss.config.js",
-        ".eleventy.js",
-        "src/**/*.js"
-      ],
+      "files": ["tailwind.config.js", "postcss.config.js", ".eleventy.js"],
       "env": { "node": true, "browser": false }
     },
     {
@@ -58,7 +52,7 @@
       ],
       "env": { "node": true, "browser": false },
       "rules": {
-        "import/dynamic-import-chunkname": ["off", {}]
+        "import/dynamic-import-chunkname": "off"
       }
     },
     {

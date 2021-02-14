@@ -63,9 +63,9 @@ module.exports = function (eleventyConfig) {
 
   const pkgCfg = config.eleventy;
 
-  layoutAliases(pkgCfg.dir).forEach(([baseName, relPath]) =>
-    eleventyConfig.addLayoutAlias(baseName, relPath)
-  );
+  for (const [baseName, relPath] of layoutAliases(pkgCfg.dir)) {
+    eleventyConfig.addLayoutAlias(baseName, relPath);
+  }
 
   eleventyConfig.addPlugin(sitemap, { sitemap: { hostname: homepage } });
 
@@ -119,14 +119,14 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addTransform("critical", transforms.critical);
 
-  Object.entries(filters).forEach(([name, func]) =>
-    eleventyConfig.addFilter(name, func)
-  );
+  for (const [name, filter] of Object.entries(filters)) {
+    eleventyConfig.addFilter(name, filter);
+  }
   eleventyConfig.addFilter("markdownify", (s) => md.render(s));
 
-  Object.entries(collections).forEach(([name, func]) =>
-    eleventyConfig.addCollection(name, func)
-  );
+  for (const [name, collection] of Object.entries(collections)) {
+    eleventyConfig.addCollection(name, collection);
+  }
 
   eleventyConfig.setQuietMode(false);
 
