@@ -88,6 +88,7 @@ const config = {
     },
     screens: breakpoints,
   },
+  // darkMode: "media",
   variants: {},
   plugins: [],
 };

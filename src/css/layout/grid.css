@@ -1,20 +1,27 @@
-.wrapper {
-  @apply mx-1 grid;
+@layer base {
+  :root {
+    --wrapper-width: 80ch;
+  }
+  .wrapper {
+    @apply mx-1 grid;
 
-  grid-template-columns: 1fr min(72ch, 100%) 1fr;
+    grid-template-columns: 1fr min(var(--wrapper-width), 100%) 1fr;
+  }
+
+  .wrapper > * {
+    grid-column: 2;
+  }
 }
 
-.wrapper > * {
-  grid-column: 2;
-}
+@layer utilities {
+  .full-bleed {
+    grid-column: 1 / 4;
+    @apply w-full;
+  }
 
-.full-bleed {
-  grid-column: 1 / 4;
-  @apply w-full;
-}
-
-.mostly-full-bleed {
-  grid-column: 1 / 4;
-  @apply w-full max-w-6xl;
-  @apply mx-auto;
+  .mostly-full-bleed {
+    grid-column: 1 / 4;
+    @apply w-full max-w-6xl;
+    @apply mx-auto;
+  }
 }

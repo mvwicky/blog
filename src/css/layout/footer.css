@@ -1,4 +1,6 @@
-.footer-text {
-  @apply text-xs mx-5;
-  @apply lg:inline-block lg:mt-0 lg:mx-0;
+@layer base {
+  .footer-text {
+    @apply text-xs mx-5;
+    @apply lg:inline-block lg:mt-0 lg:mx-0;
+  }
 }

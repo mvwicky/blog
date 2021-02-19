@@ -14,7 +14,6 @@
   #main {
     @apply min-h-screen pt-4 pb-6;
     @apply bg-blue-100 bg-opacity-75 border border-gray-600;
-    @apply flex flex-col;
 
     @apply print:border-0;
   }

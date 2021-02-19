@@ -25,7 +25,6 @@
   "env": { "browser": true, "es6": true },
   "settings": {
     "import/cache": { "lifetime": 30 },
-    "import/core-modules": ["os", "path", "process", "fs", "util", "crypto"],
     "import/extensions": [".js", ".ts"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts"]

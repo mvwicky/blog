@@ -10,7 +10,7 @@
   }
 
   .nav-link.active {
-    @apply underline text-gray-900;
+    @apply underline text-gray-800;
   }
 
   .footer-link {
@@ -35,7 +35,7 @@
   }
 
   .boxed-nav-link:hover {
-    @apply bg-blue-800 text-blue-100 border-indigo-100;
+    @apply bg-blue-800 text-blue-100 ring-2 ring-indigo-100;
   }
 
   .link-title {

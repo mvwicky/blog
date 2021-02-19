@@ -34,17 +34,15 @@
     <div class="wrapper">
       <div class="pt-2">{% include "nav.njk" %}</div>
       <div>
-        <main class="flex flex-col" id="main">
+        <main id="main">
           {% block content %}{{ content | safe }}{% endblock %}
         </main>
       </div>
       <div class="pb-4">
-        <footer
-          class="footer flex flex-col pb-1 border border-t-0
-                 rounded-b bg-gray-200 border-gray-600 font-extralight"
-        >
-          {%- set row_class = "footer-row flex justify-center" -%}
-          <div class="{{ row_class }} py-1">
+        {% set footerClass = "footer flex flex-col pb-1 border border-t-0 rounded-b bg-gray-200 border-gray-600 font-extralight" %}
+        <footer class="{{ footerClass }}">
+          {%- set rowClass = "footer-row flex justify-center" -%}
+          <div class="{{ rowClass }} py-1">
             {% block footernext %}{% endblock -%}
 
             {% if page.url != "/" -%}
@@ -55,10 +53,10 @@
 
             {%- block footerprev %}{% endblock %}
           </div>
-          <div class="{{ row_class }} border-t border-gray-500 pt-1">
+          <div class="{{ rowClass }} border-t border-gray-500 pt-1">
             <span class="footer-text tracking-tight">&copy; Michael Van Wickle</span>
           </div>
-          <div class="{{ row_class }} border-gray-500">
+          <div class="{{ rowClass }} border-gray-500">
             <code class="footer-text tracking-tight">v{{ pkg.version }}</code>
           </div>
         </footer>
