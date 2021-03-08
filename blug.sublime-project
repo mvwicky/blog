@@ -12,5 +12,8 @@
       ],
       "file_exclude_patterns": ["webpack-records-*.json"]
     }
-  ]
+  ],
+  "settings": {
+    "SublimeLinter.linters.yamllint.c": ["${project_path}/.yamllint.yml"]
+  }
 }

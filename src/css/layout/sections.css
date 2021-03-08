@@ -1,11 +1,13 @@
-.link-section {
-  @apply pt-3;
-}
+@layer components {
+  .link-section {
+    @apply pt-3;
+  }
 
-.section + .section {
-  @apply mt-4;
-}
+  .section + .section {
+    @apply mt-4;
+  }
 
-section + .link-section {
-  @apply border-t border-gray-600;
+  section + .link-section {
+    @apply border-t border-gray-600;
+  }
 }

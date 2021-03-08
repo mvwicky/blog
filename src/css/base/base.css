@@ -1,5 +1,7 @@
-a[href]:not(.never-underline):hover {
-  @apply underline;
+@layer utilities {
+  a[href]:not(.never-underline):hover {
+    @apply underline;
+  }
 }
 
 @layer base {
@@ -7,8 +9,9 @@ a[href]:not(.never-underline):hover {
     @apply text-justify;
 
     text-indent: 1.5rem;
+    text-indent: 3ch;
   }
   p + p {
-    @apply mt-2;
+    @apply mt-1.5;
   }
 }

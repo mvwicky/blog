@@ -7,7 +7,6 @@
 
     grid-template-columns: 1fr min(var(--wrapper-width), 100%) 1fr;
   }
-
   .wrapper > * {
     grid-column: 2;
   }

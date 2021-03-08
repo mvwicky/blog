@@ -2,9 +2,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./theme/fonts.css";
+
 @import "./base/base.css";
 
-@import "./theme/fonts.css";
 @import "./theme/theme.css";
 
 @import "./layout/content.css";
