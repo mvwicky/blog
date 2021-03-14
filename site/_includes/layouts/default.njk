@@ -2,65 +2,63 @@
 <html lang="en">
   <head>
     {% block head -%}
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ localData.title or title }} | {{ meta.title }}</title>
-    {%- if env.production %}{% include "sw.njk" %}{% endif %}
-    {% include "icons.njk" -%}
-    {%- if not env.production %}{% include "font_fallbacks.njk" %}{% endif %}
-    {% block styles %}<link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />{% endblock %}
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="author" href="/humans.txt" />
-    {% block metadata %}
-    <meta name="author" content="{{ meta.author }}" />
-    {% if description %}<meta name="description" content="{{ description }}" />{% endif -%}
-    <meta name="generator" content="Eleventy" />
-    <meta name="theme-color" content="{{ meta.colors.theme }}" />
-      {% block ld -%}
-      {% if ld.type %}
-      <script type="application/ld+json">
-      {
-        "@context": "https://schema.org"
-      }
-      </script>
-      {% endif %}
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>{{ localData.title or title }} | {{ meta.title }}</title>
+      {%- if env.production %}{% include "sw.njk" %}{% endif %}
+      {% include "icons.njk" -%}
+      {%- if not env.production %}{% include "font_fallbacks.njk" %}{% endif %}
+      {% block styles %}<link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />{% endblock %}
+      <link rel="manifest" href="/manifest.webmanifest" />
+      <link rel="author" href="/humans.txt" />
+      {% block metadata %}
+        <meta name="author" content="{{ meta.author }}" />
+        {% if description -%}<meta name="description" content="{{ description }}" />{% endif %}
+        <meta name="generator" content="Eleventy" />
+        <meta name="theme-color" content="{{ meta.colors.theme }}" />
+        {%- block ld -%}
+          {% if ld.type -%}
+            <script type="application/ld+json">
+            {
+              "@context": "https://schema.org"
+            }
+            </script>
+          {%- endif %}
+        {%- endblock %}
       {% endblock %}
-    {% endblock %}
     {% endblock %}
     {%- block extrahead %}{% endblock -%}
   </head>
   <body>
-    {% include "header.njk" %}
     <div class="wrapper">
-      <div class="pt-2">{% include "nav.njk" %}</div>
+      {% include "header.njk" %}
+      {% include "nav.njk" %}
       <div>
         <main id="main">
           {% block content %}{{ content | safe }}{% endblock %}
         </main>
       </div>
-      <div class="pb-4">
-        {% set footerClass = "footer flex flex-col pb-1 border border-t-0 rounded-b bg-gray-200 border-gray-600 font-extralight" %}
-        <footer class="{{ footerClass }}">
-          {%- set rowClass = "footer-row flex justify-center" -%}
-          <div class="{{ rowClass }} py-1">
-            {% block footernext %}{% endblock -%}
+      {% set footerClass = "footer flex flex-col pb-1 border border-t-0 rounded-b bg-gray-200 border-gray-600 font-extralight mb-4" %}
+      <footer class="{{ footerClass }}">
+        {%- set rowClass = "footer-row flex justify-center" -%}
+        <div class="{{ rowClass }} py-1">
+          {% block footernext %}{% endblock -%}
 
-            {% if page.url != "/" -%}
-              <a class="footer-link" href="{{ '/' | url }}">Home</a>
-            {%- else -%}
-              <span class="footer-link invisible"></span>
-            {%- endif %}
+          {% if page.url != "/" -%}
+            <a class="footer-link" href="{{ '/' | url }}">Home</a>
+          {%- else -%}
+            <span class="footer-link invisible"></span>
+          {%- endif %}
 
-            {%- block footerprev %}{% endblock %}
-          </div>
-          <div class="{{ rowClass }} border-t border-gray-500 pt-1">
-            <span class="footer-text tracking-tight">&copy; Michael Van Wickle</span>
-          </div>
-          <div class="{{ rowClass }} border-gray-500">
-            <code class="footer-text tracking-tight">v{{ pkg.version }}</code>
-          </div>
-        </footer>
-      </div>
+          {%- block footerprev %}{% endblock %}
+        </div>
+        <div class="{{ rowClass }} border-t border-gray-500 pt-1">
+          <span class="footer-text tracking-tight">&copy; Michael Van Wickle</span>
+        </div>
+        <div class="{{ rowClass }} border-gray-500">
+          <code class="footer-text tracking-tight">v{{ pkg.version }}</code>
+        </div>
+      </footer>
     </div>
     {% block endofbody %}
     <script type="module" src="{% webpackAsset 'main.js' %}"></script>

@@ -5,7 +5,7 @@
     @apply lg:inline-block;
   }
 
-  .nav-link {
+  .nav-link:not(:last-child) {
     @apply mr-5;
   }
 
@@ -25,13 +25,8 @@
     @apply text-blue-800 bg-gray-300;
   }
 
-  .nav-link:first-child,
-  .nav-link:last-child {
-    @apply mr-0;
-  }
-
   .boxed-nav-link {
-    @apply p-3 border rounded border-indigo-800 shadow-inner ml-auto;
+    @apply p-3 border rounded border-indigo-900 shadow-inner ml-auto;
   }
 
   .boxed-nav-link:hover {

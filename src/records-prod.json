@@ -193,6 +193,7 @@
     "byIdentifier": {
       "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/elem-is-tag.ts": 710,
       "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/footnotes.ts": 3288,
+      "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/helpers/elem-is-tag.ts": 302,
       "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/main.ts|55c9dbaa64c8b458041073fb862b2357": 3703,
       "./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[0].use[0]!./src/ts/main.ts|f1c2a6f35e00b30598f025507a7355a4": 542,
       "./node_modules/core-js/internals/a-function.js": 3099,
@@ -340,6 +341,7 @@
       111,
       133,
       261,
+      302,
       317,
       349,
       401,
@@ -352,7 +354,6 @@
       648,
       654,
       656,
-      710,
       748,
       760,
       842,

@@ -1,4 +1,4 @@
-import { elemIsTag } from "./elem-is-tag";
+import { elemIsTag } from "./helpers/elem-is-tag";
 import { initPostlist } from "./postslist";
 
 (async function () {

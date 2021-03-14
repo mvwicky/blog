@@ -26,7 +26,7 @@
     "lint:styles": "stylelint --cache --cache-location=.cache/.stylelintcache '**/*.css'",
     "watch:assets": "ts-node scripts/watch-assets.ts",
     "watch:lib": "tsc --project lib --watch",
-    "webpack:assets": "webpack --config=./webpack.config.ts"
+    "webpack:assets": "webpack --config=./webpack.config.ts --progress"
   },
   "config": {
     "assets": {
@@ -35,15 +35,16 @@
     "critical": {
       "globs": [
         "dist/index.html",
-        "dist/page/*/index.html"
+        "dist/page/**/index.html",
+        "dist/tags/index.html"
       ],
       "dimensions": [
         {
-          "width": 1280,
+          "width": 1440,
           "height": 800
         },
         {
-          "width": 1536,
+          "width": 1280,
           "height": 800
         }
       ]

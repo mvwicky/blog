@@ -3,3 +3,4 @@ layout: miscpages
 permalink: "/page/{{ page.fileSlug | lower }}/"
 tags:
   - miscpages
+date: Last Modified

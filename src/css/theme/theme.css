@@ -1,6 +1,6 @@
 @layer base {
   body {
-    @apply text-base font-body w-full bg-gray-100;
+    @apply text-base font-body bg-gray-100;
   }
 
   h1,
@@ -40,7 +40,8 @@
 
   pre,
   code,
-  kbd {
+  kbd,
+  var {
     @apply font-mono;
   }
 }

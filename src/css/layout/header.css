@@ -1,14 +1,21 @@
 @layer components {
   #nav-main {
     @apply flex flex-row items-center justify-start flex-wrap;
-    @apply bg-blue-300 py-3 px-4 rounded-t mt-2 border border-b-0 border-gray-600;
+    @apply bg-blue-300 py-2.5 px-4 rounded-t mt-2 border border-b-0 border-gray-600;
     @apply leading-4 text-lg;
     @apply md:py-6;
     @apply sm:flex-nowrap;
-    @apply print:hidden;
   }
 
   .header {
-    @apply mx-4 pb-2 mb-4 border-b border-gray-500;
+    @apply mx-3 pb-2 mb-4 border-b border-gray-500;
+  }
+}
+
+@layer utilities {
+  @media print {
+    #nav-main {
+      @apply hidden;
+    }
   }
 }

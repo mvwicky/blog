@@ -17,7 +17,7 @@ import "tippy.js/themes/light-border.css";
 import "tippy.js/themes/material.css";
 import "tippy.js/themes/translucent.css";
 
-import { elemIsTag } from "./elem-is-tag";
+import { elemIsTag } from "./helpers/elem-is-tag";
 
 const FN_ITEM_CLASS = ".footnote-item";
 

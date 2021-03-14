@@ -9,8 +9,8 @@ export function initDev() {
     const sizeContainer = document.createElement("div");
     sizeContainer.classList.add("size-container", "print:hidden");
     const { style } = sizeContainer;
-    style.position = "fixed";
     const dist = "0.33rem";
+    style.position = "fixed";
     style.bottom = dist;
     style.left = dist;
     style.border = "1px solid black";

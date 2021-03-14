@@ -6,6 +6,7 @@ tags:
 <header class="header">
   <h2>{{ title }}</h2>
   <!-- <small>{{ tags }}</small> -->
+  <span>Last Modified: <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></span>
 </header>
 
 <div class="content">
