@@ -18,7 +18,7 @@
     "clean:site": "trash ./dist",
     "compile:lib": "npm-run-all clean:lib build:lib",
     "dev": "cross-env NODE_ENV=development npm-run-all clean webpack:assets build:lib --parallel dev:*",
-    "dev:assets": "yarn run webpack:assets --watch --progress",
+    "dev:assets": "yarn run webpack:assets --watch",
     "dev:serve": "cross-env DRAFTS=1 eleventy --serve",
     "postinstall": "husky install",
     "lint": "npm-run-all -p lint:*",

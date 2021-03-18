@@ -1,5 +1,5 @@
 {% extends "./default.njk" %}
-{% from "macro_utils.njk" import footerlink, linkSeq %}
+{% from "macro_utils.njk" import footerlink, linkSeq, tagLinksList %}
 
 {%- set prevPage = collections.published | getPreviousCollectionItem(page) -%}
 {%- set nextPage = collections.published | getNextCollectionItem(page) -%}
@@ -12,12 +12,12 @@
 {% block content %}
   <header class="header post-header">
     <h2>{{ title }}</h2>
-    <h3>{{ page.date | readableDate }}</h3>
-    <!-- <small>{{ tags }}</small> -->
+    <div class="flex justify-between items-baseline">
+      <h4>{{ page.date | readableDate }}</h4>
+      <span class="text-sm">Tagged: {{ tagLinksList(tags, collections.tagList) }}</span>
+    </div>
   </header>
-  <article class="content">
-    {{ content  | safe }}
-  </article>
+  <article class="content">{{ content | safe }}</article>
 {% endblock %}
 
 {%- block footerprev -%}{{ footerlink(prevPage, "Older") }}{%- endblock -%}

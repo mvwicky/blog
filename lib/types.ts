@@ -77,10 +77,18 @@ interface Icons {
 
 /** Should match the `site/_data/meta.yaml` file structure. */
 export interface Meta {
-  icons: Icons;
   title: string;
-  short_name: string;
-  description: string;
-  colors: { background: string; theme: string };
   url: string;
+  author: string;
+  author_from: string;
+  description: string;
+  short_name: string;
+  icons: Icons;
+  colors: { background: string; theme: string };
+  analytics: { scriptUrl: string; siteId: string };
+}
+
+export interface RenderArgument {
+  meta: Meta;
+  page: { date: Date };
 }

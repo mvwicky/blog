@@ -1,7 +1,14 @@
-class Humans {
+const SITE_FIXED = [
+  "Language:English",
+  "Doctype:HTML5",
+  "IDE:Sublime Text, VSCode",
+];
+
+module.exports = class Humans {
   data() {
     return {
       permalink: "/humans.txt",
+      date: "Last Modified",
     };
   }
 
@@ -15,14 +22,14 @@ class Humans {
 ${lines}`;
   }
 
-  render({ meta }) {
+  /** @param {import("../../lib").RenderArgument}  */
+  render({ meta, page }) {
+    const date = page.date.toISOString().split("T")[0];
     /** @type {[string, string[]][]} */
     const parts = [
-      ["TEAM", [`Lead:${meta.author}`, "From:Santa Barbara,California"]],
-      ["SITE", ["Language:English", "Doctype:HTML5"]],
+      ["TEAM", [`Lead:${meta.author}`, `From:${meta.author_from}`]],
+      ["SITE", [`Last update:${date}`, ...SITE_FIXED]],
     ];
     return parts.map(this.makeSection.bind(this)).join("\n\n");
   }
-}
-
-module.exports = Humans;
+};

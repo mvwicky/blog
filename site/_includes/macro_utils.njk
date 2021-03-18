@@ -13,3 +13,16 @@
 {% macro linkSeq(page, rel) %}
 {% if page %}<link rel="{{ rel }}" href="{{ page.url }}">{% endif %}
 {%- endmacro %}
+
+{% macro tagLinksList(pageTags, allTags) %}
+{%- if not allTags %}{{ pageTags | join(", ") }}{% else -%}
+{%- for tag in pageTags -%}
+  {%- if tag in allTags -%}
+    <a class="text-green-800 underline" href="/tags/{{ tag }}/">{{ tag }}</a>
+  {%- else -%}
+    {{ tag }}
+  {%- endif -%}
+  {%- if not loop.last %}, {% endif -%}
+{%- endfor -%}
+{%- endif -%}
+{% endmacro %}

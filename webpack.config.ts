@@ -74,7 +74,7 @@ const configuration: Configuration = {
     hashDigestLength,
     publicPath,
   },
-  devtool: prodOr("source-map", "inline-cheap-module-source-map"),
+  devtool: prodOr("source-map", false),
   plugins,
   module: {
     rules: [

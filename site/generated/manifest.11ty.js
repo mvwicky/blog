@@ -22,7 +22,7 @@ class Manifest {
     };
   }
 
-  /** @param {{meta: import("../../lib").Meta}}  */
+  /** @param {import("../../lib").RenderArgument}  */
   render({ meta: { short_name, description, icons, ...meta } }) {
     const SPACE = "  ";
     const manifest = {
