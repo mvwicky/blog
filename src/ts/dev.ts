@@ -4,6 +4,13 @@ declare const BREAKPOINT_LG: number;
 declare const BREAKPOINT_MD: number;
 declare const BREAKPOINT_SM: number;
 
+const BP_LIST = [
+  ["SM", BREAKPOINT_MD],
+  ["MD", BREAKPOINT_LG],
+  ["LG", BREAKPOINT_XL],
+  ["XL", BREAKPOINT_2XL],
+] as const;
+
 export function initDev() {
   if ("onresize" in window) {
     const sizeContainer = document.createElement("div");
@@ -30,21 +37,18 @@ function addResizeListener(container: HTMLElement) {
 }
 
 function getBreakpointName(width: number): string {
-  if (width < BREAKPOINT_MD) {
-    return "SM";
-  } else if (width < BREAKPOINT_LG) {
-    return "MD";
-  } else if (width < BREAKPOINT_XL) {
-    return "LG";
-  } else if (width < BREAKPOINT_2XL) {
-    return "XL";
-  } else {
-    return "2XL";
+  for (const [bpName, bp] of BP_LIST) {
+    if (width < bp) {
+      return bpName;
+    }
   }
+  return "2XL";
 }
 
 function showSize(el: HTMLElement) {
   const [width, height] = [window.innerWidth, window.innerHeight];
   const bp = getBreakpointName(width);
-  el.innerHTML = `<code>${width}&times;${height} (${bp})</code>`;
+  window.requestAnimationFrame(() => {
+    el.innerHTML = `<code>${width}px &times; ${height}px (${bp})</code>`;
+  });
 }

@@ -18,7 +18,7 @@
     "clean:site": "trash ./dist",
     "compile:lib": "npm-run-all clean:lib build:lib",
     "dev": "cross-env NODE_ENV=development npm-run-all clean webpack:assets build:lib --parallel dev:*",
-    "dev:assets": "yarn run webpack:assets --watch",
+    "dev:assets": "webpack --config=./webpack.config.ts --progress --watch",
     "dev:serve": "cross-env DRAFTS=1 eleventy --serve",
     "postinstall": "husky install",
     "lint": "npm-run-all -p lint:*",
@@ -26,7 +26,7 @@
     "lint:styles": "stylelint --cache --cache-location=.cache/.stylelintcache '**/*.css'",
     "watch:assets": "ts-node scripts/watch-assets.ts",
     "watch:lib": "tsc --project lib --watch",
-    "webpack:assets": "webpack --config=./webpack.config.ts --progress"
+    "webpack:assets": "cross-env TAILWIND_MODE=build webpack --config=./webpack.config.ts --progress"
   },
   "config": {
     "assets": {
@@ -90,12 +90,13 @@
     "last 2 Firefox versions"
   ],
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.0",
+    "@11ty/eleventy": "^0.12.1",
     "@babel/core": "^7.9.6",
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-typescript": "^7.9.0",
     "@quasibit/eleventy-plugin-sitemap": "^2.0.2",
+    "@tailwindcss/jit": "^0.1.5",
     "@types/debug": "^4.1.5",
     "@types/fs-extra": "^9.0.2",
     "@types/luxon": "^1.24.0",

@@ -6,9 +6,9 @@ description: A blog, which generally consists of posts that are lists of links, 
 
 {% from "posts_macro.njk" import postsList %}
 <div class="lg:px-4 px-2 pb-2">
-  <h3 id="all-posts" class="pl-2">
+  <h2 id="all-posts" class="pl-2">
     <a href="#all-posts">All Posts</a>
-  </h3>
+  </h2>
   {% set allPosts = collections.published | reverse %}
   {{ postsList(allPosts) }}
 </div>

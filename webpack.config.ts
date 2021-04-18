@@ -1,4 +1,4 @@
-import { join, resolve } from "path";
+import { dirname, join, resolve } from "path";
 
 import globby from "globby";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
@@ -13,17 +13,14 @@ const log = logger("webpack");
 
 log("NODE_ENV=%s", env.NODE_ENV);
 
-function prodOr<P = any, D = P>(pVal: P, dVal: D): P | D {
-  return env.PROD ? pVal : dVal;
-}
+const ROOT = process.cwd();
+const relToRoot = (...args: string[]) => resolve(ROOT, ...args);
 
-const ROOT = __dirname;
-const SRC = resolve(ROOT, "src");
-const OUT = resolve(ROOT, "dist", "assets");
+const SRC = relToRoot("src");
+const OUT = relToRoot("dist", "assets");
 
 const publicPath = "/assets/";
 
-const relToRoot = (...args: string[]) => resolve(ROOT, ...args);
 const relToSrc = (...args: string[]) => join(SRC, ...args);
 
 const globs = [relToRoot("*.config.js")];
@@ -36,16 +33,16 @@ const breakpoints = Object.fromEntries(
 );
 
 const [hashFunction, hashDigestLength] = ["md5", 25];
-const contenthash = prodOr(".[contenthash]", "");
+const contenthash = env.prodOr(".[contenthash]", "");
 const getFilename = (ext: string) => `[name]${contenthash}.${ext}`;
 
-const mode = prodOr("production", "development");
+const mode = env.prodOr("production", "development");
 
 const defs = Object.fromEntries(
   Object.entries({
     "process.env.NODE_ENV": mode,
     NODE_ENV: mode,
-    PRODUCTION: prodOr(true, false),
+    PRODUCTION: env.prodOr(true, false),
     ...breakpoints,
   }).map(([name, value]) => [name, JSON.stringify(value)])
 );
@@ -74,7 +71,7 @@ const configuration: Configuration = {
     hashDigestLength,
     publicPath,
   },
-  devtool: prodOr("source-map", false),
+  devtool: env.prodOr("source-map", false),
   plugins,
   module: {
     rules: [
@@ -87,7 +84,7 @@ const configuration: Configuration = {
             loader: "babel-loader",
             options: {
               presets: compact([
-                prodOr(
+                env.prodOr(
                   [
                     "@babel/preset-env",
                     {
@@ -118,7 +115,10 @@ const configuration: Configuration = {
         ],
         use: [
           { loader: MiniCssExtractPlugin.loader },
-          { loader: "css-loader", options: { importLoaders: 1 } },
+          {
+            loader: "css-loader",
+            options: { import: false, modules: false, importLoaders: 1 },
+          },
           { loader: "postcss-loader" },
         ],
       },
@@ -147,11 +147,12 @@ const configuration: Configuration = {
     modules: false,
     version: true,
     warnings: true,
+    outputPath: true,
   },
   resolve: {
     extensions: [".ts", ".js"],
   },
-  recordsPath: relToSrc(`records-${prodOr("prod", "dev")}.json`),
+  recordsPath: relToSrc(`records-${env.prodOr("prod", "dev")}.json`),
   node: false,
   optimization: {
     splitChunks: {

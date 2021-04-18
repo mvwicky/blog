@@ -129,6 +129,7 @@ module.exports = function (eleventyConfig) {
   }
 
   eleventyConfig.setQuietMode(false);
+  eleventyConfig.setWatchThrottleWaitTime(120);
 
   return pkgCfg;
 };

@@ -11,7 +11,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "allowJs": true,
-    "noEmit": true
+    "noEmit": true,
+    "skipLibCheck": true
   },
   "exclude": ["**/node_modules", "**/.*/"]
 }

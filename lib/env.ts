@@ -90,7 +90,9 @@ function getInt(key: string, defaultValue?: number | string): number {
 
 const NODE_ENV = getStr("NODE_ENV", "development");
 const PROD = NODE_ENV === "production";
-
+function prodOr<P = unknown, D = P>(pVal: P, dVal: D): P | D {
+  return PROD ? pVal : dVal;
+}
 const env = {
   unpublished: getBool("UNPUBLISHED", false),
   drafts: getBool("DRAFTS", false),
@@ -100,4 +102,14 @@ const env = {
   ENABLE_CRITICAL_CSS: getBool("ENABLE_CRITICAL_CSS", false),
 };
 
-export { getBool, getStr, defined, PROD, NODE_ENV, getNumber, getInt, env };
+export {
+  defined,
+  env,
+  getBool,
+  getInt,
+  getNumber,
+  getStr,
+  NODE_ENV,
+  PROD,
+  prodOr,
+};

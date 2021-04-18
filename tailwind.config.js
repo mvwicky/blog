@@ -44,37 +44,44 @@ function ms(n) {
   return `${normalizeRem(rem)}rem`;
 }
 
+const firaFamily = ['"Fira Sans"', ...fontFamily.sans];
+const spectralFamily = ['"Spectral"', ...fontFamily.serif];
+const plexFamily = ['"IBM Plex Mono"', ...fontFamily.mono];
+
 const config = {
   purge: {
     mode: "layers",
-    content: ["site/**/*.njk", "site/**/*.md"],
+    content: ["site/**/*.{njk,md}"],
   },
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Fira Sans"', ...fontFamily.sans],
-        body: ['"Spectral"', ...fontFamily.serif],
+        display: firaFamily,
+        body: spectralFamily,
       },
       screens: {
         print: { raw: "print" },
       },
     },
     fontFamily: {
-      sans: ['"Fira Sans"', ...fontFamily.sans],
-      serif: ['"Spectral"', ...fontFamily.serif],
-      mono: ['"IBM Plex Mono"', ...fontFamily.mono],
+      sans: firaFamily,
+      serif: spectralFamily,
+      mono: plexFamily,
     },
     fontSize: {
       xs: ms(-2),
       sm: ms(-1),
-      base: ms(0),
+      base: [ms(0), { lineHeight: "1.5rem" }],
       lg: ms(1),
       xl: ms(2),
       "2xl": ms(3),
       "3xl": ms(4),
       "4xl": ms(5),
-      "5xl": ms(6),
-      "6xl": ms(7),
+      "5xl": [ms(6), { lineHeight: "1" }],
+      "6xl": [ms(7), { lineHeight: "1" }],
+      "7xl": [ms(8), { lineHeight: "1" }],
+      "8xl": [ms(10), { lineHeight: "1" }],
+      "9xl": [ms(11), { lineHeight: "1" }],
     },
     colors,
     container: {

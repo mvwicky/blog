@@ -54,6 +54,7 @@ prod-assets: WEBPACK_ARGS+=--config=./webpack.prod.ts
 prod-assets: webpack
 
 dev-assets: export NODE_ENV=development
+dev-assets: export TAILWIND_MODE=build
 dev-assets: WEBPACK_ARGS+=--config=./webpack.config.ts
 dev-assets: webpack
 
