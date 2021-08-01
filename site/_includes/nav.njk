@@ -3,9 +3,20 @@
   {% for link in nav.links %} {%- set headerUrl = link.url | url -%}
     {%- set headerClasses = ["nav-link", "active" if headerUrl == page.url else ""] -%}
     {%- set headerClass = headerClasses | select() | join(" ") -%}
-    <a class="{{ headerClass }}" href="{{ headerUrl }}"{% if headerUrl == page.url %} aria-current="page"{% endif %}>{{ link.text }}</a>
+    <a
+      class="{{ headerClass }}"
+      href="{{ headerUrl }}"
+      {% if headerUrl == page.url %}aria-current="page"{% endif -%}
+    >
+      {{ link.text }}
+    </a>
   {% endfor -%}
-  <a href="{{ nav.github.url }}" class="nav-link boxed-nav-link" target="_blank" rel="noreferrer noopener">
+  <a
+    href="{{ nav.github.url }}"
+    class="nav-link boxed-nav-link"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
     {{ nav.github.text }}
   </a>
 </nav>

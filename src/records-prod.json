@@ -17,12 +17,14 @@
     {
       "chunks": {
         "byName": {
+          "child": 396,
           "mini-css-extract-plugin": 323
         },
         "bySource": {
+          "0 child": 396,
           "0 mini-css-extract-plugin": 323
         },
-        "usedIds": [323]
+        "usedIds": [396]
       },
       "modules": {
         "byIdentifier": {
@@ -38,12 +40,14 @@
     {
       "chunks": {
         "byName": {
+          "child": 396,
           "mini-css-extract-plugin": 323
         },
         "bySource": {
+          "0 child": 396,
           "0 mini-css-extract-plugin": 323
         },
-        "usedIds": [323]
+        "usedIds": [396]
       },
       "modules": {
         "byIdentifier": {
@@ -59,12 +63,14 @@
     {
       "chunks": {
         "byName": {
+          "child": 396,
           "mini-css-extract-plugin": 323
         },
         "bySource": {
+          "0 child": 396,
           "0 mini-css-extract-plugin": 323
         },
-        "usedIds": [323]
+        "usedIds": [396]
       },
       "modules": {
         "byIdentifier": {
@@ -80,12 +86,14 @@
     {
       "chunks": {
         "byName": {
+          "child": 396,
           "mini-css-extract-plugin": 323
         },
         "bySource": {
+          "0 child": 396,
           "0 mini-css-extract-plugin": 323
         },
-        "usedIds": [323]
+        "usedIds": [396]
       },
       "modules": {
         "byIdentifier": {
@@ -101,12 +109,14 @@
     {
       "chunks": {
         "byName": {
+          "child": 396,
           "mini-css-extract-plugin": 323
         },
         "bySource": {
+          "0 child": 396,
           "0 mini-css-extract-plugin": 323
         },
-        "usedIds": [323]
+        "usedIds": [396]
       },
       "modules": {
         "byIdentifier": {
@@ -122,12 +132,14 @@
     {
       "chunks": {
         "byName": {
+          "child": 396,
           "mini-css-extract-plugin": 323
         },
         "bySource": {
+          "0 child": 396,
           "0 mini-css-extract-plugin": 323
         },
-        "usedIds": [323]
+        "usedIds": [396]
       },
       "modules": {
         "byIdentifier": {
@@ -334,7 +346,8 @@
       "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/material.css": 4796,
       "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/tippy.js/themes/translucent.css": 6488,
       "./node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].use[0]!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/css/style.css": 6177,
-      "./node_modules/tippy.js/dist/tippy.esm.js|39723ad5d9b7a6c10045b8b465947c48": 5418
+      "./node_modules/tippy.js/dist/tippy.esm.js|39723ad5d9b7a6c10045b8b465947c48": 5418,
+      "./node_modules/tippy.js/dist/tippy.esm.js|a914e86246d3e235be7a28dec5dfabe0": 861
     },
     "usedIds": [
       30,
@@ -358,6 +371,7 @@
       760,
       842,
       857,
+      861,
       917,
       960,
       1036,
@@ -415,7 +429,6 @@
       5296,
       5306,
       5389,
-      5418,
       5465,
       5656,
       5787,

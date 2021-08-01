@@ -1,9 +1,9 @@
-const tailwindJIT = require("@tailwindcss/jit");
 const postcssImport = require("postcss-import");
+const tailwindCSS = require("tailwindcss");
 
 const { env } = require("./build/lib");
 
-const plugins = [postcssImport, tailwindJIT];
+const plugins = [postcssImport, tailwindCSS];
 
 if (env.PROD) {
   const csso = require("postcss-csso");

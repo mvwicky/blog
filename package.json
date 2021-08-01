@@ -96,7 +96,6 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-typescript": "^7.9.0",
     "@quasibit/eleventy-plugin-sitemap": "^2.0.2",
-    "@tailwindcss/jit": "^0.1.5",
     "@types/debug": "^4.1.5",
     "@types/fs-extra": "^9.0.2",
     "@types/luxon": "^1.24.0",
