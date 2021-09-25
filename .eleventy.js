@@ -22,19 +22,27 @@ const log = logger("11ty", true);
 const MANIFEST = path.resolve(__dirname, "dist", "assets", "manifest.json");
 
 function configureMarkdown() {
-  const markdownIt = require("markdown-it");
-  const baseCfg = { html: true, typographer: true };
+  const anchor = require("markdown-it-anchor");
+
+  /** @type {import("markdown-it-anchor").LinkAfterHeaderPermalinkOptions} */
+  const permalinkCfg = {
+    class: "permalink-anchor",
+    symbol: "ǂ", // Alveolar (or palatal?) click symbol
+    placement: "before",
+    style: "visually-hidden",
+    assistiveText: (title) => `${title} Permalink`,
+    visuallyHiddenClass: "sr-only",
+  };
+  /** @type {import("markdown-it-anchor").AnchorOptions} */
   const anchorCfg = {
-    permalink: true,
-    permalinkClass: "permalink-anchor",
-    permalinkSymbol: "ǂ", // Alveolar (or palatal?) click symbol
-    permalinkBefore: true,
     level: [4],
     slugify: filters.extraSlug,
+    permalink: anchor.permalink.linkAfterHeader(permalinkCfg),
   };
-  return markdownIt(baseCfg)
+  const markdownIt = require("markdown-it");
+  return markdownIt({ html: true, typographer: true })
     .use(require("markdown-it-footnote"))
-    .use(require("markdown-it-anchor"), anchorCfg)
+    .use(anchor, anchorCfg)
     .use(require("markdown-it-attrs"), {});
 }
 
@@ -77,9 +85,7 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
-  if (!env.PROD) {
-    eleventyConfig.addPassthroughCopy({ "src/css/theme/fonts": "fonts" });
-  }
+  eleventyConfig.addPassthroughCopy({ "src/css/theme/fonts": "fonts" });
 
   eleventyConfig.addWatchTarget(MANIFEST);
   eleventyConfig.setWatchThrottleWaitTime(250);
@@ -129,7 +135,6 @@ module.exports = function (eleventyConfig) {
   }
 
   eleventyConfig.setQuietMode(false);
-  eleventyConfig.setWatchThrottleWaitTime(120);
 
   return pkgCfg;
 };

@@ -14,6 +14,18 @@
     }
   ],
   "settings": {
-    "SublimeLinter.linters.yamllint.c": ["${project_path}/.yamllint.yml"]
+    "SublimeLinter.linters.yamllint.c": ["${project_path}/.yamllint.yml"],
+    "LSP": {
+      "LSP-json": {
+        "settings": {
+          "userSchemas": [
+            {
+              "fileMatch": ["/tsconfig.base.json"],
+              "uri": "https://json.schemastore.org/tsconfig.json"
+            }
+          ]
+        }
+      }
+    }
   }
 }

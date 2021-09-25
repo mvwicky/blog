@@ -13,7 +13,7 @@ const log = logger("webpack");
 
 log("NODE_ENV=%s", env.NODE_ENV);
 
-const ROOT = process.cwd();
+const ROOT = __dirname;
 const relToRoot = (...args: string[]) => resolve(ROOT, ...args);
 
 const SRC = relToRoot("src");
@@ -81,14 +81,14 @@ const configuration: Configuration = {
         exclude: [/node_modules/],
         use: [
           {
-            loader: "babel-loader",
+            loader: require.resolve("babel-loader"),
             options: {
               presets: compact([
                 env.prodOr(
                   [
                     "@babel/preset-env",
                     {
-                      corejs: { version: 3, proposals: true },
+                      corejs: { version: "3.9", proposals: true },
                       debug: env.defined("BABEL_ENV_DEBUG"),
                       useBuiltIns: "usage",
                       targets: { esmodules: true },
@@ -116,21 +116,26 @@ const configuration: Configuration = {
         use: [
           { loader: MiniCssExtractPlugin.loader },
           {
-            loader: "css-loader",
-            options: { import: false, modules: false, importLoaders: 1 },
+            loader: require.resolve("css-loader"),
+            options: {
+              import: false,
+              modules: false,
+              importLoaders: 1,
+              url: false,
+            },
           },
-          { loader: "postcss-loader" },
+          { loader: require.resolve("postcss-loader") },
         ],
       },
-      {
-        test: /\.(woff2?)$/,
-        exclude: [/node_modules/],
-        include: [relToSrc("css")],
-        type: "asset/resource",
-        generator: {
-          filename: join("fonts", `[name]${contenthash}[ext]`),
-        },
-      },
+      // {
+      //   test: /\.(woff2?)$/,
+      //   exclude: [/node_modules/],
+      //   include: [relToSrc("css")],
+      //   type: "asset/resource",
+      //   generator: {
+      //     filename: `fonts/[name]${contenthash}[ext]`,
+      //   },
+      // },
     ],
   },
   stats: {
@@ -149,14 +154,12 @@ const configuration: Configuration = {
     warnings: true,
     outputPath: true,
   },
-  resolve: {
-    extensions: [".ts", ".js"],
-  },
+  resolve: { extensions: [".ts", "..."] },
   recordsPath: relToSrc(`records-${env.prodOr("prod", "dev")}.json`),
   node: false,
   optimization: {
     splitChunks: {
-      automaticNameDelimiter: "-",
+      automaticNameDelimiter: "~",
     },
   },
   cache: {

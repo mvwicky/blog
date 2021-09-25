@@ -7,7 +7,7 @@
       <title>{{ localData.title or title }} | {{ meta.title }}</title>
       {%- if env.production %}{% include "sw.njk" %}{% endif %}
       {% include "icons.njk" -%}
-      {%- if not env.production %}{% include "font_fallbacks.njk" %}{% endif %}
+      {# {%- if not env.production %}{% include "font_fallbacks.njk" %}{% endif %} #}
       {% block styles %}<link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />{% endblock %}
       <link rel="manifest" href="/manifest.webmanifest" />
       <link rel="author" href="/humans.txt" />
@@ -16,15 +16,13 @@
         {% if description -%}<meta name="description" content="{{ description }}" />{% endif %}
         <meta name="generator" content="Eleventy" />
         <meta name="theme-color" content="{{ meta.colors.theme }}" />
-        {%- block ld -%}
-          {% if ld.type -%}
-            <script type="application/ld+json">
+        {# {%- block ld -%}{% if ld.type -%}
+          <script type="application/ld+json">
             {
               "@context": "https://schema.org"
             }
-            </script>
-          {%- endif %}
-        {%- endblock %}
+          </script>
+        {%- endif %}{%- endblock %} #}
       {% endblock %}
     {% endblock %}
     {%- block extrahead %}{% endblock -%}

@@ -52,7 +52,7 @@ const config = {
   mode: "jit",
   purge: {
     mode: "layers",
-    content: ["site/**/*.{njk,md}"],
+    content: ["site/**/*.{njk,md}", "src/safelist.txt"],
   },
   theme: {
     extend: {

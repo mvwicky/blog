@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2018",
-    "module": "es2020",
+    "module": "ES2020",
     "downlevelIteration": true,
     "isolatedModules": true,
     "strict": true,

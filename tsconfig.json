@@ -7,8 +7,8 @@
     "noEmit": false,
     "incremental": true
   },
-  "include": ["webpack.*.ts", "./scripts/*.ts"],
+  "include": ["webpack.*.ts"],
   "exclude": ["src/**", "**/node_modules", "**/.*/"],
   "extends": "./config/tsconfig.base.json",
-  "references": [{ "path": "./lib/tsconfig.json" }]
+  "references": [{ "path": "./lib/tsconfig.json" }, { "path": "./scripts" }]
 }
