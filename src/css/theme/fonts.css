@@ -1,6 +1,6 @@
 @layer base {
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "Fira Sans";
     font-style: normal;
     font-weight: 400;
@@ -9,7 +9,7 @@
   }
 
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "Fira Sans";
     font-style: normal;
     font-weight: 600;
@@ -18,7 +18,7 @@
   }
 
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "Fira Sans";
     font-style: normal;
     font-weight: 700;
@@ -27,7 +27,7 @@
   }
 
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "Fira Sans";
     font-style: italic;
     font-weight: 400;
@@ -36,7 +36,7 @@
   }
 
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "Spectral";
     font-style: normal;
     font-weight: 400;
@@ -45,7 +45,7 @@
   }
 
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "Spectral";
     font-style: normal;
     font-weight: 700;
@@ -54,7 +54,7 @@
   }
 
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "Spectral";
     font-style: italic;
     font-weight: 400;
@@ -63,7 +63,7 @@
   }
 
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "Spectral";
     font-style: normal;
     font-weight: 200;
@@ -72,7 +72,7 @@
   }
 
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "IBM Plex Mono";
     font-style: normal;
     font-weight: 400;
@@ -81,7 +81,7 @@
   }
 
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "IBM Plex Mono";
     font-style: normal;
     font-weight: 700;
@@ -90,7 +90,7 @@
   }
 
   @font-face {
-    font-display: fallback;
+    font-display: block;
     font-family: "IBM Plex Mono";
     font-style: italic;
     font-weight: 400;

@@ -100,6 +100,8 @@ const env = {
   NODE_ENV: NODE_ENV,
   production: PROD,
   ENABLE_CRITICAL_CSS: getBool("ENABLE_CRITICAL_CSS", false),
+  ENABLE_PRETTIER_TRANSFORM: getBool("ENABLE_PRETTIER_TRANSFORM", false),
+  BUNDLE_FONTS: getBool("BUNDLE_FONTS", false),
 };
 
 export {

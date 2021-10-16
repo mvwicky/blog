@@ -34,6 +34,12 @@ for the dynamo coyote of the obloquy employ and sayyid. Zloty zloty zodiac for
 the gizmo ozone of the franz laissez and buzzing.`;
 const TEXT_PARTS = TEXT.split(/\n\n/);
 
+/**
+ * Get some text
+ * @param {number} start Where to start the slice
+ * @param {number | undefined} stop Where to stop the slice
+ * @returns {string} Some paragraphs of text
+ */
 function proofText(start = 0, stop = undefined) {
   return TEXT_PARTS.slice(start, stop).join("\n\n");
 }

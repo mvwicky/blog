@@ -2,8 +2,8 @@ SHELL:=bash
 .ONESHELL:
 .SHELLFLAGS:=-eu -o pipefail -c
 .DELETE_ON_ERROR:
-MAKEFLAGS += --warn-undefined-variables
-MAKEFLAGS += --no-builtin-rules
+MAKEFLAGS+=--warn-undefined-variables
+MAKEFLAGS+=--no-builtin-rules
 
 YARN=yarn
 YRUN=$(YARN) --silent run
@@ -24,12 +24,14 @@ pathsearch=$(firstword $(wildcard $(addsuffix /$(1),$(subst :, ,$(PATH)))))
 GFIND=$(shell command -v gfind)
 FIND=$(or $(GFIND),$(GFIND),find)
 
+GET_SCRIPT=$(shell jq -r '.["scripts"]|.["$1"]' $(PKG))
+
 YARN_VERSION_ARGS=--no-commit-hooks
 OUTPUT_DIR=$(shell jq -r .config.eleventy.dir.output $(PKG))
 
 VERSION=$(shell jq -r .version $(PKG))
 VERSION_TAG=v$(VERSION)
-WEBPACK_ARGS=--progress
+WEBPACK_ARGS=--progress --config=./webpack.config.ts
 TSC_ARGS=
 PORT?=11738
 
@@ -50,12 +52,10 @@ dev: export NODE_ENV=development
 dev: clean-dist lib dev-assets eleventy
 
 prod-assets: export NODE_ENV=production
-prod-assets: WEBPACK_ARGS+=--config=./webpack.prod.ts
 prod-assets: webpack
 
 dev-assets: export NODE_ENV=development
 dev-assets: export TAILWIND_MODE=build
-dev-assets: WEBPACK_ARGS+=--config=./webpack.config.ts
 dev-assets: webpack
 
 eleventy: lib
@@ -118,6 +118,3 @@ version:
 
 version-tag:
 	git tag $(VERSION_TAG)
-
-t:
-	: $(foreach f,$(LIB_OUTPUT),$(wildcard $(f)))

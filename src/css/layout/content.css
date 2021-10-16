@@ -4,8 +4,40 @@
   }
 
   #main {
-    @apply min-h-screen pt-4 pb-6;
-    @apply bg-blue-100 bg-opacity-75 border border-gray-600;
+    @apply pt-4 pb-6;
+    @apply border;
+  }
+
+  #main,
+  #sidenav {
+    @apply bg-blue-100 bg-opacity-75 border-gray-600;
+  }
+
+  .nav-container {
+    @apply min-h-screen;
+
+    display: grid;
+    grid: [stack] 1fr / min-content [stack] 1fr;
+  }
+
+  .nav-container > * {
+    grid-area: stack;
+  }
+
+  #sidenav {
+    @apply border-t border-l border-b;
+
+    display: grid;
+    grid-template-columns: [nav] 2fr [escape] 1fr;
+    visibility: hidden;
+  }
+  @screen sm {
+    .nav-container > * {
+      grid-area: auto;
+    }
+    #sidenav {
+      visibility: visible;
+    }
   }
 }
 
@@ -25,7 +57,7 @@
   }
   @media print {
     #main {
-      @apply hidden;
+      /* @apply hidden; */
     }
   }
 }

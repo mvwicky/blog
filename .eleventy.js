@@ -4,7 +4,7 @@
  */
 
 const fs = require("fs");
-const path = require("path");
+const { resolve, join, relative, basename } = require("path");
 
 const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 const yaml = require("js-yaml");
@@ -18,8 +18,6 @@ const filters = require("./config/utils/filters");
 const { config, homepage } = require("./package.json");
 
 const log = logger("11ty", true);
-
-const MANIFEST = path.resolve(__dirname, "dist", "assets", "manifest.json");
 
 function configureMarkdown() {
   const anchor = require("markdown-it-anchor");
@@ -51,16 +49,14 @@ function configureMarkdown() {
  * @returns {[string, string][]} - Alias names and their relative paths
  */
 function layoutAliases(dirs) {
-  const includesDir = path.resolve(__dirname, dirs.input, dirs.includes);
-  const layoutsDir = path.join(includesDir, "layouts");
+  const includesDir = resolve(__dirname, dirs.input, dirs.includes);
+  const layoutsDir = join(includesDir, "layouts");
   const layoutFiles = fs.readdirSync(layoutsDir, { encoding: "utf-8" });
   const aliases = layoutFiles
     .filter((name) => /\.njk$/.test(name))
     .map((name) => {
-      const fullPath = path.join(layoutsDir, name);
-      const relPath = path.relative(includesDir, fullPath);
-      const baseName = path.basename(fullPath, ".njk");
-      return [baseName, relPath];
+      const fullPath = join(layoutsDir, name);
+      return [basename(fullPath, ".njk"), relative(includesDir, fullPath)];
     });
   return aliases;
 }
@@ -69,7 +65,8 @@ module.exports = function (eleventyConfig) {
   log("NODE_ENV=%s", env.NODE_ENV);
   Settings.defaultZoneName = "utc";
 
-  const pkgCfg = config.eleventy;
+  const { eleventy: pkgCfg } = config;
+  const outDir = pkgCfg.dir.output;
 
   for (const [baseName, relPath] of layoutAliases(pkgCfg.dir)) {
     eleventyConfig.addLayoutAlias(baseName, relPath);
@@ -87,6 +84,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
   eleventyConfig.addPassthroughCopy({ "src/css/theme/fonts": "fonts" });
 
+  const MANIFEST = resolve(__dirname, outDir, "assets", "manifest.json");
   eleventyConfig.addWatchTarget(MANIFEST);
   eleventyConfig.setWatchThrottleWaitTime(250);
   eleventyConfig.setBrowserSyncConfig({
@@ -98,9 +96,10 @@ module.exports = function (eleventyConfig) {
     injectChanges: false,
     port: 11738,
     callbacks: {
-      ready: function (err, browserSync) {
-        const content_404 = fs.readFileSync("dist/404.html");
-        browserSync.addMiddleware("*", (req, res) => {
+      ready: function (_err, bs) {
+        const file_404 = resolve(__dirname, outDir, "404.html");
+        const content_404 = fs.readFileSync(file_404);
+        bs.addMiddleware("*", (_req, res) => {
           res.statusCode = 404;
           res.write(content_404); // Provides the 404 content without redirect.
           res.end();
@@ -108,31 +107,27 @@ module.exports = function (eleventyConfig) {
       },
     },
     https: {
-      key: "./localhost+3-key.pem",
-      cert: "./localhost+3.pem",
+      key: resolve(__dirname, "localhost+3-key.pem"),
+      cert: resolve(__dirname, "localhost+3.pem"),
     },
   });
 
-  const assets = shortcodes.configure({
-    root: __dirname,
-    output: pkgCfg.dir.output,
-  });
-
+  const assets = shortcodes.configure({ root: __dirname, output: outDir });
   eleventyConfig.addShortcode("webpackAsset", assets.webpackAsset);
   eleventyConfig.addShortcode("inlineWebpackAsset", assets.inlineWebpackAsset);
-
   eleventyConfig.addShortcode("proofText", shortcodes.proofText);
 
-  eleventyConfig.addTransform("critical", transforms.critical);
-
+  for (const [name, transform] of Object.entries(transforms)) {
+    eleventyConfig.addTransform(name, transform);
+  }
   for (const [name, filter] of Object.entries(filters)) {
     eleventyConfig.addFilter(name, filter);
   }
-  eleventyConfig.addFilter("markdownify", (s) => md.render(s));
-
   for (const [name, collection] of Object.entries(collections)) {
     eleventyConfig.addCollection(name, collection);
   }
+
+  eleventyConfig.addFilter("markdownify", (s) => md.render(s));
 
   eleventyConfig.setQuietMode(false);
 

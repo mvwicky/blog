@@ -3,18 +3,18 @@ const path = require("path");
 const critical = require("critical");
 const multimatch = require("multimatch");
 
-const { logger } = require("../build/lib");
-const { formatSize } = require("../build/lib/helpers");
+const { logger } = require("../../build/lib");
+const { formatSize } = require("../../build/lib/helpers");
 const {
   config: {
     critical: { globs, dimensions },
     eleventy,
   },
-} = require("../package.json");
-const { env } = require("./utils/env");
+} = require("../../package.json");
+const { env } = require("../utils/env");
 
 const log = logger("11ty:transforms", true);
-const ROOT_DIR = path.dirname(require.resolve("../package.json"));
+const ROOT_DIR = path.dirname(require.resolve("../../package.json"));
 
 /**
  * @param {import("../lib").Asset} asset
@@ -48,7 +48,7 @@ function shouldTransform(path) {
 /**
  * @param {string} content
  * @param {string | undefined} outputPath
- * @returns {string} The transformed HTML (if it matches `config.globs`)
+ * @returns {Promise<string>} The transformed HTML (if it matches `config.globs`)
  */
 async function transformCritical(content, outputPath) {
   const tx = shouldTransform(outputPath);

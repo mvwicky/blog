@@ -9,7 +9,7 @@
   "scripts": {
     "assets:build": "ts-node scripts/build-assets.ts",
     "build": "npm-run-all clean build:conf build:assets build:site build:sw",
-    "build:assets": "cross-env NODE_ENV=production webpack --config=./webpack.prod.ts",
+    "build:assets": "cross-env NODE_ENV=production webpack --config=./webpack.config.ts",
     "build:conf": "cross-env NODE_ENV=production tsc --build --verbose --pretty .",
     "build:lib": "cross-env NODE_ENV=production tsc --build --verbose --pretty lib",
     "build:site": "cross-env NODE_ENV=production eleventy",
@@ -25,8 +25,8 @@
     "dev:serve": "cross-env DRAFTS=1 eleventy --serve",
     "postinstall": "husky install",
     "lint": "npm-run-all -p lint:*",
-    "lint:eslint": "eslint --cache --cache-location=.cache/.eslintcache '**/*.ts' '**/*.js'",
-    "lint:styles": "stylelint --cache --cache-location=.cache/.stylelintcache '**/*.css'",
+    "lint:eslint": "eslint --cache --cache-location=.cache/.eslintcache \"**/*.ts\" \"**/*.js\"",
+    "lint:styles": "stylelint --cache --cache-location=.cache/.stylelintcache \"**/*.css\"",
     "watch:assets": "ts-node scripts/watch-assets.ts",
     "watch:lib": "tsc --project lib --watch",
     "webpack:assets": "cross-env TAILWIND_MODE=build webpack --config=./webpack.config.ts --progress"
@@ -132,7 +132,7 @@
     "postcss-csso": "^5.0.0",
     "postcss-import": "^14.0.0",
     "postcss-loader": "^6",
-    "prettier": "^2.0.5",
+    "prettier": "^2",
     "pretty-quick": "^3.0",
     "stylelint": "^13.3.3",
     "stylelint-config-mvwicky": "^0.2.0",

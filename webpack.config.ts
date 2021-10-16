@@ -1,8 +1,8 @@
-import { dirname, join, resolve } from "path";
+import { join, resolve } from "path";
 
 import globby from "globby";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import type { Configuration, Entry } from "webpack";
+import type { Configuration, Entry, RuleSetRule } from "webpack";
 import { DefinePlugin } from "webpack";
 
 import { compact, env, logger } from "./lib";
@@ -32,7 +32,6 @@ const breakpoints = Object.fromEntries(
   Object.entries(config.ui.breakpoints).map(([k, v]) => bpElem(k, v))
 );
 
-const [hashFunction, hashDigestLength] = ["md5", 25];
 const contenthash = env.prodOr(".[contenthash]", "");
 const getFilename = (ext: string) => `[name]${contenthash}.${ext}`;
 
@@ -60,84 +59,94 @@ const entries = Object.entries(config.entrypoints);
 const entryEntries = entries.map(([name, loc]) => [name, relToRoot(loc)]);
 const entry: Entry = Object.fromEntries(entryEntries);
 
+const rules: RuleSetRule[] = compact([
+  {
+    test: /\.(ts)$/,
+    include: [relToSrc("ts")],
+    exclude: [/node_modules/],
+    use: [
+      {
+        loader: require.resolve("babel-loader"),
+        options: {
+          presets: compact([
+            env.prodOr(
+              [
+                "@babel/preset-env",
+                {
+                  corejs: { version: "3.9", proposals: true },
+                  debug: env.defined("BABEL_ENV_DEBUG"),
+                  useBuiltIns: "usage",
+                  targets: { esmodules: true },
+                  bugfixes: true,
+                  exclude: ["@babel/plugin-transform-template-literals"],
+                },
+              ],
+              undefined
+            ),
+            "@babel/preset-typescript",
+          ]),
+          plugins: [["@babel/plugin-transform-runtime", {}]],
+          cacheDirectory: false,
+        },
+      },
+    ],
+  },
+  {
+    test: /\.(css)$/,
+    include: [relToSrc("css")],
+    use: [
+      { loader: MiniCssExtractPlugin.loader },
+      {
+        loader: require.resolve("css-loader"),
+        options: {
+          import: false,
+          modules: false,
+          importLoaders: 1,
+          url: env.env.BUNDLE_FONTS,
+        },
+      },
+      { loader: require.resolve("postcss-loader") },
+    ],
+  },
+  {
+    test: /\.(css)$/,
+    include: [relToRoot("node_modules", "tippy.js")],
+    use: [
+      { loader: MiniCssExtractPlugin.loader },
+      {
+        loader: require.resolve("css-loader"),
+        options: { import: false, modules: false },
+      },
+    ],
+  },
+  env.env.BUNDLE_FONTS
+    ? {
+        test: /\.woff2?$/,
+        include: [relToSrc("css", "theme")],
+        type: "asset",
+        generator: {
+          filename: `fonts/[name]${contenthash}[ext]`,
+          publicPath,
+        },
+      }
+    : undefined,
+]);
+
 const configuration: Configuration = {
   mode,
   entry,
+  context: ROOT,
   output: {
     path: OUT,
     filename: getFilename("js"),
-    chunkFilename: getFilename("js"),
-    hashFunction,
-    hashDigestLength,
+    chunkFilename: `chunks/${getFilename("js")}`,
+    hashFunction: "md5",
+    hashDigestLength: 25,
     publicPath,
   },
   devtool: env.prodOr("source-map", false),
   plugins,
-  module: {
-    rules: [
-      {
-        test: /\.(ts)$/,
-        include: [relToSrc("ts")],
-        exclude: [/node_modules/],
-        use: [
-          {
-            loader: require.resolve("babel-loader"),
-            options: {
-              presets: compact([
-                env.prodOr(
-                  [
-                    "@babel/preset-env",
-                    {
-                      corejs: { version: "3.9", proposals: true },
-                      debug: env.defined("BABEL_ENV_DEBUG"),
-                      useBuiltIns: "usage",
-                      targets: { esmodules: true },
-                      bugfixes: true,
-                      exclude: ["@babel/plugin-transform-template-literals"],
-                    },
-                  ],
-                  undefined
-                ),
-                "@babel/preset-typescript",
-              ]),
-              plugins: [["@babel/plugin-transform-runtime", {}]],
-              cacheDirectory: false,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(css)$/,
-        include: [
-          relToSrc("css"),
-          relToSrc("ts"),
-          relToRoot("node_modules", "tippy.js"),
-        ],
-        use: [
-          { loader: MiniCssExtractPlugin.loader },
-          {
-            loader: require.resolve("css-loader"),
-            options: {
-              import: false,
-              modules: false,
-              importLoaders: 1,
-              url: false,
-            },
-          },
-          { loader: require.resolve("postcss-loader") },
-        ],
-      },
-      // {
-      //   test: /\.(woff2?)$/,
-      //   exclude: [/node_modules/],
-      //   include: [relToSrc("css")],
-      //   type: "asset/resource",
-      //   generator: {
-      //     filename: `fonts/[name]${contenthash}[ext]`,
-      //   },
-      // },
-    ],
-  },
+  module: { rules },
   stats: {
     assets: true,
     assetsSort: "size",
@@ -174,7 +183,8 @@ const configuration: Configuration = {
     hints: env.PROD ? "warning" : false,
     assetFilter: (asset: string) => /\.(js|css)$/.test(asset),
   },
+  target: "web",
 };
 
-export { configuration as config };
+export { configuration };
 export default configuration;

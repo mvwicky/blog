@@ -51,7 +51,6 @@ const plexFamily = ['"IBM Plex Mono"', ...fontFamily.mono];
 const config = {
   mode: "jit",
   purge: {
-    mode: "layers",
     content: ["site/**/*.{njk,md}", "src/safelist.txt"],
   },
   theme: {

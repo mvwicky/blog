@@ -7,4 +7,10 @@ module.exports = {
   globals: {
     PRODUCTION: "readonly",
   },
+  rules: {
+    "import/dynamic-import-chunkname": [
+      0,
+      { importFunctions: ["import"], webpackChunknameFormat: "[a-z0-9-]+" },
+    ],
+  },
 };

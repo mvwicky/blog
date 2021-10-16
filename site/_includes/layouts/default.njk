@@ -7,7 +7,6 @@
       <title>{{ localData.title or title }} | {{ meta.title }}</title>
       {%- if env.production %}{% include "sw.njk" %}{% endif %}
       {% include "icons.njk" -%}
-      {# {%- if not env.production %}{% include "font_fallbacks.njk" %}{% endif %} #}
       {% block styles %}<link rel="stylesheet" href="{% webpackAsset 'styles.css' %}" />{% endblock %}
       <link rel="manifest" href="/manifest.webmanifest" />
       <link rel="author" href="/humans.txt" />
@@ -39,18 +38,17 @@
       {% set footerClass = "footer flex flex-col pb-1 border border-t-0 rounded-b bg-gray-200 border-gray-600 font-extralight mb-4" %}
       <footer class="{{ footerClass }}">
         {%- set rowClass = "footer-row flex justify-center" -%}
-        <div class="{{ rowClass }} py-1">
-          {% block footernext %}{% endblock -%}
-
+        <div class="footer-row grid grid-cols-3 py-1 print:hidden">
+          {% block footernext %}<span class="footer-link invisible"></span>{% endblock -%}
           {% if page.url != "/" -%}
             <a class="footer-link" href="{{ '/' | url }}">Home</a>
           {%- else -%}
             <span class="footer-link invisible"></span>
           {%- endif %}
 
-          {%- block footerprev %}{% endblock %}
+          {%- block footerprev %}<span class="footer-link invisible"></span>{% endblock %}
         </div>
-        <div class="{{ rowClass }} border-t border-gray-500 pt-1">
+        <div class="{{ rowClass }} border-t border-gray-500 pt-1 print:border-t-0">
           <span class="footer-text tracking-tight">&copy; Michael Van Wickle</span>
         </div>
         <div class="{{ rowClass }} border-gray-500">
