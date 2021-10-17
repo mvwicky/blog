@@ -1,13 +1,12 @@
-import * as path from "node:path";
-import * as util from "node:util";
+import * as path from "path";
+import * as util from "util";
 
 import type { Debugger } from "debug";
 import findUp from "find-up";
-import mem from "mem";
 
 export const ROOT = path.dirname(__dirname);
 
-async function _getRoot(): Promise<string> {
+export async function getRoot(): Promise<string> {
   try {
     const root = await findUp("package.json");
     if (root !== undefined) {
@@ -18,8 +17,6 @@ async function _getRoot(): Promise<string> {
   }
   return ROOT;
 }
-
-export const getRoot = mem(_getRoot);
 
 type TimeableFunc = () => void | Promise<unknown>;
 

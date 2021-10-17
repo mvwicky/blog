@@ -1,5 +1,5 @@
-import { promises as fs } from "node:fs";
-import { join, relative, resolve } from "node:path";
+import { promises as fs } from "fs";
+import { join, relative, resolve } from "path";
 
 import { generateSW } from "workbox-build";
 

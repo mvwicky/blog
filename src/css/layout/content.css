@@ -35,6 +35,7 @@
     .nav-container > * {
       grid-area: auto;
     }
+
     #sidenav {
       visibility: visible;
     }

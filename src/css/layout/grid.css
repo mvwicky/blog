@@ -2,11 +2,13 @@
   :root {
     --wrapper-width: 80ch;
   }
+
   .wrapper {
     @apply grid;
 
     grid-template-columns: 1fr min(var(--wrapper-width), 100%) 1fr;
   }
+
   .wrapper > * {
     grid-column: 2;
   }

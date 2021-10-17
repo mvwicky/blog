@@ -5,6 +5,7 @@
     text-indent: 1.5rem;
     text-indent: 3ch;
   }
+
   p + p {
     @apply mt-1;
   }

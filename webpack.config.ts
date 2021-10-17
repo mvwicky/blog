@@ -73,7 +73,7 @@ const rules: RuleSetRule[] = compact([
               [
                 "@babel/preset-env",
                 {
-                  corejs: { version: "3.9", proposals: true },
+                  corejs: { version: "3.18", proposals: true },
                   debug: env.defined("BABEL_ENV_DEBUG"),
                   useBuiltIns: "usage",
                   targets: { esmodules: true },
