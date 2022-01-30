@@ -119,7 +119,7 @@
     "husky": "^7",
     "js-yaml": "^4.0.0",
     "luxon": "^2",
-    "markdown-it": "^12.0.0",
+    "markdown-it": "^12.3.2",
     "markdown-it-anchor": "^8",
     "markdown-it-attrs": "^4.0.0",
     "markdown-it-footnote": "^3.0.2",
