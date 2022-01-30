@@ -91,7 +91,7 @@ export class ManifestPlugin {
       shouldWrite = current !== contents;
     }
     if (shouldWrite) {
-      log("%O", manifest);
+      // log("%O", manifest);
       await fse.outputFile(outputFile, contents, { encoding: "utf-8" });
     } else if (this.watching) {
       log("Touching manifest");

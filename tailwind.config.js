@@ -49,10 +49,7 @@ const spectralFamily = ['"Spectral"', ...fontFamily.serif];
 const plexFamily = ['"IBM Plex Mono"', ...fontFamily.mono];
 
 const config = {
-  mode: "jit",
-  purge: {
-    content: ["site/**/*.{njk,md}", "src/safelist.txt"],
-  },
+  content: ["site/**/*.{njk,md}", "src/safelist.txt"],
   theme: {
     extend: {
       fontFamily: {

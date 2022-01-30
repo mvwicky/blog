@@ -74,7 +74,6 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPlugin(sitemap, { sitemap: { hostname: homepage } });
 
-  eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addDataExtension("yaml", (cts) => yaml.load(cts));
 
   const md = configureMarkdown();
@@ -83,6 +82,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ assets: "blog/assets" });
   eleventyConfig.addPassthroughCopy({ "src/css/theme/fonts": "fonts" });
+  if (env.PROD) {
+    eleventyConfig.ignores.add(`${join(pkgCfg.dir.input, "posts", "drafts")}/`);
+  }
 
   const MANIFEST = resolve(__dirname, outDir, "assets", "manifest.json");
   eleventyConfig.addWatchTarget(MANIFEST);
@@ -90,8 +92,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setBrowserSyncConfig({
     files: [MANIFEST],
     logConnections: true,
-    ghostMode: false,
-    ui: false,
     logLevel: "info",
     injectChanges: false,
     port: 11738,

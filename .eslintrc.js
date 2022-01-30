@@ -45,6 +45,9 @@ module.exports = {
         "site/**/*.js",
       ],
       env: { node: true, browser: false },
+      rules: {
+        "import/no-unresolved": ["error", { caseSensitive: false }],
+      },
     },
     {
       files: ["src/js/sw.js"],
