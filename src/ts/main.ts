@@ -12,9 +12,7 @@ import { initPostlist } from "./postslist";
     }
   }
   if (document.getElementsByClassName("footnote-ref").length > 0) {
-    const { initFootnotes } = await import(
-      /* webpackChunkName: "footnotes" */ "./footnotes"
-    );
+    const { initFootnotes } = await import("./footnotes");
     initFootnotes();
   }
   if (!PRODUCTION) {

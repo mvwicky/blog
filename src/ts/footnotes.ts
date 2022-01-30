@@ -9,13 +9,7 @@
  *   </p>
  * </li>
  */
-
-import tippy from "tippy.js";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
-import "tippy.js/themes/light-border.css";
-import "tippy.js/themes/material.css";
-import "tippy.js/themes/translucent.css";
+import type { Tippy } from "tippy.js";
 
 import { elemIsTag } from "./helpers/elem-is-tag";
 
@@ -40,10 +34,10 @@ function getFnContent(item: HTMLElement): string {
   }
 }
 
-function fromFnItem(item: HTMLElement) {
-  const itemId = item.id;
-  console.log(`itemId=${itemId}`);
-  const ref = document.querySelector(`[href="#${itemId}"]`);
+function fromFnItem(tippy: Tippy, item: HTMLElement) {
+  const { id } = item;
+  console.log(`itemId=${id}`);
+  const ref = document.querySelector(`[href="#${id}"]`);
   if (elemIsTag(ref, "a")) {
     const content = getFnContent(item);
     console.log(content);
@@ -62,9 +56,9 @@ function fromFnItem(item: HTMLElement) {
   }
 }
 
-async function getFootnotes() {
+async function getFootnotes(tippy: Tippy) {
   Array.from(document.getElementsByClassName(FN_ITEM_CLASS), (e) =>
-    fromFnItem(e as HTMLElement)
+    fromFnItem(tippy, e as HTMLElement)
   );
   // const supRefs = Array.from(
   //   document.getElementsByClassName("footnote-ref"),
@@ -74,6 +68,14 @@ async function getFootnotes() {
   // const refLinks = compact<Element>(supRefs.map((e) => e.firstElementChild));
 }
 
-export function initFootnotes() {
-  getFootnotes();
+export async function initFootnotes() {
+  const [{ default: tippy }] = await Promise.all([
+    import("tippy.js"),
+    import(/* webpackMode: "eager" */ "tippy.js/dist/tippy.css"),
+    import(/* webpackMode: "eager" */ "tippy.js/themes/light.css"),
+    import(/* webpackMode: "eager" */ "tippy.js/themes/light-border.css"),
+    import(/* webpackMode: "eager" */ "tippy.js/themes/material.css"),
+    import(/* webpackMode: "eager" */ "tippy.js/themes/translucent.css"),
+  ]);
+  getFootnotes(tippy);
 }

@@ -15,16 +15,19 @@ export function initDev() {
   if ("onresize" in window) {
     const sizeContainer = document.createElement("div");
     sizeContainer.classList.add("size-container", "print:hidden");
-    const { style } = sizeContainer;
     const dist = "0.33rem";
-    style.position = "fixed";
-    style.bottom = dist;
-    style.left = dist;
-    style.border = "1px solid black";
-    style.borderRadius = "0.25rem";
-    style.backgroundColor = "#e5e7ebe0";
-    style.padding = "0.2rem";
-
+    Object.assign<CSSStyleDeclaration, Partial<CSSStyleDeclaration>>(
+      sizeContainer.style,
+      {
+        position: "fixed",
+        bottom: dist,
+        left: dist,
+        border: "1px solid black",
+        borderRadius: "0.25rem",
+        backgroundColor: "#e5e7ebe0",
+        padding: "0.2rem",
+      }
+    );
     addResizeListener(sizeContainer);
   }
 }
