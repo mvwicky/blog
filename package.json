@@ -7,7 +7,6 @@
   "license": "MIT",
   "author": "Michael Van Wickle <me@michaelvanwickle.com>",
   "scripts": {
-    "assets:build": "ts-node scripts/build-assets.ts",
     "build": "npm-run-all clean build:conf build:assets build:site build:sw",
     "build:assets": "cross-env NODE_ENV=production webpack --config=./webpack.config.ts",
     "build:conf": "cross-env NODE_ENV=production tsc --build --verbose --pretty .",
@@ -27,7 +26,6 @@
     "lint": "npm-run-all -p lint:*",
     "lint:eslint": "eslint --cache --cache-location=.cache/.eslintcache \"**/*.ts\" \"**/*.js\"",
     "lint:styles": "stylelint --cache --cache-location=.cache/.stylelintcache \"**/*.css\"",
-    "watch:assets": "ts-node scripts/watch-assets.ts",
     "watch:lib": "tsc --project lib --watch",
     "webpack:assets": "cross-env TAILWIND_MODE=build webpack --config=./webpack.config.ts --progress"
   },

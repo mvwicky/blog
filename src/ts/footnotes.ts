@@ -26,7 +26,7 @@ function compact<T>(arr: (T | null | undefined)[]): T[] {
 function getFnContent(item: HTMLElement): string {
   const content = item.innerHTML.trim();
   const backref = item.querySelector(".footnote-backref");
-  if (backref !== null) {
+  if (backref) {
     console.log(backref.outerHTML);
     return content.replace(backref.outerHTML, "");
   } else {

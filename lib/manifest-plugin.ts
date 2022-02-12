@@ -24,7 +24,6 @@ interface Options {
   outputPath?: string;
   outputName: string;
 }
-type Dict<T> = Record<string, T>;
 
 const log = logger("plugin", true);
 

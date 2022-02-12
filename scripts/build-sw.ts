@@ -1,4 +1,5 @@
 import { promises as fs } from "fs";
+import type { Stats } from "fs";
 import { join, relative, resolve } from "path";
 
 import { generateSW } from "workbox-build";
@@ -29,11 +30,6 @@ async function getPackageData(rootDir: string) {
   return JSON.parse(contents);
 }
 
-async function getFileSize(p: string): Promise<number> {
-  const { size } = await fs.stat(p);
-  return size;
-}
-
 function withMap(base: string): string[] {
   return [base, `${base}.map`];
 }
@@ -53,42 +49,39 @@ async function build(rootDir: string) {
   log("Glob Patterns: %o", globPatterns);
   const globIgnores = withMap(swName).concat(withMap("workbox-*.js"));
   log("Glob Ignores:  %o", globIgnores);
-  try {
-    const { count, filePaths, size, warnings } = await generateSW({
-      mode: env.NODE_ENV,
-      swDest,
-      globDirectory,
-      globPatterns,
-      globIgnores,
-      globStrict: true,
-      directoryIndex: "index.html",
-      cacheId: "wherewasicaching",
-      cleanupOutdatedCaches: true,
-      maximumFileSizeToCacheInBytes: 4e6,
-    });
-    const { length: nWarnings } = warnings;
-    log("%d warning%s", nWarnings, nWarnings === 1 ? "" : "s");
-    warnings.forEach((warning) => console.warn(warning));
-    if (count === 0 || size === 0) {
-      throw new Error("Failed to precache anything");
-    }
-    log("%d file%s precached", count, count === 1 ? "" : "s");
-    log(
-      "Total size of precached file%s: %s",
-      count === 1 ? "" : "s",
-      humanBytes(size)
-    );
-    const { length: nWritten } = filePaths;
-    log("%d file%s written", nWritten, nWritten == 1 ? "" : "s");
-    const _fsize: (p: string) => Promise<[string, number]> = async (p) => {
-      return [p, await getFileSize(p)] as [string, number];
-    };
-    const fileSizes = await Promise.all(filePaths.map(_fsize));
-    for (const [filePath, fileSize] of fileSizes) {
-      log("    - %s (%s)", relToRoot(filePath), humanBytes(fileSize));
-    }
-  } catch (e) {
-    console.error(e);
+  const { count, filePaths, size, warnings } = await generateSW({
+    mode: env.NODE_ENV,
+    swDest,
+    globDirectory,
+    globPatterns,
+    globIgnores,
+    globStrict: true,
+    directoryIndex: "index.html",
+    cacheId: "wherewasicaching",
+    cleanupOutdatedCaches: true,
+    maximumFileSizeToCacheInBytes: 4e6,
+  });
+  const { length: nWarnings } = warnings;
+  log("%d warning%s", nWarnings, nWarnings === 1 ? "" : "s");
+  warnings.forEach((warning) => console.warn(warning));
+  if (count === 0 || size === 0) {
+    throw new Error("Failed to precache anything");
+  }
+  log("%d file%s precached", count, count === 1 ? "" : "s");
+  log(
+    "Total size of precached file%s: %s",
+    count === 1 ? "" : "s",
+    humanBytes(size)
+  );
+  const { length: nWritten } = filePaths;
+  log("%d file%s written", nWritten, nWritten == 1 ? "" : "s");
+  const _fsize: (p: string) => Promise<[string, Stats]> = async (p) => [
+    p,
+    await fs.stat(p),
+  ];
+  const fileSizes = await Promise.all(filePaths.map(_fsize));
+  for (const [filePath, st] of fileSizes) {
+    log("    - %s (%s)", relToRoot(filePath), humanBytes(st.size));
   }
 }
 

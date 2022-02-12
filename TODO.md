@@ -7,8 +7,8 @@
   - Use `build/webpack.config.js` as the webpack config
 - Maybe switch the body and header fonts (make "Fira Sans" the body font and "Spectral" the header font).
 - Get rid of more includes that are only used once
-  - [ ] `header.njk`
-  - [ ] `nav.njk`
+  - [x] `header.njk`
+  - [x] `nav.njk`
 
 ## Check out the following
 

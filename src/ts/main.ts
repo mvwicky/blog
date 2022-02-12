@@ -5,13 +5,13 @@ import { initPostlist } from "./postslist";
   console.log("Loaded");
   const tagSelect = document.getElementById("post-tags");
   const postsList = document.getElementById("posts-list");
-  if (postsList !== null && elemIsTag(tagSelect, "select")) {
+  if (postsList && elemIsTag(tagSelect, "select")) {
     console.log(tagSelect.offsetParent);
-    if (tagSelect.offsetParent !== null) {
+    if (tagSelect.offsetParent) {
       initPostlist(postsList, tagSelect);
     }
   }
-  if (document.getElementsByClassName("footnote-ref").length > 0) {
+  if (document.getElementsByClassName("footnote-ref").length) {
     const { initFootnotes } = await import("./footnotes");
     initFootnotes();
   }
