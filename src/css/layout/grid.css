@@ -4,9 +4,8 @@
   }
 
   .wrapper {
-    @apply grid;
-
-    grid-template-columns: 1fr min(var(--wrapper-width), 100%) 1fr;
+    display: grid;
+    grid-template-columns: 1fr min(var(--wrapper-width, 80ch), 100%) 1fr;
   }
 
   .wrapper > * {

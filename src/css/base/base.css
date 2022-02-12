@@ -2,12 +2,12 @@
   p {
     @apply text-justify;
 
-    text-indent: 1.5rem;
-    text-indent: 3ch;
+    text-indent: 1rem;
+    text-indent: 2ch;
   }
 
   p + p {
-    @apply mt-1;
+    @apply mt-2;
   }
 }
 

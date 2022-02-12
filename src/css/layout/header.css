@@ -8,7 +8,7 @@
   }
 
   .header {
-    @apply mx-3 pb-2 mb-4 border-b border-gray-500;
+    @apply border-b border-gray-500;
   }
 }
 

@@ -1,11 +1,10 @@
 @layer base {
   .content {
-    @apply px-3 w-full;
+    @apply w-full;
   }
 
   #main {
-    @apply pt-4 pb-6;
-    @apply border;
+    @apply py-4 px-3 border space-y-4;
   }
 
   #main,
@@ -14,10 +13,9 @@
   }
 
   .nav-container {
-    @apply min-h-screen;
-
     display: grid;
     grid: [stack] 1fr / min-content [stack] 1fr;
+    min-height: 100vh;
   }
 
   .nav-container > * {
@@ -55,10 +53,5 @@
 @layer utilities {
   var {
     @apply not-italic;
-  }
-  @media print {
-    #main {
-      /* @apply hidden; */
-    }
   }
 }

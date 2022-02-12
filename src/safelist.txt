@@ -1,9 +1,0 @@
-sr-only
-footnotes
-footnotes-list
-footnote-item
-tippy-content
-footnotes-sep
-footnote-ref
-footnote-backref
-post-header

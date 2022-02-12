@@ -10,10 +10,12 @@
 {%- endblock %}
 
 {% block content %}
-  <header class="header post-header grid grid-cols-2 gap-y-4 mt-2">
-    <h2 class="col-span-full">{{ title }}</h2>
-    <time class="text-xl" datetime="{{ page.date|htmlDateString }}">{{ page.date | readableDate }}</time>
-    <span class="text-sm justify-self-end">Tagged: {{ tagLinksList(tags, collections.tagList) }}</span>
+  <header class="header post-header flex flex-col space-y-4 pb-1">
+    <h2>{{ title }}</h2>
+    <div class="flex justify-between">
+      <time class="text-xl" datetime="{{ page.date|htmlDateString }}">{{ page.date | readableDate }}</time>
+      <span class="text-sm">Tagged: {{ tagLinksList(tags, collections.tagList) }}</span>
+    </div>
   </header>
   <article class="content">{{ content | safe }}</article>
 {% endblock %}

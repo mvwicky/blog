@@ -90,10 +90,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addWatchTarget(MANIFEST);
   eleventyConfig.setWatchThrottleWaitTime(250);
   eleventyConfig.setBrowserSyncConfig({
-    files: [MANIFEST],
     logConnections: true,
     logLevel: "info",
-    injectChanges: false,
     port: 11738,
     callbacks: {
       ready: function (_err, bs) {

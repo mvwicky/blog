@@ -2,8 +2,13 @@
 
 ## Actual Things to do
 
-- Get rid of more includes that are only used ones
+- Use compiled scripts and configs (they run faster)
+  - Use `build/scripts/build-sw.js` to build the service worker
+  - Use `build/webpack.config.js` as the webpack config
+- Maybe switch the body and header fonts (make "Fira Sans" the body font and "Spectral" the header font).
+- Get rid of more includes that are only used once
   - [ ] `header.njk`
+  - [ ] `nav.njk`
 
 ## Check out the following
 

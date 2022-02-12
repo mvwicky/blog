@@ -12,7 +12,6 @@ log("NODE_ENV=%s", env.NODE_ENV);
 
 const EXTS_TO_GLOB: readonly string[] = [
   "css",
-  "html",
   "ico",
   "js",
   "map",
