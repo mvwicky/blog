@@ -6,9 +6,6 @@ MAKEFLAGS+=--no-builtin-rules
 
 YARN=yarn
 YRUN=$(YARN) --silent run
-WEBPACK=$(YRUN) webpack
-ELEVENTY=$(YRUN) eleventy
-TS_NODE=$(YRUN) ts-node
 TSC=$(YRUN) tsc
 TRASH=$(YRUN) trash
 CACHE_DIR=.cache
@@ -16,7 +13,6 @@ PKG=package.json
 BUILD_SW=scripts/build-sw.ts
 LIB_DIR=lib
 LIB_OUT=build/lib
-LIB_SENTINEL=$(CACHE_DIR)/lib.built
 
 pathmatch=$(wildcard $(addsuffix /$(1),$(subst :, ,$(PATH))))
 pathsearch=$(firstword $(wildcard $(addsuffix /$(1),$(subst :, ,$(PATH)))))
@@ -28,27 +24,23 @@ GET_SCRIPT=$(shell jq -r '.["scripts"]|.["$1"]' $(PKG))
 YARN_VERSION_ARGS=--no-commit-hooks
 OUTPUT_DIR=$(shell jq -r .config.eleventy.dir.output $(PKG))
 
-VERSION=$(shell jq -r .version $(PKG))
-VERSION_TAG=v$(VERSION)
+VERSION_TAG=v$(shell jq -r .version $(PKG))
 WEBPACK_ARGS=--progress --config=./webpack.config.ts
 TSC_ARGS=
 PORT?=11738
 
-LIB_INPUT=$(shell $(FIND) $(LIB_DIR) -type f -name '*.ts')
-TO_OUT=$(addprefix build/,$(LIB_INPUT:.ts=.$(1)))
-LIB_OUTPUT=$(call TO_OUT,d.ts) $(call TO_OUT,js)
 
 .PHONY: build prod dev prod-assets dev-assets eleventy service-worker webpack ts-node \
 	ts-web clean-dist clean-cache trash clean bump-major bump-minor bump-patch bump \
-	version version-tag lib
+	version version-tag ts-lib tsc
 
 build: export NODE_ENV=production
-build: clean-dist lib prod-assets eleventy service-worker
+build: clean-dist ts-lib prod-assets eleventy service-worker
 
 prod: build
 
 dev: export NODE_ENV=development
-dev: clean-dist lib dev-assets eleventy
+dev: clean-dist ts-lib dev-assets eleventy
 
 prod-assets: export NODE_ENV=production
 prod-assets: webpack
@@ -57,8 +49,8 @@ dev-assets: export NODE_ENV=development
 dev-assets: export TAILWIND_MODE=build
 dev-assets: webpack
 
-eleventy: lib
-	$(ELEVENTY)
+eleventy: ts-lib
+	$(YRUN) eleventy
 
 site: eleventy
 
@@ -68,20 +60,20 @@ service-worker: ts-node
 serve:
 	python -m http.server $(PORT) -d $(OUTPUT_DIR)/
 
-lib: $(LIB_SENTINEL) $(LIB_OUTPUT)
+webpack: ts-lib
+	$(YRUN) webpack $(WEBPACK_ARGS)
 
-$(LIB_SENTINEL): $(LIB_INPUT)
-	$(TSC) --build --verbose --pretty $(LIB_DIR)
-	date > $@
+ts-all: TSC_ARGS+=--build --verbose --pretty .
+ts-all: tsc
 
-webpack: lib
-	$(WEBPACK) $(WEBPACK_ARGS)
+ts-lib: TSC_ARGS+=--build --verbose --pretty $(LIB_DIR)
+ts-lib: tsc
 
 ts-node:
-	$(TS_NODE) $(TS_NODE_ARGS)
+	$(YRUN) ts-node $(TS_NODE_ARGS)
 
-ts-web:
-	$(TSC) --build src/ts/tsconfig.json
+ts-web: TSC_ARGS+=--build src/ts
+ts-web: tsc
 
 tsc:
 	$(TSC) $(TSC_ARGS)
@@ -92,14 +84,14 @@ clean-dist: trash
 clean-cache: TRASH_ARGS+=.cache/build-cache
 clean-cache: trash
 
-clean-lib: TRASH_ARGS+=$(LIB_OUT) $(LIB_SENTINEL)
+clean-lib: TRASH_ARGS+=$(LIB_OUT)
 clean-lib: trash
 
 clean-lint: TRASH_ARGS+=$(CACHE_DIR)/.eslintcache $(CACHE_DIR)/.stylelintcache
 clean-lint: trash
 
 trash:
-	$(TRASH) $(TRASH_ARGS)
+	$(YRUN) trash $(TRASH_ARGS)
 
 clean: clean-cache
 clean: clean-dist

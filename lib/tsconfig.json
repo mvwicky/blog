@@ -1,18 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "../build/lib",
-    "lib": ["es2020", "dom"],
-    "checkJs": false,
-    "module": "commonjs",
-    "target": "es6",
     "baseUrl": "..",
-    "types": ["debug", "node"],
-    "noEmit": false,
-    "declarationDir": "../build/lib",
+    "checkJs": false,
+    "composite": true,
     "incremental": true,
-    "preserveWatchOutput": true,
-    "strict": true,
-    "composite": true
+    "lib": ["es2020", "dom"],
+    "module": "commonjs",
+    "types": ["debug", "node"]
   },
   "include": ["./**/*.ts"],
   "extends": "../config/tsconfig.base.json"

@@ -10,7 +10,7 @@ function makeManifest(manifestPath) {
 }
 
 /**
- * @param {import("../../build/lib").Dirs} dirs
+ * @param {import("../../lib").Dirs} dirs
  */
 function configure(dirs) {
   const { root, output } = dirs;

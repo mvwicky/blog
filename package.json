@@ -8,11 +8,11 @@
   "author": "Michael Van Wickle <me@michaelvanwickle.com>",
   "scripts": {
     "build": "npm-run-all clean build:conf build:assets build:site build:sw",
-    "build:assets": "cross-env NODE_ENV=production webpack --config=./webpack.config.ts",
+    "build:assets": "cross-env NODE_ENV=production webpack --config=./webpack.config.ts --progress",
     "build:conf": "cross-env NODE_ENV=production tsc --build --verbose --pretty .",
     "build:lib": "cross-env NODE_ENV=production tsc --build --verbose --pretty lib",
     "build:site": "cross-env NODE_ENV=production eleventy",
-    "build:sw": "cross-env NODE_ENV=production ts-node scripts/build-sw.ts",
+    "build:sw": "cross-env NODE_ENV=production node build/scripts/build-sw.js",
     "clean": "trash ./dist",
     "clean:lib": "tsc --build lib --clean",
     "clean:conf": "tsc --build . --clean",

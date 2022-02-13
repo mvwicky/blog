@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "ES2020",
-    "downlevelIteration": true,
-    "isolatedModules": true,
-    "strict": true,
-    "moduleResolution": "node",
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "preserveWatchOutput": true,
     "resolveJsonModule": true,
-    "allowJs": true,
-    "noEmit": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2020",
+    "outDir": "../build",
+    "rootDir": ".."
   },
   "exclude": ["**/node_modules", "**/.*/"]
 }

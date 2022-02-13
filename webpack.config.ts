@@ -13,8 +13,11 @@ const log = logger("webpack");
 
 log("NODE_ENV=%s", env.NODE_ENV);
 
-const ROOT = __dirname;
-const relToRoot = (...args: string[]) => resolve(ROOT, ...args);
+const ROOT = process.cwd(); // __dirname;
+function relToRoot(...args: string[]): string {
+  log("relToRoot(%o) -> %s", args, resolve(ROOT, ...args));
+  return resolve(ROOT, ...args);
+}
 
 const SRC = relToRoot("src");
 const OUT = relToRoot("dist", "assets");
@@ -59,7 +62,9 @@ const entries = Object.entries(config.entrypoints);
 const entryEntries = entries.map(([name, loc]) => [name, relToRoot(loc)]);
 const entry: Entry = Object.fromEntries(entryEntries);
 
-const rules: RuleSetRule[] = compact([
+const { BUNDLE_FONTS } = env.env;
+
+const rules: (RuleSetRule | null)[] = [
   {
     test: /\.(ts)$/,
     include: [relToSrc("ts")],
@@ -83,7 +88,7 @@ const rules: RuleSetRule[] = compact([
               ],
               undefined
             ),
-            "@babel/preset-typescript",
+            ["@babel/preset-typescript", { onlyRemoveTypeImports: true }],
           ]),
           plugins: [["@babel/plugin-transform-runtime", {}]],
           cacheDirectory: false,
@@ -102,7 +107,7 @@ const rules: RuleSetRule[] = compact([
           import: false,
           modules: false,
           importLoaders: 1,
-          url: env.env.BUNDLE_FONTS,
+          url: BUNDLE_FONTS,
         },
       },
       { loader: require.resolve("postcss-loader") },
@@ -119,7 +124,7 @@ const rules: RuleSetRule[] = compact([
       },
     ],
   },
-  env.env.BUNDLE_FONTS
+  BUNDLE_FONTS
     ? {
         test: /\.woff2?$/,
         include: [relToSrc("css", "theme")],
@@ -129,8 +134,8 @@ const rules: RuleSetRule[] = compact([
           publicPath,
         },
       }
-    : undefined,
-]);
+    : null,
+];
 
 const configuration: Configuration = {
   mode,
@@ -146,7 +151,7 @@ const configuration: Configuration = {
   },
   devtool: env.prodOr("source-map", false),
   plugins,
-  module: { rules },
+  module: { rules: compact<RuleSetRule>(rules) },
   stats: {
     assets: true,
     assetsSort: "size",
@@ -166,11 +171,6 @@ const configuration: Configuration = {
   resolve: { extensions: [".ts", "..."] },
   recordsPath: relToSrc(`records-${env.prodOr("prod", "dev")}.json`),
   node: false,
-  optimization: {
-    splitChunks: {
-      automaticNameDelimiter: "~",
-    },
-  },
   cache: {
     type: "filesystem",
     buildDependencies: {

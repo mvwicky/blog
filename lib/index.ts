@@ -2,11 +2,11 @@ export function envDefined(key: string): boolean {
   return process.env[key] !== undefined;
 }
 
-function isDef<U>(obj: U | undefined): obj is U {
-  return obj !== undefined && typeof obj !== "undefined";
+function isDef<U>(obj: U | undefined | null): obj is U {
+  return obj !== undefined && obj !== null && typeof obj !== "undefined";
 }
 
-export function compact<T>(arr: (T | undefined)[]): T[] {
+export function compact<T>(arr: (T | undefined | null)[]): T[] {
   return arr.filter((e) => isDef<T>(e)) as T[];
 }
 

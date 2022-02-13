@@ -1,23 +1,25 @@
-const path = require("path");
+const { dirname, join } = require("path");
 
 const critical = require("critical");
 const multimatch = require("multimatch");
 
-const { logger } = require("../../build/lib");
-const { formatSize } = require("../../build/lib/helpers");
+const {
+  logger,
+  helpers: { humanBytes },
+  env: { env },
+} = require("../../build/lib");
 const {
   config: {
     critical: { globs, dimensions },
     eleventy,
   },
 } = require("../../package.json");
-const { env } = require("../utils/env");
 
 const log = logger("11ty:transforms", true);
-const ROOT_DIR = path.dirname(require.resolve("../../package.json"));
+const ROOT_DIR = dirname(require.resolve("../../package.json"));
 
 /**
- * @param {import("../lib").Asset} asset
+ * @param {import("../../lib").Asset} asset
  * @returns {string}
  */
 function rebase(asset) {
@@ -26,7 +28,7 @@ function rebase(asset) {
 
 const criticalConfig = {
   inline: { polyfill: false, preload: false },
-  base: path.join(ROOT_DIR, eleventy.dir.output),
+  base: join(ROOT_DIR, eleventy.dir.output),
   dimensions,
   rebase,
   ignore: {
@@ -51,24 +53,20 @@ function shouldTransform(path) {
  * @returns {Promise<string>} The transformed HTML (if it matches `config.globs`)
  */
 async function transformCritical(content, outputPath) {
-  const tx = shouldTransform(outputPath);
-  if (tx) {
+  if (shouldTransform(outputPath)) {
     log("Extracting critical css from %s", outputPath);
     try {
       const cfg = { ...criticalConfig, html: content };
       const start = process.hrtime.bigint();
       const { html, css, uncritical } = await critical.generate(cfg);
-      const ns = process.hrtime.bigint() - start;
-      const elapsed = Number(ns) / 1e9;
-      const fmt =
-        "Extracted critical css from %s in %ss (%s critical, %s uncritical)";
-      const args = [
+      const elapsed = Number(process.hrtime.bigint() - start) / 1e9;
+      log(
+        "Extracted critical css from %s in %ss (%s critical, %s uncritical)",
         outputPath,
-        elapsed.toFixed(3),
-        formatSize(css.length),
-        formatSize(uncritical.length),
-      ];
-      log(fmt, ...args);
+        elapsed.toFixed(2),
+        humanBytes(css.length),
+        humanBytes(uncritical.length)
+      );
       return html;
     } catch (e) {
       log("Critical CSS extraction failed.");
