@@ -78,7 +78,7 @@ const rules: (RuleSetRule | null)[] = [
               [
                 "@babel/preset-env",
                 {
-                  corejs: { version: "3.18", proposals: true },
+                  corejs: { version: "3.21", proposals: true },
                   debug: env.defined("BABEL_ENV_DEBUG"),
                   useBuiltIns: "usage",
                   targets: { esmodules: true },
@@ -182,6 +182,9 @@ const configuration: Configuration = {
   performance: {
     hints: env.PROD ? "warning" : false,
     assetFilter: (asset: string) => /\.(js|css)$/.test(asset),
+  },
+  watchOptions: {
+    ignored: ["**/node_modules", "**/site"],
   },
   target: "web",
 };

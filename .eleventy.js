@@ -127,7 +127,10 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("markdownify", (s) => md.render(s));
 
-  eleventyConfig.setQuietMode(false);
+  eleventyConfig.setQuietMode(true);
+  eleventyConfig.addPlugin(require("@11ty/eleventy-plugin-directory-output"), {
+    columns: { filesize: true, benchmark: true },
+  });
 
   return pkgCfg;
 };
